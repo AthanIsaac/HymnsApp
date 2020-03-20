@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HymnsApp.MainPage"
+             BackgroundColor="#EEEEEE" Appearing="ContentPage_Appearing">
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="Friday School of Hymns" />
+        <ToolbarItem Text="                         " />
+        
+        <!-- <ToolbarItem Text="Next" Clicked="NextButton_Clicked" />-->
+    </ContentPage.ToolbarItems>
+    <StackLayout Spacing="20">
+        <!-- Place new controls here -->
+        <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
+        <Label Text="Welcome to"
+               FontSize="30"
+               FontAttributes="Bold"
+               TextColor="#23395D"
+               HorizontalOptions="Center"
+               HeightRequest="40"/>
+        <Label Text="The Hymns App"
+               FontSize="30"
+               FontAttributes="Bold"
+               TextColor="#23395D"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               HeightRequest="40"/>
+        <Picker x:Name="Grades" 
+                Title="Select a grade"
+                FontSize="Large" 
+                SelectedIndexChanged="NextButton_Clicked"/>
+    </StackLayout>
+
+</ContentPage>

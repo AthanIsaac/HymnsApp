@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HymnsApp.StudentInfo">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="headerTablet" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="BackgroundColor" Value="#23395D" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="detailTablet" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="#EEEEEE" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="buttonTablet" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="#EEEEEE" />
+                <Setter Property="HeightRequest" Value="15"/>
+                <Setter Property="WidthRequest" Value="15"/>
+                <Setter Property="Aspect" Value="AspectFit"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Spacing="0">
+        <Grid Padding="1" BackgroundColor="#23395D" RowSpacing="1" ColumnSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+            <Label Text="Phone" Grid.Column="1" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
+            <Label Text="Attended" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+            <Label Text="Edit" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+        </Grid>
+        <ScrollView>
+            <Grid x:Name="InfoGrid" Padding="1" BackgroundColor="Silver" RowSpacing="1" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

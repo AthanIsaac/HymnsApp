@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HymnsApp.GradeAttendance" Appearing="ContentPage_Appearing" BackgroundColor="#EEEEEE">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SubmitAttendance" Text="Submit" Clicked="SubmitAttendance_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                <!--<Label Text="Select a date" TextColor="Black" FontSize="Medium" VerticalTextAlignment="Center" />-->
+
+                <SearchBar x:Name="StudentSearch" 
+                       Placeholder="Search students"
+                       TextChanged="StudentSearch_TextChanged"
+                       IsSpellCheckEnabled="False" WidthRequest="220"/>
+                <Image x:Name="calendarImage" Source="calendar.png" />
+                <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
+
+            </StackLayout>
+            <StackLayout x:Name="NotFoundStack" IsVisible="False">
+                <Label x:Name="NoStudents" 
+                       Text="No students found" 
+                       FontSize="Title" 
+                       HorizontalOptions="Center" />
+                <Button x:Name="AddStudent" 
+                        Text="Add student" 
+                        Clicked="AddStudent_Clicked" />
+            </StackLayout>
+            <ScrollView x:Name="Scroll" >
+                <TableView Intent="Data" HasUnevenRows="True">
+                    <TableRoot x:Name="NamesTableRoot"/>
+                </TableView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
