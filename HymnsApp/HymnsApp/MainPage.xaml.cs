@@ -41,5 +41,15 @@ namespace HymnsApp
             Grades.SelectedIndex = -1;
             ShowError = true;
         }
+
+        private void Curriculum_Pressed(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CurriculumPage());
+        }
+
+        private void Curriculum_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CurriculumPage()); ;
+        }
     }
 }
