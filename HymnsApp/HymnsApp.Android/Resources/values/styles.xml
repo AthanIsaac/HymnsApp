@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
   <!-- Base theme applied no matter what API -->
@@ -27,4 +26,13 @@
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#23395D</item>
   </style>
+
+  <style name="splashscreen" parent="Theme.AppCompat.Light.NoActionBar">
+   
+    <item name="android:colorBackground">@color/White</item>
+    <item name="android:windowBackground">@drawable/HymnsLogoCrop</item>
+    
+    
+  </style>
+
 </resources>

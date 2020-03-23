@@ -9,13 +9,13 @@
     <ContentPage.ToolbarItems >
         <ToolbarItem Text="Friday School of Hymns" />
         <ToolbarItem Text="                         " />
-        
+
         <!-- <ToolbarItem Text="Next" Clicked="NextButton_Clicked" />-->
     </ContentPage.ToolbarItems>
     <StackLayout Spacing="20">
         <!-- Place new controls here -->
-        <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
-        <Label Text="Welcome to"
+        <!--<Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
+        <Label Text="Welcome to "
                FontSize="30"
                FontAttributes="Bold"
                TextColor="#23395D"
@@ -27,11 +27,49 @@
                TextColor="#23395D"
                HorizontalOptions="Center"
                VerticalOptions="Start"
-               HeightRequest="40"/>
+               HeightRequest="40"/>-->
+
+        <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
+
+
+        <Frame BorderColor="Gray"
+       CornerRadius="5"
+       Padding="8">
+            <StackLayout>
+                <Label Text="Happy Birthday to..."
+           FontSize="Medium"
+           FontAttributes="Bold" />
+                <BoxView Color="PaleGoldenrod"
+             HeightRequest="4"
+             HorizontalOptions="Fill" />
+            
+                <Label Text="Hopefully we will add birthdays here"/>
+            
+                <!--Hopefully where we will add birthdays-->
+            </StackLayout>
+        </Frame>
+        
         <Picker x:Name="Grades" 
-                Title="Select a grade"
+                Title="Select a Class"
                 FontSize="Large" 
-                SelectedIndexChanged="NextButton_Clicked"/>
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                SelectedIndexChanged="NextButton_Clicked" />
+
+
+        <Button x:Name="Curriculum"
+            Text="Curriculum"
+            BackgroundColor="PaleGoldenrod"
+            WidthRequest="200"
+            HeightRequest="50"
+            BorderRadius="10"
+            BorderWidth="2"
+            BorderColor="Black"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Pressed="Curriculum_Pressed"
+            Clicked="Curriculum_Clicked"/>
+
     </StackLayout>
 
 </ContentPage>
