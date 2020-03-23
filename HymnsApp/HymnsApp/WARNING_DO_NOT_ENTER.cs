@@ -16,12 +16,13 @@ namespace HymnsApp
         public readonly string[] StudentFields = { "studentName", "studentPhone", "grade", "parentName", "parentPhone", "birthday" };
         public static IDictionary<string, string> Classes;
         // studentId -> studentSnapshot
-        private IDictionary<string, DocumentSnapshot> Students;
+        private readonly IDictionary<string, DocumentSnapshot> Students;
         private string CurrentClass;
 
         public static string[] OrderedClasses;
         public HymnsAttendance2()
         {
+            Students = new Dictionary<string, DocumentSnapshot>();
             SetEnvironmentVariables();
             db = FirestoreDb.Create(PROJECT_ID);
             GetClasses().Wait();
@@ -88,6 +89,7 @@ namespace HymnsApp
             string[] studentIds = classSnap.GetValue<string[]>("students"); // extract the specific field that we want
 
             // loop through each id and get the students name from the students collection in the db.
+            Students.Clear();
             for (int i = 0; i < studentIds.Length; i++)
             {
                 DocumentReference student = db.Collection("students").Document(studentIds[i]);
