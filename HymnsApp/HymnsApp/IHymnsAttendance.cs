@@ -27,7 +27,7 @@ namespace HymnsApp
         int GetDatesForYear(string studentId);
 
         void RemoveStudent(string studentId);
-        void EditStudent(string studentId, string newClassName, string newStudentPhone, 
+        void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, 
             string newGrade, string newParentName, string newParentPhone, DateTime newBirthday);
 
         string[] WeeklyBirthdays();
