@@ -11,15 +11,22 @@ namespace HymnsApp
     {
 
         private static readonly string PROJECT_ID = "hymnsapp-47352";
+
         private readonly FirestoreDb db;
+
         private readonly int NUM_STUDENT_FIELDS = 6;
+
         public readonly string[] StudentFields = { "studentName", "studentPhone", "grade", "parentName", "parentPhone", "birthday" };
+
         public static IDictionary<string, string> Classes;
+
         // studentId -> studentSnapshot
         private readonly IDictionary<string, DocumentSnapshot> Students;
+
         private string CurrentClass;
 
         public static string[] OrderedClasses;
+
         public HymnsAttendance2()
         {
             Students = new Dictionary<string, DocumentSnapshot>();
@@ -214,9 +221,41 @@ namespace HymnsApp
             throw new NotImplementedException();
         }
 
-        public void EditStudent(string studentId, string newClassName, string newStudentPhone, string newGrade, string newParentName, string newParentPhone, DateTime newBirthday)
+        public void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, string newGrade,
+                                string newParentName, string newParentPhone, DateTime newBirthday)
         {
-            throw new NotImplementedException();
+            EditStudentHelper(studentId, newClassName, newStudentName, newStudentPhone, newGrade, newParentName, newParentPhone, newBirthday).Wait();
+        }
+
+        private async Task EditStudentHelper(string studentId, string newClassName, string newStudentName, string newStudentPhone, string newGrade,
+                                string newParentName, string newParentPhone, DateTime newBirthday)
+        {
+            DocumentReference dr = db.Collection("students").Document(studentId);
+
+            Dictionary<string, object> update = new Dictionary<string, object>
+            {
+                { "studentName", newStudentName},
+                { "studentPhone", newStudentPhone },
+                { "grade", newGrade },
+                { "parentName", newParentName },
+                { "parentPhone", newParentPhone},
+                { "birthday", newBirthday.ToString("MM/dd/yyyy")}
+            };
+
+            await dr.SetAsync(update, SetOptions.MergeAll);
+
+
+            if(CurrentClass != newClassName)
+            {
+                //Remove student from current class
+                DocumentReference curClass = db.Document("classes/" + CurrentClass);
+                await curClass.UpdateAsync("students", FieldValue.ArrayRemove(studentId));
+
+                //add student from current class
+                DocumentReference newClass = db.Document("classes/" + newClassName);
+                await newClass.UpdateAsync("students", FieldValue.ArrayUnion(studentId));
+
+            }
         }
 
         public bool AttendedToday(string studentId, DateTime date)
