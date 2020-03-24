@@ -31,18 +31,14 @@ namespace HymnsApp
                 });
             }
 
+
             for (int i = 0; i < students.Count; i++)
             {
-                StackLayout sl = new StackLayout();
-                sl.Children.Add(new Label() { Text = students[i].Key, IsVisible = false });
-
-                Label l = new Label()
+               InfoGrid.Children.Add(new Label()
                 {
                     Text = students[i].Value,
                     Style = Resources["detailTablet"] as Style
-                };
-                sl.Children.Add(l);
-                InfoGrid.Children.Add(l, 0, i);
+                }, 0, i);
 
                 string num = Attendance.GetStudentPhone(students[i].Key);
 
@@ -51,27 +47,42 @@ namespace HymnsApp
                     Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6),
                     Style = Resources["detailTablet"] as Style
                 }, 1, i);
+
+              
+
                 InfoGrid.Children.Add(new Label()
                 {
                     Text = Attendance.GetDatesForYear(students[i].Key).ToString(),
                     Style = Resources["detailTablet"] as Style
                 }, 2, i);
+
+
+                /*
                 ImageButton b2 = new ImageButton()
                 {
                     Source = "editsmall.png",
-                    CommandParameter = sl,
+                    //CommandParameter = sl,
                     Style = Resources["buttonTablet"] as Style
                 };
+                */
+
+               
+               
                 Button b = new Button()
                 {
                     Text = ">",
                     BackgroundColor = Color.FromHex("#EEEEEE"),
-                    CommandParameter = sl,
                     FontSize = 20,
-                    WidthRequest = 15
+                    WidthRequest = 15,
+                    CommandParameter = new Label()
+                    {
+                        Text = students[i].Key,
+                        IsVisible = false
+                    }
                 };
 
                 b.Clicked += Edit_Clicked;
+
                 InfoGrid.Children.Add(b, 3, i);
             }
         }
@@ -79,12 +90,14 @@ namespace HymnsApp
         private void Edit_Clicked(object sender, EventArgs e)
         {
             Button b = sender as Button;
-            StackLayout sl = b.CommandParameter as StackLayout;
-            string id = (sl.Children[0] as Label).Text;
-            string name = (sl.Children[1] as Label).Text;
+            Label sl = b.CommandParameter as Label;
+            
+            string id = sl.Text;
+            
 
+            string [] studentInfo = Attendance.GetStudent(id);
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
-            Navigation.PushAsync(new EditAddStudent(Attendance, id, name, ClassName, false));
+            Navigation.PushAsync(new EditAddStudent(Attendance, id, studentInfo[0], ClassName, false));
         }
 
         protected override void OnAppearing()

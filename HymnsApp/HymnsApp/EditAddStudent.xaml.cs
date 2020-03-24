@@ -22,6 +22,8 @@ namespace HymnsApp
             name = name == null ? "" : name.ToLower();
             Add = add;
             ClassName = className;
+            Attendance = attendance;
+            NameEntry.Text = name;
             this.id = id;
             if (!add)
             {
@@ -29,9 +31,10 @@ namespace HymnsApp
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
                 PhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
+                BirthdayEntry.Text = info[5];
             }
-            NameEntry.Text = name;
-            Attendance = attendance;
+
+
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
