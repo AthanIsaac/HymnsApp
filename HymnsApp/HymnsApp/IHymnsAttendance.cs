@@ -16,19 +16,19 @@ namespace HymnsApp
 
         // [studentname, studentphone, grade, parentName, parentPhone, birthday, photo?]
         string[] GetStudent(string studentId);
-        void AddStudent(string studentName, string studentPhone, int grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
+        void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
         string GetStudentPhone(string studentId);
-        int GetStudentGrade(string studentId);
+        string GetStudentGrade(string studentId);
         string GetParentName(string studentId);
         string GetParentPhone(string studentId);
 
         string GetBirthday(string studentId);
 
-        string GetDatesForYear(string studentId);
+        int GetDatesForYear(string studentId);
 
         void RemoveStudent(string studentId);
-        void EditStudent(string studentId, string newClassName, string newStudentPhone, 
-            int newGrade, string newParentName, string newParentPhone, DateTime newBirthday);
+        void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, 
+            string newGrade, string newParentName, string newParentPhone, DateTime newBirthday);
 
         string[] WeeklyBirthdays();
     }
