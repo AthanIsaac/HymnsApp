@@ -9,14 +9,14 @@ namespace HymnsApp
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        readonly HymnsAttendance Attendance;
+        readonly HymnsAttendance2 Attendance;
         bool ShowError = true;
 
-        public MainPage(HymnsAttendance attendance)
+        public MainPage(HymnsAttendance2 attendance)
         {
             InitializeComponent();
             Attendance = attendance;
-            Grades.ItemsSource = HymnsAttendance.Classes;
+            Grades.ItemsSource = HymnsAttendance2.OrderedClasses;
         }
 
         private void NextButton_Clicked(object sender, EventArgs e)
@@ -30,7 +30,7 @@ namespace HymnsApp
                 }
                 else
                 {
-                    Navigation.PushAsync(new GradeTabbedPage(Attendance, Grades.SelectedIndex));
+                    Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance2.OrderedClasses[Grades.SelectedIndex]));
                 }
             }
         }

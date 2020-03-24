@@ -20,7 +20,7 @@
        CornerRadius="5"
        Padding="8">
             <StackLayout>
-                <Label Text="Happy Birthday to..."
+                <Label Text="Welcome to Friday School of Hymns"
            FontSize="Medium"
            FontAttributes="Bold" />
                 <BoxView Color="LightBlue"
