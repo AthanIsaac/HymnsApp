@@ -90,6 +90,10 @@ namespace HymnsApp
 
         public List<KeyValuePair<string, string>> StudentsOfGrade(string className)
         {
+            if (className == CurrentClass)
+            {
+                return list;
+            }
             CurrentClass = className;
             list = new List<KeyValuePair<string, string>>();
             StudentsOfGrade(className, list);
