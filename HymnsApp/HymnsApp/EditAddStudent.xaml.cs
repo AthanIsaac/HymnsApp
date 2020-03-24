@@ -12,19 +12,23 @@ namespace HymnsApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditAddStudent : ContentPage
     {
-        readonly HymnsAttendance Attendance;
+        readonly HymnsAttendance2 Attendance;
         readonly string Name;
         readonly bool Add;
-        readonly int Grade;
-        public EditAddStudent(HymnsAttendance attendance, string name, int grade, bool add)
+        readonly string Grade;
+        readonly string id;
+        public EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
         {
             InitializeComponent();
             Name = name == null ? "" : name.ToLower();
             Add = add;
             Grade = grade;
+            this.id = id;
             if (!add)
             {
-                PhoneEntry.Text = attendance.GetNumber(Name, grade);
+                string[] info = Attendance.GetStudent(id);
+                //name, phone, grade, parentName, parentPhone, birthday, photo, later 
+                PhoneEntry.Text = info[1];
             }
             NameEntry.Text = name;
             GradeEntry.Text = grade.ToString();
@@ -37,20 +41,23 @@ namespace HymnsApp
             if (!Add)
             {
                 // oldname, oldgrade, newname, newphone, newgrade
-                Attendance.EditStudent(Name, Grade, name, PhoneEntry.Text, int.Parse(GradeEntry.Text));
+                //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
+                // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
+                Attendance.EditStudent(id, "", name, PhoneEntry.Text, GradeEntry.Text, "", "", DateTime.Now);
                 //Attendance.WriteStudents();
                 Navigation.PopAsync();
                 return;
             }
             // submit
-            if (Attendance.StudentsOfGrade(int.Parse(GradeEntry.Text)).Contains(name))
+            if (Attendance.StudentsOfGrade(Grade).Select(a => a.Value).Contains(name))
             {
                 DisplayAlert("Error", "This student already exists in this grade", "ok");
             }
             else
             {
-                Attendance.AddSudent(name.ToLower().Trim(), PhoneEntry.Text, int.Parse(GradeEntry.Text));
-                //Attendance.WriteStudents();
+                // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
+                Attendance.AddStudent(name.Trim(), PhoneEntry.Text, GradeEntry.Text, "", "", DateTime.Now);
+                
                 Navigation.PopAsync();
             }
 

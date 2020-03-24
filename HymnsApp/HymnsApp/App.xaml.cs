@@ -6,13 +6,12 @@ namespace HymnsApp
 {
     public partial class App : Application
     {
-        readonly HymnsAttendance Attendance;
+        readonly HymnsAttendance2 Attendance;
         public App()
         {
             InitializeComponent();
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HymnsStudents.txt");
 
-            Attendance = new HymnsAttendance(fileName);
+            Attendance = new HymnsAttendance2();
             MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#87CEEB"), BarTextColor = Color.White };
         }
 
@@ -22,7 +21,6 @@ namespace HymnsApp
 
         protected override void OnSleep()
         {
-            Attendance.WriteStudents();
         }
 
         protected override void OnResume()
