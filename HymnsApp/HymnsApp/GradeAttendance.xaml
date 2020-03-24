@@ -18,10 +18,6 @@
             <!--<Image x:Name="calendarImage" Source="calendar.png" />-->
             <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
             
-            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
-                <!--<Label Text="Select a date" TextColor="Black" FontSize="Medium" VerticalTextAlignment="Center" />-->
-            </StackLayout>
-            
             <StackLayout x:Name="NotFoundStack" IsVisible="False">
                 <Label x:Name="NoStudents" 
                        Text="No students found" 

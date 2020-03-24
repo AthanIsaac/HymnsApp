@@ -5,29 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HymnsApp.MainPage"
-             BackgroundColor="#EEEEEE" Appearing="ContentPage_Appearing">
+             BackgroundColor="White" Appearing="ContentPage_Appearing">
     <ContentPage.ToolbarItems >
         <ToolbarItem Text="Friday School of Hymns" />
         <ToolbarItem Text="                         " />
 
-        <!-- <ToolbarItem Text="Next" Clicked="NextButton_Clicked" />-->
     </ContentPage.ToolbarItems>
     <StackLayout Spacing="20">
-        <!-- Place new controls here -->
-        <!--<Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
-        <Label Text="Welcome to "
-               FontSize="30"
-               FontAttributes="Bold"
-               TextColor="#23395D"
-               HorizontalOptions="Center"
-               HeightRequest="40"/>
-        <Label Text="The Hymns App"
-               FontSize="30"
-               FontAttributes="Bold"
-               TextColor="#23395D"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               HeightRequest="40"/>-->
 
         <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
 
@@ -39,7 +23,7 @@
                 <Label Text="Happy Birthday to..."
            FontSize="Medium"
            FontAttributes="Bold" />
-                <BoxView Color="PaleGoldenrod"
+                <BoxView Color="LightBlue"
              HeightRequest="4"
              HorizontalOptions="Fill" />
             
@@ -53,18 +37,29 @@
                 Title="Select a Class"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                SelectedIndexChanged="NextButton_Clicked" />
+                HorizontalOptions="CenterAndExpand"/>
 
-
-        <Button x:Name="Curriculum"
-            Text="Curriculum"
-            BackgroundColor="PaleGoldenrod"
+        <Button x:Name="Class"
+            Text="Submit"
+            BackgroundColor="LightBlue"
             WidthRequest="200"
             HeightRequest="50"
             BorderRadius="10"
             BorderWidth="2"
-            BorderColor="Black"
+            BorderColor="LightBlue"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Pressed="NextButton_Clicked"
+            Clicked="NextButton_Clicked"/>
+
+        <Button x:Name="Curriculum"
+            Text="Curriculum"
+            BackgroundColor="LightBlue"
+            WidthRequest="200"
+            HeightRequest="50"
+            BorderRadius="10"
+            BorderWidth="2"
+            BorderColor="LightBlue"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
             Pressed="Curriculum_Pressed"
