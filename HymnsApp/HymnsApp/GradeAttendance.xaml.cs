@@ -136,7 +136,7 @@ namespace HymnsApp
             if (answer)
             {
                 Attendance.TakeAttendance(selected, Grade, DatePicker.Date);
-                // Attendance.WriteStudents();
+                Attendance.WriteStudents();
                 await Navigation.PopAsync();
             }
         }

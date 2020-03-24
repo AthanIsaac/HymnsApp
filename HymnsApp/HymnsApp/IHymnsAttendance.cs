@@ -8,6 +8,8 @@ namespace HymnsApp
         /* StudentsOfGrade will always be the first method called to get the ids of students
          * Every method that follows will assume that the class is the one passed into StudentsOfGrade
          */
+
+        // OrderedClasses, an array of all the class names
         List<KeyValuePair<string, string>> StudentsOfGrade(string className);
         // ImageOfStudent(string studentName);
 
@@ -16,10 +18,13 @@ namespace HymnsApp
 
         // [studentname, studentphone, grade, parentName, parentPhone, birthday, photo?]
         string[] GetStudent(string studentId);
+
+        // Mandatory: studentName, grade, parentName, birthday
         void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
         string GetStudentPhone(string studentId);
         string GetStudentGrade(string studentId);
         string GetParentName(string studentId);
+
         string GetParentPhone(string studentId);
 
         string GetBirthday(string studentId);
