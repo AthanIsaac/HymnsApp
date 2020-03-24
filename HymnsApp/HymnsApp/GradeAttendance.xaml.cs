@@ -10,15 +10,15 @@ namespace HymnsApp
     {
 
         readonly HymnsAttendance2 Attendance;
-        readonly string Grade;
+        readonly string ClassName;
         readonly List<ViewCell> Backup;
         TableSection NamesTable;
         List<KeyValuePair<string, string>> InGrade;
-        public GradeAttendance(HymnsAttendance2 attendance, string grade)
+        public GradeAttendance(HymnsAttendance2 attendance, string className)
         {
             InitializeComponent();
             Attendance = attendance;
-            Grade = grade;
+            ClassName = className;
             Backup = new List<ViewCell>();
             InitializeStudents();
         }
@@ -27,7 +27,7 @@ namespace HymnsApp
         {
             NamesTable = new TableSection();
             Backup.Clear();
-            InGrade = Attendance.StudentsOfGrade(Grade);
+            InGrade = Attendance.StudentsOfGrade(ClassName);
             
             if (InGrade.Count == 0)
             {
@@ -69,7 +69,7 @@ namespace HymnsApp
                     cb.IsChecked = false;
                 }
 
-                if (s.Value.Contains(filter))
+                if (s.Value.ToLower().Contains(filter))
                 {
                     // make visible
                     NamesTable.Add(cell);
@@ -137,6 +137,7 @@ namespace HymnsApp
                     selected.Add(l.Text);
                 }
             }
+            
             var answer = await DisplayAlert("Submit", "Please verify there are " + selected.Count + " students", "continue", "cancel");
             if (answer)
             {
@@ -147,7 +148,7 @@ namespace HymnsApp
 
         private void AddStudent_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EditAddStudent(Attendance, "", StudentSearch.Text, Grade, true));
+            Navigation.PushAsync(new EditAddStudent(Attendance, "", StudentSearch.Text, ClassName, true));
         }
 
         private void ContentPage_Appearing(object sender, EventArgs e)
@@ -158,6 +159,7 @@ namespace HymnsApp
             // wierd behavior check here!
             if (Backup.Count != InGrade.Count)
             {
+                NotFoundStack.IsVisible = false;
                 for (int i = 0; i < InGrade.Count; i++)
                 {
                     var b = Backup[i].View as StackLayout;
@@ -180,12 +182,11 @@ namespace HymnsApp
                         sl.Children.Add(l);
                         cell.View = sl;
 
-                        NamesTable.Insert(i, cell);
+                        NamesTable.Add(cell);
                         Backup.Insert(i, cell);
-                        break;
+                        return;
                     }
                 }
-                NotFoundStack.IsVisible = false;
             }
         }
 
@@ -195,17 +196,5 @@ namespace HymnsApp
             InitializeStudents();
         }
 
-        private string Capitalize(string name)
-        {
-            string[] s = name.Split(' ');
-            s[0] = char.ToUpper(s[0][0]).ToString() + s[0].Substring(1);
-            name = s[0];
-            if (s.Length != 1)
-            {
-                s[1] = char.ToUpper(s[1][0]).ToString() + s[1].Substring(1);
-                name += ' ' + s[1];
-            }
-            return name;
-        }
     }
 }

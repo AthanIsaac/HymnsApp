@@ -97,6 +97,7 @@ namespace HymnsApp
             CurrentClass = className;
             list = new List<KeyValuePair<string, string>>();
             StudentsOfGrade(className, list);
+            list.Sort((a, b) => a.Value.CompareTo(b.Value));
             return list;
         }
 
@@ -239,9 +240,16 @@ namespace HymnsApp
         {
             int year = DateTime.Now.Year;
             DocumentSnapshot s = Students[studentId];
-            string[] attended = s.GetValue<string[]>("attended");
-            return new List<string>(attended).FindAll(a => int.Parse(a.Split('/')[2]) == year).Count;
 
+            try
+            {
+                string[] attended = s.GetValue<string[]>("attended");
+                return new List<string>(attended).FindAll(a => int.Parse(a.Split('/')[2]) == year).Count;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public void RemoveStudent(string studentId)

@@ -9,20 +9,20 @@ namespace HymnsApp
     public partial class StudentInfo : ContentPage
     {
         readonly HymnsAttendance2 Attendance;
-        readonly string Grade;
-        // static readonly int NUM_FIELDS = 4;
-        public StudentInfo(HymnsAttendance2 attendance, string grade)
+        readonly string ClassName;
+        
+        public StudentInfo(HymnsAttendance2 attendance, string className)
         {
             Attendance = attendance;
-            Grade = grade;
+            ClassName = className;
             InitializeComponent();
             // InitGrid();
         }
         private void InitGrid()
         {
             /* photo? name | phone | attendance days | editbutton */
-            var students = Attendance.StudentsOfGrade(Grade);
-           // students.Sort();
+            var students = Attendance.StudentsOfGrade(ClassName);
+
             while (students.Count > InfoGrid.RowDefinitions.Count)
             {
                 InfoGrid.RowDefinitions.Add(new RowDefinition()
@@ -38,7 +38,7 @@ namespace HymnsApp
 
                 Label l = new Label()
                 {
-                    Text = Capitalize(students[i].Value),
+                    Text = students[i].Value,
                     Style = Resources["detailTablet"] as Style
                 };
                 sl.Children.Add(l);
@@ -53,7 +53,7 @@ namespace HymnsApp
                 }, 1, i);
                 InfoGrid.Children.Add(new Label()
                 {
-                    Text = Attendance.GetDatesForYear(students[i].Value).ToString(),
+                    Text = Attendance.GetDatesForYear(students[i].Key).ToString(),
                     Style = Resources["detailTablet"] as Style
                 }, 2, i);
                 ImageButton b2 = new ImageButton()
@@ -64,7 +64,7 @@ namespace HymnsApp
                 };
                 Button b = new Button()
                 {
-                    Text = "EDIT",
+                    Text = ">",
                     BackgroundColor = Color.FromHex("#EEEEEE"),
                     CommandParameter = sl,
                     FontSize = 20,
@@ -84,7 +84,7 @@ namespace HymnsApp
             string name = (sl.Children[1] as Label).Text;
 
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
-            Navigation.PushAsync(new EditAddStudent(Attendance, id, name, Grade, false));
+            Navigation.PushAsync(new EditAddStudent(Attendance, id, name, ClassName, false));
         }
 
         protected override void OnAppearing()
@@ -94,22 +94,7 @@ namespace HymnsApp
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EditAddStudent(Attendance, "", "",  Grade, true));
-        }
-
-        // Credit: Nardin
-        private string Capitalize(string name)
-        {
-            string[] s = name.Split(' ');
-            s[0] = char.ToUpper(s[0][0]).ToString() + s[0].Substring(1);
-            name = s[0];
-            if (s.Length != 1)
-            {
-
-                s[1] = char.ToUpper(s[1][0]).ToString() + s[1].Substring(1);
-                name += ' ' + s[1];
-            }
-            return name;
+            Navigation.PushAsync(new EditAddStudent(Attendance, "", "",  ClassName, true));
         }
     }
 }
