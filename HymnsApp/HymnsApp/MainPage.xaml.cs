@@ -26,7 +26,7 @@ namespace HymnsApp
             {
                 if (Grades.SelectedIndex == -1)
                 {
-                    DisplayAlert("Error", "Please select a grade", "ok");
+                    DisplayAlert("Error", "Please Select A Class From The Menu.", "ok");
                 }
                 else
                 {

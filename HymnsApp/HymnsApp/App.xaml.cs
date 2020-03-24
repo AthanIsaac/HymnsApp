@@ -13,7 +13,7 @@ namespace HymnsApp
             string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "HymnsStudents.txt");
 
             Attendance = new HymnsAttendance(fileName);
-            MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#23395D"), BarTextColor = Color.White };
+            MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#87CEEB"), BarTextColor = Color.White };
         }
 
         protected override void OnStart()

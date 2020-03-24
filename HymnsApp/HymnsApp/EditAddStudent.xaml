@@ -10,7 +10,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Edit/Add student" 
+            <Label Text="Add Student" 
                    HorizontalOptions="Center" 
                    FontSize="Large"
                    TextColor="Black" />
@@ -18,6 +18,11 @@
                    TextColor="Red"/>
             <Entry x:Name="NameEntry"
                    Placeholder="Name" />
+            <Label Text="*Birthday:" 
+                   TextColor="Red"/>
+            <!--do we want them to input it with text or have a calendar or something-->
+            <Entry x:Name="BirthdayEntry"
+                   Placeholder="Birthday" />
             <Label Text="Phone number:"/>
             <Entry x:Name="PhoneEntry" 
                    Keyboard="Telephone" 
