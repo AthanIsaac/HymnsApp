@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -11,26 +12,81 @@ namespace HymnsApp
     {
         readonly HymnsAttendance2 Attendance;
         bool ShowError = true;
+        
 
         public MainPage(HymnsAttendance2 attendance)
         {
             InitializeComponent();
             Attendance = attendance;
-            Grades.ItemsSource = HymnsAttendance2.OrderedClasses;
+            
+            Classes.ItemsSource = classesToInterface(HymnsAttendance2.OrderedClasses);
         }
 
+        //key = dbClasses, Value = string parsed
+        public string[] classesToInterface(string[] dbClasses) {
+            string[] visualClasses = new string[dbClasses.Length];
+
+            if (dbClasses == null) 
+            {
+                return null;
+            }
+
+
+            for (int i = 0; i < dbClasses.Length; i++)
+            {
+                string c = dbClasses[i];
+
+                if (c.Contains("kindergarten"))
+                {
+                    c = "Kindergarten";
+
+                }
+
+                if (c.Contains("highSchool"))
+                    c = "High School";
+
+                if (c.Contains("Grade"))
+                {
+                    int index = c.IndexOf("Grade");
+                    c = c.Substring(0, index) + " " + c.Substring(index);
+
+                    if (c.Contains("&"))
+                    {
+                        int ampersand = c.IndexOf("&");
+                        c = c.Substring(0, ampersand) + " " + c.Substring(ampersand);
+                    }
+
+                }
+
+                else {
+                    //really inefficent, find better way
+                    for (int j = 0; j < c.Length; j++) {
+                        
+                        if (char.IsUpper(c[j])) 
+                        {
+                            c = c.Substring(0, j) + " " + c.Substring(j);
+                        }
+                    }
+                }
+                visualClasses[i] = c;
+            }            
+
+            
+           return visualClasses;
+        }
+       
         private void NextButton_Clicked(object sender, EventArgs e)
         {
             // no item selected
             if (ShowError)
             {
-                if (Grades.SelectedIndex == -1)
+                if (Classes.SelectedIndex == -1)
                 {
                     DisplayAlert("Error", "Please Select A Class From The Menu.", "ok");
                 }
                 else
                 {
-                    Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance2.OrderedClasses[Grades.SelectedIndex]));
+                    Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance2.OrderedClasses[Classes.SelectedIndex]));
                 }
             }
         }
@@ -38,7 +94,7 @@ namespace HymnsApp
         private void ContentPage_Appearing(object sender, EventArgs e)
         {
             ShowError = false;
-            Grades.SelectedIndex = -1;
+            Classes.SelectedIndex = -1;
             ShowError = true;
         }
 
