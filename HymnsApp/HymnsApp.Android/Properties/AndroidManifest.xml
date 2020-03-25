@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.hymnsapp" android:installLocation="auto">
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.hardware.camera" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.CAPTURE_SECURE_VIDEO_OUTPUT" />
+	<uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.USE_FINGERPRINT" />
+	<uses-permission android:name="android.permission.USE_CREDENTIALS" />
 	<uses-sdk android:minSdkVersion="28" android:targetSdkVersion="28" />
 	<application android:label="HymnsApp.Android" android:icon="@drawable/HymnsLogoCrop" android:theme="@style/MyTheme.Splash"></application>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Plugin.Media;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
 
 namespace HymnsApp
@@ -101,31 +100,31 @@ namespace HymnsApp
 
         private async void PictureButton_OnClicked(object sender, EventArgs e) {
 
-            await CrossMedia.Current.Initialize();
-
             if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsPickPhotoSupported) {
                 await DisplayAlert("No Camera", "No Camera Availible", "OK");
                     return;
             }
 
-            var file = await CrossMedia.Current.TakePhotoAsync(
-                    new StoreCameraMediaOptions
-                    {
-                        SaveToAlbum = true
-                    }
-                );
+            var p = Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            p.Wait();
+            var photo = p.Result;
 
-            if (file == null)
-                return;
+            //if (photo != null)
+            //    PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
 
-            Label path = new Label { Text = file.AlbumPath };
+            //var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
 
-            Picture.Source = ImageSource.FromStream(() =>
-            {
-                var stream = file.GetStream();
-                file.Dispose();
-                return stream;
-            });
+            //if (file == null)
+            //    return;
+
+            //Label path = new Label { Text = file.AlbumPath };
+
+            //Picture.Source = ImageSource.FromStream(() =>
+            //{
+            //    var stream = file.GetStream();
+            //    file.Dispose();
+            //    return stream;
+            //});
 
         }
 
