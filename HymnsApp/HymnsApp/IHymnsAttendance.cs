@@ -32,9 +32,24 @@ namespace HymnsApp
         int GetDatesForYear(string studentId);
 
         void RemoveStudent(string studentId);
+
         void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, 
             string newGrade, string newParentName, string newParentPhone, DateTime newBirthday);
 
+        //for students and teachers
         string[] WeeklyBirthdays();
+
+
+        //Methods for teachers
+
+        List<KeyValuePair<string, string>> TeachersOfGrade(string className);
+
+        void TakeTeacherAttendance(List<string> teacherIds, DateTime date);
+
+        string[] GetTeacher(string teacherId);
+
+        void EditTeacher(string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday);
+
+
     }
 }
