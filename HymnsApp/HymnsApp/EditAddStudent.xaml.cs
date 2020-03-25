@@ -104,27 +104,25 @@ namespace HymnsApp
                 await DisplayAlert("No Camera", "No Camera Availible", "OK");
                     return;
             }
+            var a = new StoreCameraMediaOptions() { };
+            var photo = await CrossMedia.Current.TakePhotoAsync(a);
 
-            var p = Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
-            p.Wait();
-            var photo = p.Result;
+            if (photo != null)
+                Picture.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
 
-            //if (photo != null)
-            //    PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
 
-            //var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
+            if (file == null)
+                return;
 
-            //if (file == null)
-            //    return;
+            Label path = new Label { Text = file.AlbumPath };
 
-            //Label path = new Label { Text = file.AlbumPath };
-
-            //Picture.Source = ImageSource.FromStream(() =>
-            //{
-            //    var stream = file.GetStream();
-            //    file.Dispose();
-            //    return stream;
-            //});
+            Picture.Source = ImageSource.FromStream(() =>
+            {
+                var stream = file.GetStream();
+                file.Dispose();
+                return stream;
+            });
 
         }
 
