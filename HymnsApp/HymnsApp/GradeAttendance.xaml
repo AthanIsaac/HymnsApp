@@ -6,8 +6,10 @@
              mc:Ignorable="d"
              x:Class="HymnsApp.GradeAttendance" Appearing="ContentPage_Appearing" BackgroundColor="#EEEEEE">
     <ContentPage.ToolbarItems>
+        <!--add a description of class here-->
         <ToolbarItem x:Name="SubmitAttendance" Text="Submit" Clicked="SubmitAttendance_Clicked" />
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
             <SearchBar x:Name="StudentSearch" 
@@ -17,7 +19,16 @@
 
             <!--<Image x:Name="calendarImage" Source="calendar.png" />-->
             <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
-            
+
+            <ScrollView x:Name="Scroll" >
+                <Grid x:Name="InfoGrid" Padding="1" BackgroundColor="Silver" RowSpacing="1" ColumnSpacing="0">
+
+                    <TableView Intent="Data" HasUnevenRows="True">
+                        <TableRoot x:Name="NamesTableRoot"/>
+                    </TableView>
+                </Grid>
+
+            </ScrollView>
             <StackLayout x:Name="NotFoundStack" IsVisible="False">
                 <Label x:Name="NoStudents" 
                        Text="No students found" 
@@ -27,11 +38,8 @@
                         Text="Add student" 
                         Clicked="AddStudent_Clicked" />
             </StackLayout>
-            <ScrollView x:Name="Scroll" >
-                <TableView Intent="Data" HasUnevenRows="True">
-                    <TableRoot x:Name="NamesTableRoot"/>
-                </TableView>
-            </ScrollView>
+
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

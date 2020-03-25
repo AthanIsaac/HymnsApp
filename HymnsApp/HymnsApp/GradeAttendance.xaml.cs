@@ -36,31 +36,51 @@ namespace HymnsApp
 
             int count = 0;
             string filter = StudentSearch.Text == null ? "" : StudentSearch.Text.Trim().ToLower();
-            foreach (var s in InGrade)
+            for (int i = 0; i < InGrade.Count; i++)
             {
+                InfoGrid.RowDefinitions.Add(new RowDefinition()
+                {
+                    Height = new GridLength(60)
+                });
+
                 ViewCell cell = new ViewCell() { Height = 70 };
                 
-                StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#EEEEEE") };
-                sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
-                CheckBox cb = new CheckBox();
+                Grid grid = new Grid() { BackgroundColor = Color.FromHex("#EEEEEE") };
+                
+               
 
-                Label l = new Label()
+                grid.Children.Add(new Label()
                 {
-                    Text = s.Value,
+                    Text = InGrade[i].Value,
                     VerticalOptions = LayoutOptions.Center,
                     VerticalTextAlignment = TextAlignment.Center,
                     TextColor = Color.Black,
                     FontSize = 16
-                };
+                }, 0, i);
+                grid.Children.Add(new ImageButton
+                {
+                    Source = "editsmall.png",
+                    HorizontalOptions = LayoutOptions.Start,
+                    VerticalOptions = LayoutOptions.StartAndExpand
+                }, 1, i);
+                CheckBox cb = new CheckBox();
+                grid.Children.Add(cb, 2, i);
+
+                //id
+                Label id = new Label() { Text = InGrade[i].Key, IsVisible = false };
+                grid.Children.Add(id, 3, i);
+
                 cell.Tapped += TableCell_Tapped;
 
-                sl.Children.Add(cb);
-                sl.Children.Add(l);
-                cell.View = sl;
+                //sl.Children.Add(imageButton);
+                //sl.Children.Add(l);
+                //sl.Children.Add(cb);
+
+                cell.View = grid;
 
                 Backup.Add(cell);
 
-                if (Attendance.AttendedToday(s.Key, DatePicker.Date))
+                if (Attendance.AttendedToday(InGrade[i].Key, DatePicker.Date))
                 {
                     cb.IsChecked = true;
                 }
@@ -69,7 +89,7 @@ namespace HymnsApp
                     cb.IsChecked = false;
                 }
 
-                if (s.Value.ToLower().Contains(filter))
+                if (InGrade[i].Value.ToLower().Contains(filter))
                 {
                     // make visible
                     NamesTable.Add(cell);
@@ -83,7 +103,7 @@ namespace HymnsApp
         private void TableCell_Tapped(object sender, EventArgs e)
         {
             ViewCell c = sender as ViewCell;
-            CheckBox x = (c.View as StackLayout).Children[1] as CheckBox;
+            CheckBox x = (c.View as Grid).Children[2] as CheckBox;
             x.IsChecked = !x.IsChecked;
         }
 
@@ -95,8 +115,9 @@ namespace HymnsApp
             int count = 0;
             foreach (ViewCell c in Backup)
             {
-                StackLayout s = c.View as StackLayout;
-                Label l = s.Children[2] as Label;
+                Grid s = c.View as Grid;
+                
+                Label l = s.Children[1] as Label;
                 if (l.Text.ToLower().Contains(filter))
                 {
                     // make visible
@@ -128,9 +149,9 @@ namespace HymnsApp
             List<string> selected = new List<string>();
             foreach (ViewCell c in Backup)
             {
-                StackLayout sl = c.View as StackLayout;
-                CheckBox cb = sl.Children[1] as CheckBox;
-                Label l = sl.Children[0] as Label;
+                Grid sl = c.View as Grid;
+                CheckBox cb = sl.Children[2] as CheckBox;
+                Label l = sl.Children[3] as Label;
 
                 if (cb.IsChecked)
                 {
@@ -145,6 +166,7 @@ namespace HymnsApp
                 await Navigation.PopAsync();
             }
         }
+        
 
         private void AddStudent_Clicked(object sender, EventArgs e)
         {
@@ -162,11 +184,11 @@ namespace HymnsApp
                 NotFoundStack.IsVisible = false;
                 for (int i = 0; i < InGrade.Count; i++)
                 {
-                    var b = Backup[i].View as StackLayout;
-                    if ((b.Children[0] as Label).Text != InGrade[i].Key) 
+                    var b = Backup[i].View as Grid;
+                    if ((b.Children[1] as Label).Text != InGrade[i].Key) 
                     {
                         ViewCell cell = new ViewCell() { Height = 70 };
-                        StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal };
+                        Grid sl = new Grid();
                         sl.Children.Add(new Label() { Text = InGrade[i].Key, IsVisible = false });
                         CheckBox cb = new CheckBox();
                         Label l = new Label()
