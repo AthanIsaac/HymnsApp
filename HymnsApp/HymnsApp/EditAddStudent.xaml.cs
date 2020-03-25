@@ -14,11 +14,11 @@ namespace HymnsApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditAddStudent : ContentPage
     {
-        readonly HymnsAttendance2 Attendance;
+        readonly HymnsAttendance Attendance;
         readonly bool Add;
         readonly string ClassName;
         readonly string id;
-        public EditAddStudent(HymnsAttendance2 attendance, string id, string name, string className, bool add)
+        public EditAddStudent(HymnsAttendance attendance, string id, string name, string className, bool add)
         {
             ToolbarItem item = new ToolbarItem();
             if (!add)
@@ -43,7 +43,7 @@ namespace HymnsApp
             this.id = id;
             if (!add)
             {
-                string[] info = Attendance.GetStudent(id);
+                string[] info = Attendance.GetStudentInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
                 StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];

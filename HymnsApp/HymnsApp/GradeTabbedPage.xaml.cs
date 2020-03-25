@@ -7,7 +7,7 @@ namespace HymnsApp
     public partial class GradeTabbedPage : TabbedPage
     {
 
-        public GradeTabbedPage(HymnsAttendance2 attendance, string grade)
+        public GradeTabbedPage(HymnsAttendance attendance, string grade)
         {
             InitializeComponent();
             Children.Add(new GradeAttendance(attendance, grade) { Title = "Attendance"});

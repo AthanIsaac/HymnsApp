@@ -14,16 +14,16 @@ namespace HymnsApp
     
     public partial class StudentProfilexaml : ContentPage
     {
-        readonly HymnsAttendance2 Attendance;
+        readonly HymnsAttendance Attendance;
         readonly string Id;
         readonly string ClassName;
 
-        public StudentProfilexaml(HymnsAttendance2 attendance, string id, string className)
+        public StudentProfilexaml(HymnsAttendance attendance, string id, string className)
         {
             Attendance = attendance;
             Id = id;
             ClassName = className;
-            string[] studentInfo = Attendance.GetStudent(Id);
+            string[] studentInfo = Attendance.GetStudentInfo(Id);
             // studentname, studentphone, grade, parentname, parentphone, birthday
 
             InitializeComponent();
@@ -64,7 +64,7 @@ namespace HymnsApp
         }
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            string[] studentInfo = Attendance.GetStudent(Id);
+            string[] studentInfo = Attendance.GetStudentInfo(Id);
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
             Navigation.PushAsync(new EditAddStudent(Attendance, Id, studentInfo[0], ClassName, false));
         }

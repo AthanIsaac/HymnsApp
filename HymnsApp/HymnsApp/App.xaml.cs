@@ -6,12 +6,12 @@ namespace HymnsApp
 {
     public partial class App : Application
     {
-        readonly HymnsAttendance2 Attendance;
+        readonly HymnsAttendance Attendance;
         public App()
         {
             InitializeComponent();
 
-            Attendance = new HymnsAttendance2();
+            Attendance = new HymnsAttendance();
             MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#4682B4"), BarTextColor = Color.White };
         }
 

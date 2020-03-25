@@ -9,10 +9,10 @@ namespace HymnsApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StudentInfo : ContentPage
     {
-        readonly HymnsAttendance2 Attendance;
+        readonly HymnsAttendance Attendance;
         readonly string ClassName;
         
-        public StudentInfo(HymnsAttendance2 attendance, string className)
+        public StudentInfo(HymnsAttendance attendance, string className)
         {
             Attendance = attendance;
             ClassName = className;

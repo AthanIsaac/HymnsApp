@@ -9,12 +9,12 @@ namespace HymnsApp
     public partial class GradeAttendance : ContentPage
     {
 
-        readonly HymnsAttendance2 Attendance;
+        readonly HymnsAttendance Attendance;
         readonly string ClassName;
         readonly List<ViewCell> Backup;
         TableSection NamesTable;
-        List<KeyValuePair<string, string>> InGrade;
-        public GradeAttendance(HymnsAttendance2 attendance, string className)
+        IList<KeyValuePair<string, string>> InGrade;
+        public GradeAttendance(HymnsAttendance attendance, string className)
         {
             InitializeComponent();
             Attendance = attendance;

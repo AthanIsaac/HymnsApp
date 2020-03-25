@@ -7,7 +7,7 @@ using Google.Cloud.Firestore;
 
 namespace HymnsApp
 {
-    public class HymnsAttendance2 : IHymnsAttendance
+    public class HymnsAttendance3 : IHymnsAttendance
     {
         private static readonly string PROJECT_ID = "hymnsapp-47352";
 
@@ -16,13 +16,17 @@ namespace HymnsApp
         private readonly int NUM_STUDENT_FIELDS = 6;
         private readonly int NUM_TEACHER_FIELDS = 3;
 
-        public readonly string[] StudentFields = { "studentName", "studentPhone", "grade", "parentName", "parentPhone", "birthday" };
-        public readonly string[] TeacherFields = { "teacherName", "phone" , "birthday" };
+        // studentInfo[Attendance.StudentInfo.GRADE]
+        public enum StudentInfo { STUDENT_NAME, STUDENT_PHONE, GRADE, PARENT_NAME, PARENT_PHONE, BIRTHDAY };
+        private readonly string[] StudentFields = { "studentName", "studentPhone", "grade", "parentName", "parentPhone", "birthday" };
 
-        public static IDictionary<string, string> Classes;
+        public enum TeacherInfo { TEACHER_NAME, TEACHER_PHONE, BIRTHDAY };
+        private readonly string[] TeacherFields = { "teacherName", "teacherPhone" , "birthday" };
 
-        List<KeyValuePair<string, string>> studentList;
-        List<KeyValuePair<string, string>> teacherList;
+        private readonly IDictionary<string, string> Classes;
+
+        private List<KeyValuePair<string, string>> studentList;
+        private List<KeyValuePair<string, string>> teacherList;
 
         // studentId -> studentSnapshot
         private readonly IDictionary<string, DocumentSnapshot> Students;
@@ -32,12 +36,13 @@ namespace HymnsApp
 
         public static string[] OrderedClasses;
 
-        public HymnsAttendance2()
+        public HymnsAttendance3()
         {
             Students = new Dictionary<string, DocumentSnapshot>();
             Teachers = new Dictionary<string, DocumentSnapshot>();
 
             Classes = new Dictionary<string, string>();
+
             SetEnvironmentVariables();
             db = FirestoreDb.Create(PROJECT_ID);
             GetClasses();
@@ -60,7 +65,7 @@ namespace HymnsApp
                 Classes.Add(cur.Split('.')[1], cur);
                 unordered.Add(cur);
             }
-            unordered.Sort((a, b) => int.Parse(b.Split('.')[0]) - int.Parse(a.Split('.')[0]));
+            unordered.Sort((a, b) => int.Parse(a.Split('.')[0]) - int.Parse(b.Split('.')[0]));
             OrderedClasses = unordered.ConvertAll(a => a.Split('.')[1]).ToArray();
         }
         private void SetEnvironmentVariables()
@@ -94,14 +99,20 @@ namespace HymnsApp
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
         }
 
-        public List<KeyValuePair<string, string>> StudentsOfGrade(string className)
+        public IList<KeyValuePair<string, string>> StudentsOfGrade(string className)
         {
+            // if the class has not changed return the same one as before
             if (className == CurrentClass)
             {
                 return studentList;
             }
+
+            // We have a new class so reset the global student variables
             CurrentClass = className;
-            studentList = new List<KeyValuePair<string, string>>();
+            studentList = new List<KeyValuePair<string, string>>();  // has to be a new list since someone else has access
+            Students.Clear();
+
+            // classes -> {students}, {teachers}
             DocumentReference classRef = db.Collection("classes").Document(Classes[className]);
 
             var w = classRef.GetSnapshotAsync();
@@ -111,30 +122,33 @@ namespace HymnsApp
             string[] studentIds = classSnap.GetValue<string[]>("students"); // extract the specific field that we want
 
             // loop through each id and get the students name from the students collection in the db.
-            Students.Clear();
-            for (int i = 0; i < studentIds.Length; i++)
+            foreach (string studentId in studentIds)
             {
-                DocumentReference student = db.Collection("students").Document(studentIds[i]);
+                DocumentReference student = db.Collection("students").Document(studentId);
 
                 w = student.GetSnapshotAsync();
                 w.Wait();
                 DocumentSnapshot snapshot = w.Result;
 
-                Students.Add(studentIds[i], snapshot);
+                Students.Add(studentId, snapshot);
                 string name = snapshot.GetValue<string>("studentName");
 
-                studentList.Add(new KeyValuePair<string, string>(studentIds[i], name));
+                studentList.Add(new KeyValuePair<string, string>(studentId, name));
             }
 
             studentList.Sort((a, b) => a.Value.CompareTo(b.Value));
             return studentList;
         }
-        public void TakeAttendance(List<string> studentIds, DateTime date)
+
+        public void TakeAttendance(IList<string> studentIds, DateTime date)
         {
             string d = date.ToString("MM/dd/yyyy");
 
-            CurrentClass = "";  // Make sure that takeAttendance is the last call that happens!!!!!
-            // 1. get the DocumentReference for each studentId
+            // Make sure that takeAttendance is the last call that happens!!!!!
+
+            // go through all students in this class
+            // if they are in the list, add their attendance
+            // if not, remove their attendance
             foreach (string studentId in Students.Keys)
             {
                 DocumentReference dr = db.Collection("students").Document(studentId);
@@ -165,22 +179,39 @@ namespace HymnsApp
                     }
                 }
             }
+            CurrentClass = "";
         }
 
-        public string[] GetStudent(string studentId)
+        public string[] GetStudentInfo(string studentId)
         {
             // studentname, studentphone, grade, parentname, parentphone, birthday
             string[] studentInfo = new string[NUM_STUDENT_FIELDS];
             DocumentSnapshot s = Students[studentId];
             for (int i = 0; i < studentInfo.Length; i++)
             {
-                studentInfo[i] = s.GetValue<string>(StudentFields[i]);
+                try
+                {
+                    studentInfo[i] = s.GetValue<string>(StudentFields[i]);
+                }
+                catch
+                {
+                    studentInfo[i] = "";
+                }
             }
             return studentInfo;
         }
 
         public void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday)
         {
+            // make sure that no fields are null
+            studentName = studentName ?? "";
+            studentPhone = studentPhone ?? "";
+            grade = grade ?? "";
+            parentName = parentName ?? "";
+            parentPhone = parentPhone ?? "";
+
+            string bday = birthday.ToString("MM/dd/yyyy").Substring(0, 5);
+
             Dictionary<string, object> student = new Dictionary<string, object> 
             {
                 { "studentName", studentName },
@@ -188,51 +219,50 @@ namespace HymnsApp
                 { "grade", grade },
                 { "parentName", parentName },
                 { "parentPhone", parentPhone},
-                { "birthday", birthday.ToString("MM/dd/yyyy").Substring(0, 5) }
+                { "birthday", bday }
             };
-            // check if there is a student with this name and grade or birthday?
+
+            // check if there is a student with this name and birthday
+            var q = db.Collection("students")
+                .WhereEqualTo("studentName", studentName)
+                .WhereEqualTo("birthday", bday)
+                .GetSnapshotAsync();
+
+            q.Wait();
+            if (q.Result.Count != 0)
+            {
+                return;
+            }
+
+            // add the student
             var w = db.Collection("students").AddAsync(student);
             w.Wait();
             DocumentReference dr = w.Result;
             string studentId = dr.Id;
-            DocumentReference middle = db.Document("classes/" + Classes[CurrentClass]);
-            middle.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
+
+            // add them to their class
+            DocumentReference classDoc = db.Collection("classes").Document(Classes[CurrentClass]);
+            try
+            {
+                classDoc.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
+            }
+            catch
+            {
+                Dictionary<string, object> fields = new Dictionary<string, object>
+                {
+                    { "students", new string[] { studentId } }
+                };
+                classDoc.SetAsync(fields).Wait();
+            }
+            
 
             var wa = dr.GetSnapshotAsync();
             wa.Wait();
+
+            // Update students lists
             Students.Add(studentId, wa.Result);
             studentList.Add(new KeyValuePair<string, string>(studentId, studentName));
             studentList.Sort((a, b) => a.Value.CompareTo(b.Value));
-        }
-
-        public string GetStudentPhone(string studentId)
-        {
-            DocumentSnapshot s = Students[studentId];
-            return s.GetValue<string>("studentPhone");
-        }
-
-        public string GetStudentGrade(string studentId)
-        {
-            DocumentSnapshot s = Students[studentId];
-            return s.GetValue<string>("grade");
-        }
-
-        public string GetParentName(string studentId)
-        {
-            DocumentSnapshot s = Students[studentId];
-            return s.GetValue<string>("parentName");
-        }
-
-        public string GetParentPhone(string studentId)
-        {
-            DocumentSnapshot s = Students[studentId];
-            return s.GetValue<string>("parentPhone");
-        }
-
-        public string GetBirthday(string studentId)
-        {
-            DocumentSnapshot s = Students[studentId];
-            return s.GetValue<string>("birthday");
         }
 
         public int GetDatesForYear(string studentId)
@@ -249,11 +279,6 @@ namespace HymnsApp
             {
                 return 0;
             }
-        }
-
-        public void RemoveStudent(string studentId)
-        {
-            throw new NotImplementedException();
         }
 
         public void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, string newGrade,
@@ -279,13 +304,23 @@ namespace HymnsApp
             if (CurrentClass != newClassName)
             {
                 //Remove student from current class
-                DocumentReference curClass = db.Document("classes/" + Classes[CurrentClass]);
+                DocumentReference curClass = db.Collection("classes").Document(Classes[CurrentClass]);
                 curClass.UpdateAsync("students", FieldValue.ArrayRemove(studentId)).Wait();
 
-                //add student from current class
-                DocumentReference newClass = db.Document("classes/" + Classes[newClassName]);
-                newClass.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
-
+                //add student to new class
+                DocumentReference newClass = db.Collection("classes").Document(Classes[newClassName]);
+                try
+                {
+                    newClass.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
+                }
+                catch
+                {
+                    Dictionary<string, object> fields = new Dictionary<string, object>
+                    {
+                        { "students", new string[] { studentId } }
+                    };
+                    newClass.SetAsync(fields).Wait();
+                }
             }
         }
 
@@ -308,23 +343,21 @@ namespace HymnsApp
             {
                 return false;
             }
-
         }
 
         public string[] WeeklyBirthdays()
         {
-            string week = DateTime.Now.ToString("MM/dd/yyyy").Substring(0, 5);
+            string today = DateTime.Now.ToString("MM/dd/yyyy").Substring(0, 5);
             string start = DateTime.Now.AddDays(-7).ToString("MM/dd/yyyy").Substring(0, 5);
             var birthdays = db.Collection("students")
-                .WhereLessThanOrEqualTo("birthday", week)
+                .WhereLessThanOrEqualTo("birthday", today)
                 .WhereGreaterThan("birthday", start)
                 .Select("studentName");
 
             var w = birthdays.GetSnapshotAsync();
             w.Wait();
-            var res = w.Result;
+            var docs = w.Result.GetEnumerator();
 
-            var docs = res.GetEnumerator();
             List<string> students = new List<string>();
             while (docs.MoveNext())
             {
@@ -333,14 +366,11 @@ namespace HymnsApp
             return students.ToArray();
         }
 
-        public List<KeyValuePair<string, string>> TeachersOfGrade(string className)
+        public IList<KeyValuePair<string, string>> TeachersOfGrade(string className)
         {
-            //if (className == CurrentClass)
-            //{
-            //    return teacherList;
-            //}
-            //CurrentClass = className;
+            // reset teacher lists
             teacherList = new List<KeyValuePair<string, string>>();
+            Teachers.Clear();
             DocumentReference classRef = db.Collection("classes").Document(Classes[className]);
 
             var w = classRef.GetSnapshotAsync();
@@ -349,27 +379,26 @@ namespace HymnsApp
 
             string[] teacherIds = classSnap.GetValue<string[]>("teachers"); // extract the specific field that we want
 
-            // loop through each id and get the students name from the students collection in the db.
-            Teachers.Clear();
-            for (int i = 0; i < teacherIds.Length; i++)
+            // get teacher names for each id
+            foreach (string teacherId in teacherIds)
             {
-                DocumentReference teacher = db.Collection("teachers").Document(teacherIds[i]);
+                DocumentReference teacher = db.Collection("teachers").Document(teacherId);
 
                 w = teacher.GetSnapshotAsync();
                 w.Wait();
                 DocumentSnapshot snapshot = w.Result;
 
-                Teachers.Add(teacherIds[i], snapshot);
+                Teachers.Add(teacherId, snapshot);
                 string name = snapshot.GetValue<string>("teacherName");
 
-                teacherList.Add(new KeyValuePair<string, string>(teacherIds[i], name));
+                teacherList.Add(new KeyValuePair<string, string>(teacherId, name));
             }
 
             teacherList.Sort((a, b) => a.Value.CompareTo(b.Value));
             return teacherList;
         }
 
-        public void TakeTeacherAttendance(List<string> teacherIds, DateTime date)
+        public void TakeTeacherAttendance(IList<string> teacherIds, DateTime date)
         {
             string d = date.ToString("MM/dd/yyyy");
             foreach (string teacherId in Teachers.Keys)
@@ -395,23 +424,53 @@ namespace HymnsApp
                     if (teacherIds.Contains(teacherId))
                     {
                         Dictionary<string, object> update = new Dictionary<string, object>
-                    {
-                        { "attended", new string[] { d } }
-                    };
+                        {
+                            { "attended", new string[] { d } }
+                        };
                         dr.SetAsync(update, SetOptions.MergeAll).Wait();
                     }
                 }
             }
         }
 
-        public string[] GetTeacher(string teacherId)
+        public bool TeacherAttendedToday(string teacherId, DateTime date)
+        {
+            string d = date.ToString("MM/dd/yyyy");
+
+            DocumentSnapshot s = Teachers[teacherId];
+            try
+            {
+                string[] attended = s.GetValue<string[]>("attended");
+
+                foreach (string a in attended)
+                {
+                    if (a == d) return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public string[] GetTeacherInfo(string teacherId)
         {
             string[] teacherInfo = new string[NUM_TEACHER_FIELDS];
             DocumentSnapshot s = Teachers[teacherId];
             for (int i = 0; i < teacherInfo.Length; i++)
             {
-                teacherInfo[i] = s.GetValue<string>(TeacherFields[i]);
+                try
+                {
+                    teacherInfo[i] = s.GetValue<string>(TeacherFields[i]);
+                }
+                catch
+                {
+                    teacherInfo[i] = "";
+                }
             }
+
             return teacherInfo;
         }
 
@@ -423,7 +482,7 @@ namespace HymnsApp
             {
                 { "teacherName", newTeacherName},
                 { "phone", newTeacherPhone },
-                { "birthday", newBirthday.ToString("MM/dd/yyyy").Substring(0, 5)}
+                { "birthday", newBirthday.ToString("MM/dd/yyyy").Substring(0, 5) }
             };
 
             dr.SetAsync(update, SetOptions.MergeAll).Wait();
@@ -434,13 +493,64 @@ namespace HymnsApp
             if (CurrentClass != newClassName)
             {
                 //Remove student from current class
-                DocumentReference curClass = db.Document("classes/" + Classes[CurrentClass]);
+                DocumentReference curClass = db.Collection("classes").Document(Classes[CurrentClass]);
                 curClass.UpdateAsync("teachers", FieldValue.ArrayRemove(teacherId)).Wait();
 
                 //add student from current class
-                DocumentReference newClass = db.Document("classes/" + Classes[newClassName]);
-                newClass.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
+                DocumentReference newClass = db.Collection("classes").Document(Classes[newClassName]);
+                try
+                {
+                    newClass.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
+                }
+                catch
+                {
+                    Dictionary<string, object> t = new Dictionary<string, object>
+                    {
+                        { "teachers", new string[] { teacherId } }
+                    };
+                    newClass.SetAsync(t, SetOptions.MergeAll).Wait();
+                }
             }
+        }
+
+        public void AddTeacher(string teacherName, string teacherPhone, DateTime birthday)
+        {
+            teacherName = teacherName ?? "";
+            teacherPhone = teacherPhone ?? "";
+
+            string bday = birthday.ToString("MM/dd/yyyy").Substring(0, 5);
+            Dictionary<string, object> teacher = new Dictionary<string, object>
+            {
+                { "teacherName", teacherName },
+                { "phone", teacherPhone },
+                { "birthday", bday }
+            };
+
+            // check if there is a teacher with this name and birthday?
+            var w = db.Collection("teachers").AddAsync(teacher);
+            w.Wait();
+            DocumentReference dr = w.Result;
+            string teacherId = dr.Id;
+            DocumentReference classDoc= db.Collection("classes").Document(Classes[CurrentClass]);
+
+            try
+            {
+                classDoc.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
+            }
+            catch
+            {
+                Dictionary<string, object> t = new Dictionary<string, object>
+                {
+                    { "teachers", new string[] { teacherId } }
+                };
+                classDoc.SetAsync(t, SetOptions.MergeAll).Wait();
+            }
+
+            var wa = dr.GetSnapshotAsync();
+            wa.Wait();
+            Teachers.Add(teacherId, wa.Result);
+            teacherList.Add(new KeyValuePair<string, string>(teacherId, teacherName));
+            teacherList.Sort((a, b) => a.Value.CompareTo(b.Value));
         }
     }
 }
