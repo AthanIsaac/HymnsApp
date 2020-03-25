@@ -12,7 +12,7 @@ namespace HymnsApp
             InitializeComponent();
 
             Attendance = new HymnsAttendance2();
-            MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#87CEEB"), BarTextColor = Color.White };
+            MainPage = new NavigationPage(new MainPage(Attendance)) { BarBackgroundColor = Color.FromHex("#4682B4"), BarTextColor = Color.White };
         }
 
         protected override void OnStart()

@@ -6,32 +6,53 @@
              mc:Ignorable="d"
              x:Class="HymnsApp.EditAddStudent" BackgroundColor="#EEEEEE">
     <ContentPage.ToolbarItems>
+        <!--<ToolbarItem Text="Add Student" />-->
+        <ToolbarItem Text="                    " />
         <ToolbarItem Text="Submit" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Add Student" 
+            <!--<Label Text="Add Student" 
                    HorizontalOptions="Center" 
                    FontSize="Large"
-                   TextColor="Black" />
-            <Label Text="*Name:" 
-                   TextColor="Red"/>
+                   TextColor="Black" />-->
+            <Label Text="Student's Name:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
             <Entry x:Name="NameEntry"
-                   Placeholder="Name" />
-            <Label Text="*Birthday:" 
-                   TextColor="Red"/>
-            <!--do we want them to input it with text or have a calendar or something-->
-            <Entry x:Name="BirthdayEntry"
-                   Placeholder="Birthday" />
-            <Label Text="Phone number:"/>
-            <Entry x:Name="PhoneEntry" 
+                   Placeholder="Student's Name" />
+            <Label Text="Student's Phone Number:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Entry x:Name="StdPhoneEntry"
                    Keyboard="Telephone" 
-                   Placeholder="Phone # (optional)" />
-            <Label Text="*Grade:" 
-                   TextColor="Red"/>
+                   Placeholder="Student's Phone Number" />
+
+             <!--do we want them to input it with text or have a calendar or something-->
+            
+            <Label Text="Student's Birthday:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <DatePicker x:Name="BirthdayEntry" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
+            <!--<Entry x:Name="BirthdayEntry"
+                   Placeholder="Birthday" />-->
+            <Label Text="Grade:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
             <Entry x:Name="GradeEntry" 
                    Keyboard="Numeric" 
                    Placeholder="Grade" />
+            <Label Text="Parent's Name:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Entry x:Name="ParentNameEntry"
+                   Placeholder="Parent's Name" />
+            <Label Text="Parent's Phone Number:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Entry x:Name="ParentPhoneEntry"
+                   Keyboard="Telephone" 
+                   Placeholder="Parent's Phone Number" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
