@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ab777be... some comments
 using System.IO;
+using System.Threading.Tasks;
 using Google.Cloud.Firestore;
 
 
@@ -195,7 +199,7 @@ namespace HymnsApp
             w.Wait();
             DocumentReference dr = w.Result;
             string studentId = dr.Id;
-            DocumentReference middle = db.Collection("classes").Document(Classes[CurrentClass]);
+            DocumentReference middle = db.Document("classes/" + Classes[CurrentClass]);
             middle.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
 
             var wa = dr.GetSnapshotAsync();
@@ -279,11 +283,11 @@ namespace HymnsApp
             if (CurrentClass != newClassName)
             {
                 //Remove student from current class
-                DocumentReference curClass = db.Collection("classes").Document(Classes[CurrentClass]);
+                DocumentReference curClass = db.Document("classes/" + Classes[CurrentClass]);
                 curClass.UpdateAsync("students", FieldValue.ArrayRemove(studentId)).Wait();
 
                 //add student from current class
-                DocumentReference newClass = db.Collection("classes").Document(Classes[newClassName]);
+                DocumentReference newClass = db.Document("classes/" + Classes[newClassName]);
                 newClass.UpdateAsync("students", FieldValue.ArrayUnion(studentId)).Wait();
 
             }
@@ -434,18 +438,21 @@ namespace HymnsApp
             if (CurrentClass != newClassName)
             {
                 //Remove student from current class
-                DocumentReference curClass = db.Collection("classes").Document(Classes[CurrentClass]);
+                DocumentReference curClass = db.Document("classes/" + Classes[CurrentClass]);
                 curClass.UpdateAsync("teachers", FieldValue.ArrayRemove(teacherId)).Wait();
 
                 //add student from current class
-                DocumentReference newClass = db.Collection("classes").Document(Classes[newClassName]);
+                DocumentReference newClass = db.Document("classes/" + Classes[newClassName]);
                 newClass.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
             }
         }
+<<<<<<< HEAD
 
         public void GetImage(string studentId)
         {
             
         }
+=======
+>>>>>>> parent of ab777be... some comments
     }
 }
