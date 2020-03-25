@@ -130,10 +130,8 @@ namespace HymnsApp
         public void TakeAttendance(List<string> studentIds, DateTime date)
         {
             string d = date.ToString("MM/dd/yyyy");
-            TakeAttendance(studentIds, d);
-        }
-        private void TakeAttendance(List<string> studentIds, string date)
-        {
+
+            CurrentClass = "";  // Make sure that takeAttendance is the last call that happens!!!!!
             // 1. get the DocumentReference for each studentId
             foreach (string studentId in Students.Keys)
             {
@@ -146,11 +144,11 @@ namespace HymnsApp
                     snapshot.GetValue<string[]>("attended");
                     if (studentIds.Contains(studentId))
                     {
-                        dr.UpdateAsync("attended", FieldValue.ArrayUnion(date)).Wait();
+                        dr.UpdateAsync("attended", FieldValue.ArrayUnion(d)).Wait();
                     }
                     else
                     {
-                        dr.UpdateAsync("attended", FieldValue.ArrayRemove(date)).Wait();
+                        dr.UpdateAsync("attended", FieldValue.ArrayRemove(d)).Wait();
                     }
                 }
                 catch
@@ -159,7 +157,7 @@ namespace HymnsApp
                     {
                         Dictionary<string, object> update = new Dictionary<string, object>
                     {
-                        { "attended", new string[] { date } }
+                        { "attended", new string[] { d } }
                     };
                         dr.SetAsync(update, SetOptions.MergeAll).Wait();
                     }
@@ -333,14 +331,14 @@ namespace HymnsApp
             return students.ToArray();
         }
 
-        public List<KeyValuePair<string, string>> teachersOfGrade(string className)
+        public List<KeyValuePair<string, string>> TeachersOfGrade(string className)
         {
             //if (className == CurrentClass)
             //{
             //    return teacherList;
             //}
             //CurrentClass = className;
-            studentList = new List<KeyValuePair<string, string>>();
+            teacherList = new List<KeyValuePair<string, string>>();
             DocumentReference classRef = db.Collection("classes").Document(Classes[className]);
 
             var w = classRef.GetSnapshotAsync();
@@ -441,5 +439,6 @@ namespace HymnsApp
                 DocumentReference newClass = db.Document("classes/" + Classes[newClassName]);
                 newClass.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
             }
+        }
     }
 }

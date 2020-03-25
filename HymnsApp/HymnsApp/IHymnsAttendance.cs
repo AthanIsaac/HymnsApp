@@ -42,13 +42,13 @@ namespace HymnsApp
 
         //Methods for teachers
 
-        List<KeyValuePair<string, string>> teachersOfGrade(string className);
+        List<KeyValuePair<string, string>> TeachersOfGrade(string className);
 
         void TakeTeacherAttendance(List<string> teacherIds, DateTime date);
 
         string[] GetTeacher(string teacherId);
 
-        void EditStudent(string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday);
+        void EditTeacher(string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday);
 
 
     }
