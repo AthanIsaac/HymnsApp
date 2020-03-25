@@ -18,6 +18,19 @@ namespace HymnsApp
         readonly string id;
         public EditAddStudent(HymnsAttendance2 attendance, string id, string name, string className, bool add)
         {
+            ToolbarItem item = new ToolbarItem();
+            if (!add)
+            {
+                item.Text = "Edit Student";
+
+            }
+            else
+            {
+                item.Text = "Add Student";
+
+            }            
+            // "this" refers to a Page object
+            this.ToolbarItems.Add(item);
             InitializeComponent();
             name = name == null ? "" : name.ToLower();
             Add = add;
@@ -29,9 +42,19 @@ namespace HymnsApp
             {
                 string[] info = Attendance.GetStudent(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
-                PhoneEntry.Text = info[1];
+                StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
-                BirthdayEntry.Text = info[5];
+                ParentNameEntry.Text = info[3];
+                ParentPhoneEntry.Text = info[4];
+                //MM/dd
+                DateTime dt  = new DateTime();
+                bool worked = DateTime.TryParse(info[5], out dt );
+                if (worked)
+                {
+                    BirthdayEntry.Date = dt;
+                }
+               
+                //photo
             }
 
 
@@ -44,7 +67,7 @@ namespace HymnsApp
             {
                 //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
                 // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
-                Attendance.EditStudent(id, "", name, PhoneEntry.Text ?? "", GradeEntry.Text, "", "", DateTime.Now);
+                Attendance.EditStudent(id, ClassName, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, BirthdayEntry.Date);
 
                 Navigation.PopAsync();
                 return;
@@ -57,11 +80,16 @@ namespace HymnsApp
             else
             {
                 // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
-                Attendance.AddStudent(name, PhoneEntry.Text, GradeEntry.Text, "", "", DateTime.Now);
+                Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, BirthdayEntry.Date);
                 
                 Navigation.PopAsync();
             }
 
+        }
+
+        private void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+           
         }
 
         // Credit: Nardin

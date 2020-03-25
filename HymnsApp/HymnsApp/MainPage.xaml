@@ -22,7 +22,7 @@
                        FontSize="Medium"
                        FontAttributes="Bold" 
                        HorizontalTextAlignment="Center" />
-                <BoxView Color="LightBlue"
+                <BoxView Color="SteelBlue"
                          HeightRequest="4"
                          HorizontalOptions="Fill" />
             
@@ -36,11 +36,12 @@
                 Title="Select a Class"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"/>
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="200"/>
 
         <Button x:Name="Class"
             Text="Submit"
-            BackgroundColor="LightBlue"
+            BackgroundColor="SteelBlue"
             WidthRequest="200"
             HeightRequest="50"
             BorderRadius="10"
@@ -52,7 +53,7 @@
 
         <Button x:Name="Curriculum"
             Text="Curriculum"
-            BackgroundColor="LightBlue"
+            BackgroundColor="SteelBlue"
             WidthRequest="200"
             HeightRequest="50"
             BorderRadius="10"

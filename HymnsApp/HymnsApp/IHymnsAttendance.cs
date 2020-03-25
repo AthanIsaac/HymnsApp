@@ -6,12 +6,15 @@ namespace HymnsApp
     public interface IHymnsAttendance
     {
         /* StudentsOfGrade will always be the first method called to get the ids of students
-         * Every method that follows will assume that the class is the one passed into StudentsOfGrade
+         * Every method that follows will assume that the class is the one passed into StudentsOfGrade.
+         * TakeAttendance should only be called on submit.
          */
 
         // OrderedClasses, an array of all the class names
+
+
         List<KeyValuePair<string, string>> StudentsOfGrade(string className);
-        // ImageOfStudent(string studentName);
+        // ImageOfStudent(string studentId);
 
         void TakeAttendance(List<string> studentIds, DateTime date);
         bool AttendedToday(string studentId, DateTime date);
@@ -32,9 +35,24 @@ namespace HymnsApp
         int GetDatesForYear(string studentId);
 
         void RemoveStudent(string studentId);
+
         void EditStudent(string studentId, string newClassName, string newStudentName, string newStudentPhone, 
             string newGrade, string newParentName, string newParentPhone, DateTime newBirthday);
 
+        //for students and teachers
         string[] WeeklyBirthdays();
+
+
+        //Methods for teachers
+
+        List<KeyValuePair<string, string>> TeachersOfGrade(string className);
+
+        void TakeTeacherAttendance(List<string> teacherIds, DateTime date);
+
+        string[] GetTeacher(string teacherId);
+
+        void EditTeacher(string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday);
+
+
     }
 }

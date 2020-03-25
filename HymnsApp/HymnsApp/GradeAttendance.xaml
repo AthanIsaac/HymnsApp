@@ -18,6 +18,7 @@
                        IsSpellCheckEnabled="False" WidthRequest="220"/>
 
             <!--<Image x:Name="calendarImage" Source="calendar.png" />-->
+            <!-- the event handler shouldn't be that one-->
             <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
 
             <ScrollView x:Name="Scroll" >
