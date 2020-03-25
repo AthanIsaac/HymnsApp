@@ -35,6 +35,8 @@ namespace HymnsApp
         public HymnsAttendance2()
         {
             Students = new Dictionary<string, DocumentSnapshot>();
+            Teachers = new Dictionary<string, DocumentSnapshot>();
+
             Classes = new Dictionary<string, string>();
             SetEnvironmentVariables();
             db = FirestoreDb.Create(PROJECT_ID);
