@@ -42,7 +42,10 @@ namespace HymnsApp
                 
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#EEEEEE") };
                 sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
-                CheckBox cb = new CheckBox();
+
+                sl.Children.Add(new Image() { Source = "editsmall.jpg" });
+
+                CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
 
                 Label l = new Label()
                 {
@@ -54,8 +57,9 @@ namespace HymnsApp
                 };
                 cell.Tapped += TableCell_Tapped;
 
-                sl.Children.Add(cb);
                 sl.Children.Add(l);
+                sl.Children.Add(cb);
+                
                 cell.View = sl;
 
                 Backup.Add(cell);
@@ -83,7 +87,7 @@ namespace HymnsApp
         private void TableCell_Tapped(object sender, EventArgs e)
         {
             ViewCell c = sender as ViewCell;
-            CheckBox x = (c.View as StackLayout).Children[1] as CheckBox;
+            CheckBox x = (c.View as StackLayout).Children[3] as CheckBox;
             x.IsChecked = !x.IsChecked;
         }
 
@@ -129,7 +133,7 @@ namespace HymnsApp
             foreach (ViewCell c in Backup)
             {
                 StackLayout sl = c.View as StackLayout;
-                CheckBox cb = sl.Children[1] as CheckBox;
+                CheckBox cb = sl.Children[3] as CheckBox;
                 Label l = sl.Children[0] as Label;
 
                 if (cb.IsChecked)
@@ -168,7 +172,7 @@ namespace HymnsApp
                         ViewCell cell = new ViewCell() { Height = 70 };
                         StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal };
                         sl.Children.Add(new Label() { Text = InGrade[i].Key, IsVisible = false });
-                        CheckBox cb = new CheckBox();
+                        CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
                         Label l = new Label()
                         {
                             Text = InGrade[i].Value,
@@ -178,8 +182,9 @@ namespace HymnsApp
                             FontSize = 16
                         };
                         cell.Tapped += TableCell_Tapped;
-                        sl.Children.Add(cb);
+                        sl.Children.Add(new Image() { Source = "editsmall.jpg" });
                         sl.Children.Add(l);
+                        sl.Children.Add(cb);
                         cell.View = sl;
 
                         NamesTable.Add(cell);

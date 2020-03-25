@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of ab777be... some comments
 using System.IO;
-using System.Threading.Tasks;
+
 using Google.Cloud.Firestore;
 
 
@@ -446,13 +442,5 @@ namespace HymnsApp
                 newClass.UpdateAsync("teachers", FieldValue.ArrayUnion(teacherId)).Wait();
             }
         }
-<<<<<<< HEAD
-
-        public void GetImage(string studentId)
-        {
-            
-        }
-=======
->>>>>>> parent of ab777be... some comments
     }
 }
