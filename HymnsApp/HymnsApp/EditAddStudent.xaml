@@ -33,9 +33,9 @@
             <Label Text="Student's Birthday:"
                    FontSize="Large"
                    TextColor="SteelBlue"/>
-            <DatePicker x:Name="BirthdayEntry" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
-            <!--<Entry x:Name="BirthdayEntry"
-                   Placeholder="Birthday" />-->
+            <!--<DatePicker x:Name="BirthdayEntry" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>-->
+            <Entry x:Name="BirthdayEntry"
+                   Placeholder="MM/DD" />
             <Label Text="Grade:"
                    FontSize="Large"
                    TextColor="SteelBlue"/>

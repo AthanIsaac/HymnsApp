@@ -47,13 +47,14 @@ namespace HymnsApp
                 ParentNameEntry.Text = info[3];
                 ParentPhoneEntry.Text = info[4];
                 //MM/dd
-                DateTime dt  = new DateTime();
-                bool worked = DateTime.TryParse(info[5], out dt );
-                if (worked)
-                {
-                    BirthdayEntry.Date = dt;
-                }
-               
+                BirthdayEntry.Text = info[5];
+                //DateTime dt = new DateTime();
+                //bool worked = DateTime.TryParse(info[5], out dt);
+                //if (worked)
+                //{
+                //    BirthdayEntry.Date = dt;
+                //}
+
                 //photo
             }
 
@@ -65,9 +66,10 @@ namespace HymnsApp
             string name = Capitalize(NameEntry.Text.Trim());
             if (!Add)
             {
+                String[] birthday = BirthdayEntry.Text.Split('/');
                 //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
                 // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
-                Attendance.EditStudent(id, ClassName, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, BirthdayEntry.Date);
+                Attendance.EditStudent(id, ClassName, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
 
                 Navigation.PopAsync();
                 return;
@@ -79,8 +81,9 @@ namespace HymnsApp
             }
             else
             {
+                String[] birthday = BirthdayEntry.Text.Split('/');
                 // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
-                Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, BirthdayEntry.Date);
+                Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
                 
                 Navigation.PopAsync();
             }
