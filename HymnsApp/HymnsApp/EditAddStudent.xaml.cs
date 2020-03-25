@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Android.App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Plugin.Media;
 using Xamarin.Forms.Xaml;
+using Plugin.Media.Abstractions;
 
 namespace HymnsApp
 {
@@ -27,6 +30,7 @@ namespace HymnsApp
             else
             {
                 item.Text = "Add Student";
+
 
             }            
             // "this" refers to a Page object
@@ -94,6 +98,38 @@ namespace HymnsApp
         {
            
         }
+
+        private async void PictureButton_OnClicked(object sender, EventArgs e) {
+
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsPickPhotoSupported) {
+                await DisplayAlert("No Camera", "No Camera Availible", "OK");
+                    return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        SaveToAlbum = true
+                    }
+                );
+
+            if (file == null)
+                return;
+
+            Label path = new Label { Text = file.AlbumPath };
+
+            Picture.Source = ImageSource.FromStream(() =>
+            {
+                var stream = file.GetStream();
+                file.Dispose();
+                return stream;
+            });
+
+        }
+
+
 
         // Credit: Nardin
         private string Capitalize(string name)

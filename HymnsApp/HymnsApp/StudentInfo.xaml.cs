@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 namespace HymnsApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -40,13 +41,13 @@ namespace HymnsApp
                     Style = Resources["detailTablet"] as Style
                 }, 0, i);
 
-                string num = Attendance.GetStudentPhone(students[i].Key);
+                //string num = Attendance.GetStudentPhone(students[i].Key);
 
-                InfoGrid.Children.Add(new Label()
-                {
-                    Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6),
-                    Style = Resources["detailTablet"] as Style
-                }, 1, i);
+                //InfoGrid.Children.Add(new Label()
+                //{
+                //    Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6),
+                //    Style = Resources["detailTablet"] as Style
+                //}, 1, i);
 
               
 
@@ -54,7 +55,7 @@ namespace HymnsApp
                 {
                     Text = Attendance.GetDatesForYear(students[i].Key).ToString(),
                     Style = Resources["detailTablet"] as Style
-                }, 2, i);
+                }, 1, i);
 
 
                 /*
@@ -71,7 +72,7 @@ namespace HymnsApp
                 Button b = new Button()
                 {
                     Text = ">",
-                    BackgroundColor = Color.FromHex("#EEEEEE"),
+                    BackgroundColor = Color.White,
                     FontSize = 20,
                     WidthRequest = 15,
                     CommandParameter = new Label()
@@ -80,15 +81,21 @@ namespace HymnsApp
                         IsVisible = false
                     }
                 };
+               // b.BindingContextChanged += Edit_Clicked;
 
                 b.Clicked += Edit_Clicked;
 
-                InfoGrid.Children.Add(b, 3, i);
+                InfoGrid.Children.Add(b, 2, i);
             }
         }
 
         private void Edit_Clicked(object sender, EventArgs e)
         {
+            Button b = sender as Button;
+            Label sl = b.CommandParameter as Label;
+
+            Navigation.PushAsync(new StudentProfilexaml(Attendance, sl.Text, ClassName));
+            /*
             Button b = sender as Button;
             Label sl = b.CommandParameter as Label;
             
@@ -97,7 +104,7 @@ namespace HymnsApp
 
             string [] studentInfo = Attendance.GetStudent(id);
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
-            Navigation.PushAsync(new EditAddStudent(Attendance, id, studentInfo[0], ClassName, false));
+            Navigation.PushAsync(new EditAddStudent(Attendance, id, studentInfo[0], ClassName, false)); */
         }
 
         protected override void OnAppearing()

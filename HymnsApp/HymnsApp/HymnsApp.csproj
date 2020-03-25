@@ -13,8 +13,15 @@
   <ItemGroup>
     <PackageReference Include="Google.Cloud.Firestore" Version="1.1.0" />
     <PackageReference Include="Grpc.Core" Version="1.22.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +30,9 @@
     </Compile>
     <Compile Update="GradeAttendance.xaml.cs">
       <DependentUpon>GradeAttendance.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="StudentProfile.xaml.cs">
+      <DependentUpon>StudentProfile.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -39,10 +49,10 @@
     <EmbeddedResource Update="GradeAttendance.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Page1.xaml">
+    <EmbeddedResource Update="StudentInfo.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="StudentInfo.xaml">
+    <EmbeddedResource Update="StudentProfile.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -7,6 +7,7 @@
              x:Class="HymnsApp.MainPage"
              BackgroundColor="White" Appearing="ContentPage_Appearing">
     <ContentPage.ToolbarItems >
+        <!--note: make font bigger-->
         <ToolbarItem Text="Friday School of Hymns" />
         <ToolbarItem Text="                         " />
 
@@ -25,40 +26,46 @@
                 <BoxView Color="SteelBlue"
                          HeightRequest="4"
                          HorizontalOptions="Fill" />
-            
-                <Label Text="Hopefully we will add birthdays here"/>
-            
+
+                <Label Text="No announcements or birthdays yet, check back soon!"/>
+
                 <!--Hopefully where we will add birthdays-->
             </StackLayout>
         </Frame>
-        
-        <Picker x:Name="Grades" 
+
+        <StackLayout Padding="10">
+            <Picker x:Name="Grades" 
                 Title="Select a Class"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
                 WidthRequest="200"/>
 
-        <Button x:Name="Class"
-            Text="Submit"
+            <Button x:Name="Class"
+            Text="Next"
+                    FontSize="Medium"
             BackgroundColor="SteelBlue"
-            WidthRequest="200"
+            WidthRequest="300"
             HeightRequest="50"
             BorderRadius="10"
             BorderWidth="2"
-            BorderColor="LightBlue"
+            BorderColor="SteelBlue"
+            TextColor="White"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
             Clicked="NextButton_Clicked"/>
-
+        </StackLayout>
+        
         <Button x:Name="Curriculum"
             Text="Curriculum"
+                FontSize="Medium"
             BackgroundColor="SteelBlue"
-            WidthRequest="200"
+            WidthRequest="300"
             HeightRequest="50"
             BorderRadius="10"
             BorderWidth="2"
-            BorderColor="LightBlue"
+            BorderColor="SteelBlue"
+            TextColor="White"
             HorizontalOptions="CenterAndExpand"
             VerticalOptions="CenterAndExpand"
             Clicked="Curriculum_Clicked"/>

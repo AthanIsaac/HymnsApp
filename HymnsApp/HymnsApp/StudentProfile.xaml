@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HymnsApp.StudentProfilexaml">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Student Profile" />
+        <ToolbarItem Text="                    " />
+        <ToolbarItem Text="Edit" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+   
+    <ContentPage.Content>
+            
+        <StackLayout x:Name="storeInfo">
+            <!--<Image Source="editsmall.png" HeightRequest="200"/>-->
+            <!--<Label Text="Student's Name:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Label Text="Student's Phone Number:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+
+            <Label Text="Student's Birthday:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Label Text="Grade:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Label Text="Parent's Name:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>
+            <Label Text="Parent's Phone Number:"
+                   FontSize="Large"
+                   TextColor="SteelBlue"/>-->
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

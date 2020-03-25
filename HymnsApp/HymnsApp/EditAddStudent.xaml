@@ -16,11 +16,16 @@
                    HorizontalOptions="Center" 
                    FontSize="Large"
                    TextColor="Black" />-->
+            <ImageButton x:Name ="Picture" 
+                         Source= "editsmall.png"
+                         Clicked="PictureButton_OnClicked"/>
             <Label Text="Student's Name:"
                    FontSize="Large"
                    TextColor="SteelBlue"/>
             <Entry x:Name="NameEntry"
-                   Placeholder="Student's Name" />
+                   Placeholder="Student's Name"
+                   IsSpellCheckEnabled = "True"
+                   IsTextPredictionEnabled = "True"/>
             <Label Text="Student's Phone Number:"
                    FontSize="Large"
                    TextColor="SteelBlue"/>
@@ -35,6 +40,7 @@
                    TextColor="SteelBlue"/>
             <!--<DatePicker x:Name="BirthdayEntry" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>-->
             <Entry x:Name="BirthdayEntry"
+                    Keyboard="Numeric"
                    Placeholder="MM/DD" />
             <Label Text="Grade:"
                    FontSize="Large"
@@ -46,7 +52,9 @@
                    FontSize="Large"
                    TextColor="SteelBlue"/>
             <Entry x:Name="ParentNameEntry"
-                   Placeholder="Parent's Name" />
+                   Placeholder="Parent's Name" 
+                   IsSpellCheckEnabled = "True"
+                   IsTextPredictionEnabled = "True"/>
             <Label Text="Parent's Phone Number:"
                    FontSize="Large"
                    TextColor="SteelBlue"/>
