@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+
 using System.IO;
 using Google.Cloud.Firestore;
 
@@ -445,7 +445,7 @@ namespace HymnsApp
 
         public void GetImage(string studentId)
         {
-            Bitmap b = new Bitmap()
+            
         }
     }
 }
