@@ -21,7 +21,7 @@ namespace HymnsApp
             Attendance = attendance;
             string[] weeklyBirthdays = Attendance.WeeklyBirthdays();
             for (int i = 0; i < weeklyBirthdays.Length; i++) {
-                birthdays.Children.Add(new Label { Text = weeklyBirthdays[i]});
+                birthdays.Children.Add(new Label { Text = weeklyBirthdays[i], FontSize = 17});
             }
             
             Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);

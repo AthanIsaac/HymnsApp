@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ImageCircle.Forms.Plugin.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -46,10 +47,10 @@ namespace HymnsApp
             {
                 ViewCell cell = new ViewCell() { Height = 70,  };
                 
-                StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#EEEEEE") };
+                StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
                 sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
 
-                sl.Children.Add(new Image() { Source = "blankprofile.png" });
+                sl.Children.Add(new CircleImage() { Source = "blankprofile.png" });
 
                 CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
 
@@ -111,10 +112,10 @@ namespace HymnsApp
             {
                 ViewCell cell = new ViewCell() { Height = 70, };
 
-                StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#EEEEEE") };
+                StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
                 sl.Children.Add(new Label() { Text = t.Key, IsVisible = false });
 
-                sl.Children.Add(new Image() { Source = "blankprofile.png" });
+                sl.Children.Add(new CircleImage() { Source = "blankprofile.png" });
 
                 CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
 

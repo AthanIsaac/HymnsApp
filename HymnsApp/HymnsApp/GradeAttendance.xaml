@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="HymnsApp.GradeAttendance" Appearing="ContentPage_Appearing" BackgroundColor="LightGray">
+             x:Class="HymnsApp.GradeAttendance" Appearing="ContentPage_Appearing" BackgroundColor="White">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="SubmitAttendance" Text="Submit" Clicked="SubmitAttendance_Clicked" />
     </ContentPage.ToolbarItems>

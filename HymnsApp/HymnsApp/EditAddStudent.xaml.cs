@@ -254,11 +254,19 @@ namespace HymnsApp
             if (file == null)
                 return;
 
-            Label path = new Label { Text = file.AlbumPath };
+            var picture = file.GetStream();
+
+            //crop
+            //Picture.HeightRequest{400}  ;
+            //Picture.WidthRequest{400};
+           
+            Attendance.AddStudentPhoto(id, picture);
+
+            //Label path = new Label { Text = file.AlbumPath };
 
             Picture.Source = ImageSource.FromStream(() =>
             {
-                var stream = file.GetStream();
+                var stream = picture;
                 // file.Dispose();
                 return stream;
             });

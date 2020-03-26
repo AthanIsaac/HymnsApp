@@ -30,32 +30,32 @@ namespace HymnsApp
 
             Image profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
             storeInfo.Children.Add(profilePicture);
-            Label lname = new Label {Text ="Name"};
+            Label lname = new Label { Text = "Student's Name:", TextColor = Color.SteelBlue, FontSize = 23 };
             var ename = new Entry { Text = studentInfo[0], IsReadOnly = true };
             storeInfo.Children.Add(lname);
             storeInfo.Children.Add(ename);
 
-            Label lstudentPhone = new Label { Text = "Student Phone" };
+            Label lstudentPhone = new Label { Text = "Student's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
             var estudentPhone = new Entry { Text = studentInfo[1], IsReadOnly = true };
             storeInfo.Children.Add(lstudentPhone);
             storeInfo.Children.Add(estudentPhone);
 
-            Label lgrade= new Label { Text = "Grade" };
+            Label lgrade= new Label { Text = "Grade:", TextColor = Color.SteelBlue, FontSize = 23 };
             var egrade = new Entry { Text = studentInfo[2], IsReadOnly = true };
             storeInfo.Children.Add(lgrade);
             storeInfo.Children.Add(egrade);
 
-            Label lparentName = new Label { Text = "Parent Name" };
+            Label lparentName = new Label { Text = "Parent Name:", TextColor = Color.SteelBlue, FontSize = 23 };
             var eParentName = new Entry { Text = studentInfo[3], IsReadOnly = true };
             storeInfo.Children.Add(lparentName);
             storeInfo.Children.Add(eParentName);
 
-            Label lParentPhone = new Label { Text = "Parent Phone" };
+            Label lParentPhone = new Label { Text = "Parent's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
             var eparentPhone = new Entry { Text = studentInfo[4], IsReadOnly = true };
             storeInfo.Children.Add(lParentPhone);
             storeInfo.Children.Add(eparentPhone);
 
-            Label lbirthday = new Label { Text = "birthday" };
+            Label lbirthday = new Label { Text = "Student's Birthday Number:", TextColor = Color.SteelBlue, FontSize = 23 };
             //for the edit
             var ebirthday = new Entry { Text = studentInfo[5], IsReadOnly = true};
             storeInfo.Children.Add(lbirthday);

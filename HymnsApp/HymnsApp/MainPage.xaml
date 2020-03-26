@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HymnsApp.MainPage"
-             BackgroundColor="LightGray" Appearing="ContentPage_Appearing">
+             BackgroundColor="White" Appearing="ContentPage_Appearing">
     <ContentPage.ToolbarItems >
         <!--note: make font bigger-->
         <ToolbarItem Text="Friday School of Hymns" />
@@ -17,8 +17,8 @@
         <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
 
 
-        <Frame BorderColor="Gray" CornerRadius="5" Padding="20">
-            <StackLayout x:Name="birthdays" Spacing="20">
+        <Frame BorderColor="Gray" CornerRadius="5" Padding="15">
+            <StackLayout x:Name="birthdays" Spacing="10">
                 <Label Text="Welcome to Friday School of Hymns"
                        FontSize="Large"
                        FontAttributes="Bold" 
@@ -29,7 +29,7 @@
 
                 <Label Text="Happy Birthday To: "
                        HorizontalTextAlignment="Center"
-                       FontSize="Subtitle"/>
+                       FontSize="Medium"/>
 
 
             </StackLayout>
