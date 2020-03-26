@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HymnsApp
 {
@@ -56,7 +57,7 @@ namespace HymnsApp
         /// <param name="parentName">(Mandatory) The parent's name</param>
         /// <param name="parentPhone">The parent's phone</param>
         /// <param name="birthday">(Mandatory) The student's birthday</param>
-        void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
+        void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday);
 
         /// <summary>
         /// Gets the number of days a student has attended this year.
@@ -144,18 +145,40 @@ namespace HymnsApp
         /// <param name="teacherName">The teacher's name</param>
         /// <param name="teacherPhone">The teacher's phone number</param>
         /// <param name="birthday">The teacher's birthday</param>
-        void AddTeacher(string teacherName, string teacherPhone, DateTime birthday /*photo*/);
+        void AddTeacher(string teacherName, string teacherPhone, DateTime birthday);
 
-        System.IO.Stream GetStudentPhoto(string studentId);
+        /// <summary>
+        /// Returns a student photo using the student ID.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        Stream GetStudentPhoto(string studentId);
 
-        void AddStudentPhoto(string studentId);
+        /// <summary>
+        /// adds a student photo to the the studentId
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <param name="photo"></param>
+        void AddStudentPhoto(string studentId, Stream photo);
 
-        void UpdateStudentPhoto(string studentId);
+        /// <summary>
+        /// Returns a teacher photo using teacherId
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
+        Stream GetTeacherPhoto(string teacherId);
 
-        System.IO.Stream GetTeacherPhoto(string teacherId);
+        /// <summary>
+        /// adds a teacher photo to the teacherId
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="photo"></param>
+        void AddTeacherPhoto(string teacherId, Stream photo);
 
-        void AddTeacherPhoto(string studentId);
-        void UpdateTeacherPhoto(string studentId);
-
+       /// <summary>
+       /// returns a 2D array of the curriculums, from kindergarten to middle school
+       /// </summary>
+       /// <returns></returns>
+        string[][] GetCurriculum();
     }
 }

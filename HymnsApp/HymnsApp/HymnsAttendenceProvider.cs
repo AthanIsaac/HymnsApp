@@ -555,32 +555,67 @@ namespace HymnsApp
 
         public Stream GetStudentPhoto(string studentId)
         {
-            throw new NotImplementedException();
+            var student = Students[studentId];
+            if (student.ContainsField("photo"))
+                return new MemoryStream(student.GetValue<byte[]>("photo"));
+            else
+                return null;
         }
 
-        public void AddStudentPhoto(string studentId)
+        public void AddStudentPhoto(string studentId, Stream photo)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateStudentPhoto(string studentId)
-        {
-            throw new NotImplementedException();
+            
+            Dictionary<string, object> s = new Dictionary<string, object>();
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.CopyTo(memoryStream);
+                s.Add("photo", memoryStream.ToArray());
+            }
+            db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll);
         }
 
         public Stream GetTeacherPhoto(string teacherId)
         {
-            throw new NotImplementedException();
+            var teacher = Teachers[teacherId];
+            if (teacher.ContainsField("photo"))
+                return new MemoryStream(teacher.GetValue<byte[]>("photo"));
+            else
+                return null;
         }
 
-        public void AddTeacherPhoto(string studentId)
+        public void AddTeacherPhoto(string teacherId, Stream photo)
         {
-            throw new NotImplementedException();
+            Dictionary<string, object> t = new Dictionary<string, object>();
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.CopyTo(memoryStream);
+                t.Add("photo", memoryStream.ToArray());
+            }
+            db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll);
         }
 
-        public void UpdateTeacherPhoto(string studentId)
+
+        public string[][] GetCurriculum()
         {
-            throw new NotImplementedException();
+            var enumerator = db.Collection("curriculum").ListDocumentsAsync().GetEnumerator();
+
+            List<string[]> curriculum = new List<string[]>();
+            
+            while(true)
+            {
+                var n = enumerator.MoveNext();
+                n.Wait();
+
+                if (!n.Result)
+                {
+                    break;
+                }
+                var w = enumerator.Current.GetSnapshotAsync();
+                w.Wait();
+                curriculum.Add(w.Result.GetValue<string[]>("hymns"));
+
+            }
+            return curriculum.ToArray();
         }
     }
 }
