@@ -593,5 +593,29 @@ namespace HymnsApp
             }
             db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll);
         }
+
+
+        public string[][] GetCurriculum()
+        {
+            var enumerator = db.Collection("curriculum").ListDocumentsAsync().GetEnumerator();
+
+            List<string[]> curriculum = new List<string[]>();
+            
+            while(true)
+            {
+                var n = enumerator.MoveNext();
+                n.Wait();
+
+                if (!n.Result)
+                {
+                    break;
+                }
+                var w = enumerator.Current.GetSnapshotAsync();
+                w.Wait();
+                curriculum.Add(w.Result.GetValue<string[]>("hymns"));
+
+            }
+            return curriculum.ToArray();
+        }
     }
 }

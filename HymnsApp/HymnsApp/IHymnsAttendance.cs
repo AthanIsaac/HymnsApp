@@ -147,12 +147,38 @@ namespace HymnsApp
         /// <param name="birthday">The teacher's birthday</param>
         void AddTeacher(string teacherName, string teacherPhone, DateTime birthday);
 
+        /// <summary>
+        /// Returns a student photo using the student ID.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
         Stream GetStudentPhoto(string studentId);
 
+        /// <summary>
+        /// adds a student photo to the the studentId
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <param name="photo"></param>
         void AddStudentPhoto(string studentId, Stream photo);
-        
+
+        /// <summary>
+        /// Returns a teacher photo using teacherId
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <returns></returns>
         Stream GetTeacherPhoto(string teacherId);
 
+        /// <summary>
+        /// adds a teacher photo to the teacherId
+        /// </summary>
+        /// <param name="teacherId"></param>
+        /// <param name="photo"></param>
         void AddTeacherPhoto(string teacherId, Stream photo);
+
+       /// <summary>
+       /// returns a 2D array of the curriculums, from kindergarten to middle school
+       /// </summary>
+       /// <returns></returns>
+        string[][] GetCurriculum();
     }
 }
