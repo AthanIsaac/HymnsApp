@@ -7,7 +7,7 @@ using Google.Cloud.Firestore;
 
 namespace HymnsApp
 {
-    public class HymnsAttendance3 : IHymnsAttendance
+    public class HymnsAttendance3
     {
         private static readonly string PROJECT_ID = "hymnsapp-47352";
 
