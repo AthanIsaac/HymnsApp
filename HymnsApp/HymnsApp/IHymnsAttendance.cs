@@ -57,7 +57,7 @@ namespace HymnsApp
         /// <param name="parentName">(Mandatory) The parent's name</param>
         /// <param name="parentPhone">The parent's phone</param>
         /// <param name="birthday">(Mandatory) The student's birthday</param>
-        void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
+        void AddStudent(string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday);
 
         /// <summary>
         /// Gets the number of days a student has attended this year.
@@ -145,18 +145,14 @@ namespace HymnsApp
         /// <param name="teacherName">The teacher's name</param>
         /// <param name="teacherPhone">The teacher's phone number</param>
         /// <param name="birthday">The teacher's birthday</param>
-        void AddTeacher(string teacherName, string teacherPhone, DateTime birthday /*photo*/);
+        void AddTeacher(string teacherName, string teacherPhone, DateTime birthday);
 
         Stream GetStudentPhoto(string studentId);
 
         void AddStudentPhoto(string studentId, Stream photo);
+        
+        Stream GetTeacherPhoto(string teacherId);
 
-        void UpdateStudentPhoto(string studentId, Stream photo);
-
-        System.IO.Stream GetTeacherPhoto(string teacherId);
-
-        void AddTeacherPhoto(string studentId, Stream photo);
-
-        void UpdateTeacherPhoto(string studentId, Stream photo);
+        void AddTeacherPhoto(string teacherId, Stream photo);
     }
 }

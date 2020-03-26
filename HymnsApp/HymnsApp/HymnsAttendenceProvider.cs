@@ -565,26 +565,33 @@ namespace HymnsApp
         public void AddStudentPhoto(string studentId, Stream photo)
         {
             
-        }
-
-        public void UpdateStudentPhoto(string studentId, Stream photo)
-        {
-            throw new NotImplementedException();
+            Dictionary<string, object> s = new Dictionary<string, object>();
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.CopyTo(memoryStream);
+                s.Add("photo", memoryStream.ToArray());
+            }
+            db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll);
         }
 
         public Stream GetTeacherPhoto(string teacherId)
         {
-            throw new NotImplementedException();
+            var teacher = Teachers[teacherId];
+            if (teacher.ContainsField("photo"))
+                return new MemoryStream(teacher.GetValue<byte[]>("photo"));
+            else
+                return null;
         }
 
-        public void AddTeacherPhoto(string studentId, Stream photo)
+        public void AddTeacherPhoto(string teacherId, Stream photo)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTeacherPhoto(string studentId, Stream photo)
-        {
-            throw new NotImplementedException();
+            Dictionary<string, object> t = new Dictionary<string, object>();
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.CopyTo(memoryStream);
+                t.Add("photo", memoryStream.ToArray());
+            }
+            db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll);
         }
     }
 }
