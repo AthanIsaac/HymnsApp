@@ -13,22 +13,26 @@ namespace HymnsApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CurriculumPage : ContentPage
     {
-        public CurriculumPage()
+        HymnsAttendance Attendance;
+        public CurriculumPage(HymnsAttendance attendance)
         {
             InitializeComponent();
+            Attendance = attendance;
+            PrintCurriculum();
         }
-    }
 
-    public class Curriculum
-    {
-        public string Class;
-        //hymn, link
-        public List<KeyValuePair<string, string>> Hymns;
-        public Curriculum(string theclass, List<KeyValuePair<string, string>> hymns)
+        public void PrintCurriculum()
         {
-            Class = theclass;
-            Hymns = hymns;
+            var cur = Attendance.GetCurriculum();
 
+            for (int i = 0; i < cur.Length; i++)
+            {
+                Curriculum.Children.Add(new Label { Text = "next class" });
+                for (int j = 0; j < cur[i].Length; j++)
+                {
+                    Curriculum.Children.Add(new Label { Text = cur[i][j] });
+                }
+            }
         }
     }
 }

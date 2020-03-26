@@ -6,10 +6,13 @@
              mc:Ignorable="d"
              x:Class="HymnsApp.CurriculumPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Curriculum Page Under Construction!"
+        <ScrollView>
+            <StackLayout x:Name="Curriculum">
+                <Label Text="Curriculum Page Under Construction!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>
