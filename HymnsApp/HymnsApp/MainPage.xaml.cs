@@ -17,8 +17,13 @@ namespace HymnsApp
         public MainPage(HymnsAttendance attendance)
         {
             InitializeComponent();
+            
             Attendance = attendance;
-
+            string[] weeklyBirthdays = Attendance.WeeklyBirthdays();
+            for (int i = 0; i < weeklyBirthdays.Length; i++) {
+                birthdays.Children.Add(new Label { Text = weeklyBirthdays[i]});
+            }
+            
             Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
         }
 
@@ -43,7 +48,7 @@ namespace HymnsApp
                 }
 
                 if (c.Contains("highSchool"))
-                    c = "High School";
+                    c = "HighSchool";
 
                 if (c.Contains("Grade"))
                 {
@@ -53,7 +58,7 @@ namespace HymnsApp
                     if (c.Contains("&"))
                     {
                         int ampersand = c.IndexOf("&");
-                        c = c.Substring(0, ampersand) + " " + c.Substring(ampersand);
+                        c = c.Substring(0, ampersand) + " & " +c.Substring(ampersand + 1);
                     }
 
                 }
@@ -65,8 +70,13 @@ namespace HymnsApp
                         if (char.IsUpper(c[j])) 
                         {
                             c = c.Substring(0, j) + " " + c.Substring(j);
+                            j++;
                         }
+
+                        
                     }
+
+                    c= c.Replace("m", "M");
                 }
                 visualClasses[i] = c;
             }            
@@ -75,6 +85,8 @@ namespace HymnsApp
            return visualClasses;
         }
        
+
+
         private void NextButton_Clicked(object sender, EventArgs e)
         {
             // no item selected

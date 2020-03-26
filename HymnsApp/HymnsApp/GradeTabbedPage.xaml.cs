@@ -11,7 +11,7 @@ namespace HymnsApp
         {
             InitializeComponent();
             Children.Add(new GradeAttendance(attendance, grade) { Title = "Attendance"});
-            Children.Add(new StudentInfo(attendance, grade) { Title = "Student Info"});
+            Children.Add(new StudentInfo(attendance, grade) { Title = "Class Info"});
 
         }
     }

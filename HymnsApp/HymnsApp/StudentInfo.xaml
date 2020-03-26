@@ -8,6 +8,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="ADD" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
+    
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="headerTablet" TargetType="Label">
@@ -20,8 +22,8 @@
             <Style x:Key="detailTablet" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="VerticalTextAlignment" Value="Center" />
-                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
             </Style>
             <Style x:Key="buttonTablet" TargetType="ImageButton">
                 <Setter Property="BackgroundColor" Value="White" />
@@ -31,28 +33,30 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    
+    
     <StackLayout Spacing="0">
-        <Grid Padding="1" BackgroundColor="SlateBlue" RowSpacing="1" ColumnSpacing="1">
-            <Grid.RowDefinitions>
+        <!--<Grid Padding="1" BackgroundColor="SlateBlue" RowSpacing="1" ColumnSpacing="1">-->
+            <!--<Grid.RowDefinitions>
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <!--<ColumnDefinition Width="4*" />-->
+                --><!--<ColumnDefinition Width="4*" />--><!--
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Label Text="Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+            --><!--<Label Text="Name"  Grid.Row="0" Style="{DynamicResource headerTablet}"/>
             <Label Text="Attended" Grid.Column="1" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-            <Label Text="MoreInfo" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
-            <!--Potentially Add Search-->
-        </Grid>
-        <ScrollView>
-            <Grid x:Name="InfoGrid" Padding="1" BackgroundColor="White" RowSpacing="1" ColumnSpacing="0">
+            <Label Text="MoreInfo" Grid.Column="2" Grid.Row="0" Style="{DynamicResource headerTablet}"/>-->
+            <!--Potentially Add Search--><!--
+        </Grid>-->
+        <ScrollView BackgroundColor="LightGray">
+            <Grid x:Name="InfoGrid" Padding="1" BackgroundColor="LightGray" RowSpacing="1" ColumnSpacing="0">
                 <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="4*" />-->
+                    <ColumnDefinition Width="4*" />
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="1*" />

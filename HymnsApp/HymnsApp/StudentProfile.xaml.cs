@@ -28,7 +28,7 @@ namespace HymnsApp
 
             InitializeComponent();
 
-            Image profilePicture = new Image { Source = "editsmall.png", HeightRequest = 200 };
+            Image profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
             storeInfo.Children.Add(profilePicture);
             Label lname = new Label {Text ="Name"};
             var ename = new Entry { Text = studentInfo[0], IsReadOnly = true };
@@ -50,7 +50,7 @@ namespace HymnsApp
             storeInfo.Children.Add(lparentName);
             storeInfo.Children.Add(eParentName);
 
-            Label lParentPhone = new Label { Text = "Student Phone" };
+            Label lParentPhone = new Label { Text = "Parent Phone" };
             var eparentPhone = new Entry { Text = studentInfo[4], IsReadOnly = true };
             storeInfo.Children.Add(lParentPhone);
             storeInfo.Children.Add(eparentPhone);

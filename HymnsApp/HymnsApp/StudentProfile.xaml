@@ -6,35 +6,19 @@
              mc:Ignorable="d"
              x:Class="HymnsApp.StudentProfilexaml">
     <ContentPage.ToolbarItems>
+
         <ToolbarItem Text="Student Profile" />
         <ToolbarItem Text="                    " />
         <ToolbarItem Text="Edit" Clicked="ToolbarItem_Clicked"/>
+
     </ContentPage.ToolbarItems>
-   
+
     <ContentPage.Content>
-            
-        <StackLayout x:Name="storeInfo">
-            <!--<Image Source="editsmall.png" HeightRequest="200"/>-->
-            <!--<Label Text="Student's Name:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Label Text="Student's Phone Number:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
+        <ScrollView>
+            <StackLayout x:Name="storeInfo">
 
-            <Label Text="Student's Birthday:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Label Text="Grade:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Label Text="Parent's Name:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Label Text="Parent's Phone Number:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>-->
 
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

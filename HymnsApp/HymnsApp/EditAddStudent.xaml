@@ -4,63 +4,73 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="HymnsApp.EditAddStudent" BackgroundColor="#EEEEEE">
+             x:Class="HymnsApp.EditAddStudent" BackgroundColor ="LightGray">
     <ContentPage.ToolbarItems>
         <!--<ToolbarItem Text="Add Student" />-->
         <ToolbarItem Text="                    " />
         <ToolbarItem Text="Submit" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <!--<Label Text="Add Student" 
-                   HorizontalOptions="Center" 
-                   FontSize="Large"
-                   TextColor="Black" />-->
-            <ImageButton x:Name ="Picture" 
-                         Source= "editsmall.png"
-                         Clicked="PictureButton_OnClicked"/>
-            <Label Text="Student's Name:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Entry x:Name="NameEntry"
-                   Placeholder="Student's Name"
-                   IsSpellCheckEnabled = "True"
-                   IsTextPredictionEnabled = "True"/>
-            <Label Text="Student's Phone Number:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Entry x:Name="StdPhoneEntry"
-                   Keyboard="Telephone" 
-                   Placeholder="Student's Phone Number" />
-
-             <!--do we want them to input it with text or have a calendar or something-->
+        <ScrollView>
+            <StackLayout>
             
-            <Label Text="Student's Birthday:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <!--<DatePicker x:Name="BirthdayEntry" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>-->
-            <Entry x:Name="BirthdayEntry"
-                    Keyboard="Numeric"
-                   Placeholder="MM/DD" />
-            <Label Text="Grade:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Entry x:Name="GradeEntry" 
-                   Keyboard="Numeric" 
-                   Placeholder="Grade" />
-            <Label Text="Parent's Name:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Entry x:Name="ParentNameEntry"
-                   Placeholder="Parent's Name" 
-                   IsSpellCheckEnabled = "True"
-                   IsTextPredictionEnabled = "True"/>
-            <Label Text="Parent's Phone Number:"
-                   FontSize="Large"
-                   TextColor="SteelBlue"/>
-            <Entry x:Name="ParentPhoneEntry"
-                   Keyboard="Telephone" 
-                   Placeholder="Parent's Phone Number" />
-        </StackLayout>
+                     <ImageButton x:Name ="Picture" 
+                                 Source= "blankprofile.png"
+                                 Clicked="PictureButton_OnClicked"
+                                  HeightRequest="400"
+                                  WidthRequest="400"/>
+                                 
+                    <Label Text="Student's Name:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                    <Entry x:Name="NameEntry"
+                           Placeholder="Student's Name"
+                           IsSpellCheckEnabled = "True"
+                           IsTextPredictionEnabled = "True"/>
+                    <Label Text="Student's Phone Number:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                <Entry x:Name="StdPhoneEntry"
+                           Keyboard="Telephone" 
+                           Placeholder="Student's Phone Number" />
+                <Label Text="Student's Birthday:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                <Entry x:Name="BirthdayEntry"
+                            Keyboard="Numeric"
+                           Placeholder="MM/DD" 
+                           TextChanged="BirthdayEntry_TextChanged"/>
+                    <Label Text="Grade:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                    <Entry x:Name="GradeEntry" 
+                           Keyboard="Numeric" 
+                           Placeholder="Grade" />
+                    <Label Text="Parent's Name:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                    <Entry x:Name="ParentNameEntry"
+                           Placeholder="Parent's Name" 
+                           IsSpellCheckEnabled = "True"
+                           IsTextPredictionEnabled = "True"/>
+                    <Label Text="Parent's Phone Number:"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                    <Entry x:Name="ParentPhoneEntry"
+                           Keyboard="Telephone" 
+                           Placeholder="Parent's Phone Number" />
+                <Label Text="Hymns Class"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
+                <Picker x:Name="Classes" 
+                Title="Select the Class for Student"
+                FontSize="Large" 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="250"/>
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
