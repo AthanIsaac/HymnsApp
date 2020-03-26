@@ -39,7 +39,7 @@ namespace HymnsApp
         /// <summary>
         /// Retrieves student information for the given student.
         /// This information includes: studentName, studentPhone, grade, parentName, parentPhone, birthday
-        /// Use the StudentInfoIndices enum to access different student fields
+        /// Use the StudentInfo enum to access different student fields
         /// </summary>
         /// <param name="studentId">The id of the student to get information for</param>
         /// <returns>An array of student information</returns>
@@ -145,5 +145,17 @@ namespace HymnsApp
         /// <param name="teacherPhone">The teacher's phone number</param>
         /// <param name="birthday">The teacher's birthday</param>
         void AddTeacher(string teacherName, string teacherPhone, DateTime birthday /*photo*/);
+
+        System.IO.Stream GetStudentPhoto(string studentId);
+
+        void AddStudentPhoto(string studentId);
+
+        void UpdateStudentPhoto(string studentId);
+
+        System.IO.Stream GetTeacherPhoto(string teacherId);
+
+        void AddTeacherPhoto(string studentId);
+        void UpdateTeacherPhoto(string studentId);
+
     }
 }

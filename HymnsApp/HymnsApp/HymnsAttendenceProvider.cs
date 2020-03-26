@@ -552,5 +552,35 @@ namespace HymnsApp
             teacherList.Add(new KeyValuePair<string, string>(teacherId, teacherName));
             teacherList.Sort((a, b) => a.Value.CompareTo(b.Value));
         }
+
+        public Stream GetStudentPhoto(string studentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddStudentPhoto(string studentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStudentPhoto(string studentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Stream GetTeacherPhoto(string teacherId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddTeacherPhoto(string studentId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTeacherPhoto(string studentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
