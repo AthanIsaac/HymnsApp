@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HymnsApp.EditAddTeacher">
-    <ContentPage.Content>
+    <ContentPage.Content>   
         <StackLayout>
             <!--string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday-->
             <ImageButton x:Name ="Picture" 

@@ -1,5 +1,4 @@
-﻿using Android.App;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +7,7 @@ using Plugin.Media;
 using Xamarin.Forms.Xaml;
 using System.Threading.Tasks;
 using Plugin.Media.Abstractions;
+using System.IO;
 
 namespace HymnsApp
 {
@@ -18,6 +18,8 @@ namespace HymnsApp
         readonly bool Add;
         readonly string ClassName;
         readonly string id;
+        private Stream ImageStream;
+
         public EditAddStudent(HymnsAttendance attendance, string id, string name, string className, bool add)
         {
             ToolbarItem item = new ToolbarItem();
@@ -41,6 +43,7 @@ namespace HymnsApp
             Attendance = attendance;
             NameEntry.Text = name;
             this.id = id;
+            Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
             if (!add)
             {
                 string[] info = Attendance.GetStudentInfo(id);
@@ -50,11 +53,17 @@ namespace HymnsApp
                 
                 ParentNameEntry.Text = info[3];
                 string num = info[4];
-                ParentPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6); 
+                ParentPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                //if no picture,take
+                
+                               //if picure offer 
+
+
+         
 
                 //MM/dd
                 BirthdayEntry.Text = info[5];
-                Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
+                
 
             }
 
@@ -125,7 +134,10 @@ namespace HymnsApp
         {
             
             string name = Capitalize(NameEntry.Text.Trim());
-            CheckInputs(name);
+            if (false)//!(await CheckInputsAsync(name)))
+            {
+                return;
+            }
             String[] birthday = BirthdayEntry.Text.Split('/');
             if (!Add)
             {
@@ -134,45 +146,94 @@ namespace HymnsApp
                 //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
                 // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
                 Attendance.EditStudent(id, classes, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-
+                Attendance.AddStudentPhoto(id, ImageStream);
+                ImageStream.Dispose();
                 Navigation.PopAsync();
                 return;
             }
             // submit
                 // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
                 Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-
+                
                 Navigation.PopAsync();
             
 
         }
 
-        public void CheckInputs(string name) {
-            if (Attendance.StudentsOfGrade(ClassName).Select(a => a.Value).Contains(name))
+        public async Task<bool> CheckInputsAsync(string name) {
+            if (Attendance.StudentsOfGrade(ClassName).Select(b => b.Value).Contains(name))
             {
-                DisplayAlert("Error", "This student already exists in this grade", "ok");
-            }
-            if (string.IsNullOrEmpty(NameEntry.Text.ToString()))
-            {
-
-                DisplayAlert("Error", "Student Name is a Required Field", "ok");
-            }
-            if (string.IsNullOrEmpty(ParentNameEntry.Text.ToString()))
-            {
-
-                DisplayAlert("Error", "Parent Name is a Required Field", "ok");
-            }
-            if (string.IsNullOrEmpty(ParentPhoneEntry.Text.ToString()))
-            {
-
-                DisplayAlert("Error", "Parent Phone is a Required Field", "ok");
-            }
-            if (string.IsNullOrEmpty(BirthdayEntry.Text.ToString()))
-            {
-
-                DisplayAlert("Error", "Student Birthday is a Required Field", "ok");
+                await DisplayAlert("Error", "1This student already exists in this grade", "ok");
+                return false;
             }
 
+            if (string.IsNullOrEmpty(NameEntry.Text))
+            {
+                await DisplayAlert("Error", "2Student Name is a Required Field", "ok");
+                return false;
+            }
+
+            if (!NameEntry.Text.Trim().Contains(" "))
+            {
+                await DisplayAlert("Error", "3First and Last Name are Required. ", "ok");
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(StdPhoneEntry.Text) && StdPhoneEntry.Text.Length != 10)
+            {
+                await DisplayAlert("Error", "4Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (!int.TryParse(StdPhoneEntry.Text,out int a))
+            {
+                await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(ParentNameEntry.Text))
+            {
+                await DisplayAlert("Error", "6Parent Name is a Required Field", "ok");
+                return false;
+            }
+
+            if (!ParentNameEntry.Text.Trim().Contains(" "))
+            {
+                await DisplayAlert("Error", "7First and Last Name are Required. ", "ok");
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(ParentPhoneEntry.Text) && ParentPhoneEntry.Text.Length != 10)
+            {
+                await DisplayAlert("Error", "8Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (!int.TryParse(ParentPhoneEntry.Text, out a))
+            {
+                await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(BirthdayEntry.Text))
+            {
+                await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
+                return false;
+            }
+            
+            if (BirthdayEntry.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            {
+                await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
+                return false;
+            }
+
+            if (!int.TryParse(GradeEntry.Text, out a) || a < 0 || a > 12)
+            {
+                await DisplayAlert("Error", "12Invalid Grade.", "ok");
+                return false;
+            }
+
+            return true;
 
         }
 
@@ -198,10 +259,10 @@ namespace HymnsApp
             Picture.Source = ImageSource.FromStream(() =>
             {
                 var stream = file.GetStream();
-                file.Dispose();
+                // file.Dispose();
                 return stream;
             });
-
+            ImageStream = file.GetStream();
         }
 
 
