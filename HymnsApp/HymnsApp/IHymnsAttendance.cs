@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HymnsApp
 {
@@ -146,16 +147,16 @@ namespace HymnsApp
         /// <param name="birthday">The teacher's birthday</param>
         void AddTeacher(string teacherName, string teacherPhone, DateTime birthday /*photo*/);
 
-        System.IO.Stream GetStudentPhoto(string studentId);
+        Stream GetStudentPhoto(string studentId);
 
-        void AddStudentPhoto(string studentId);
+        void AddStudentPhoto(string studentId, Stream photo);
 
-        void UpdateStudentPhoto(string studentId);
+        void UpdateStudentPhoto(string studentId, Stream photo);
 
         System.IO.Stream GetTeacherPhoto(string teacherId);
 
-        void AddTeacherPhoto(string studentId);
-        void UpdateTeacherPhoto(string studentId);
+        void AddTeacherPhoto(string studentId, Stream photo);
 
+        void UpdateTeacherPhoto(string studentId, Stream photo);
     }
 }

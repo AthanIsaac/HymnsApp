@@ -555,15 +555,19 @@ namespace HymnsApp
 
         public Stream GetStudentPhoto(string studentId)
         {
-            throw new NotImplementedException();
+            var student = Students[studentId];
+            if (student.ContainsField("photo"))
+                return new MemoryStream(student.GetValue<byte[]>("photo"));
+            else
+                return null;
         }
 
-        public void AddStudentPhoto(string studentId)
+        public void AddStudentPhoto(string studentId, Stream photo)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void UpdateStudentPhoto(string studentId)
+        public void UpdateStudentPhoto(string studentId, Stream photo)
         {
             throw new NotImplementedException();
         }
@@ -573,12 +577,12 @@ namespace HymnsApp
             throw new NotImplementedException();
         }
 
-        public void AddTeacherPhoto(string studentId)
+        public void AddTeacherPhoto(string studentId, Stream photo)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateTeacherPhoto(string studentId)
+        public void UpdateTeacherPhoto(string studentId, Stream photo)
         {
             throw new NotImplementedException();
         }
