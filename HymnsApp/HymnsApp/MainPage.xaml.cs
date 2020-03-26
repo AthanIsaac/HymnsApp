@@ -113,7 +113,7 @@ namespace HymnsApp
 
         private void Curriculum_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CurriculumPage());
+            Navigation.PushAsync(new CurriculumPage(Attendance));
         }
     }
 }
