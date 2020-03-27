@@ -256,7 +256,7 @@ namespace HymnsApp
                     return;
             }
 
-            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() {AllowCropping = true, CompressionQuality = 92, CustomPhotoSize = 90 });
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() {AllowCropping = true, CompressionQuality = 5, CustomPhotoSize = 90 });
 
 
             if (file == null)
