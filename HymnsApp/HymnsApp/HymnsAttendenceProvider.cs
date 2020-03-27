@@ -572,7 +572,6 @@ namespace HymnsApp
                 s.Add("photo", memoryStream.ToArray());
             }
             db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll).Wait();
-            
         }
 
         public Stream GetTeacherPhoto(string teacherId)
@@ -592,7 +591,7 @@ namespace HymnsApp
                 photo.CopyTo(memoryStream);
                 t.Add("photo", memoryStream.ToArray());
             }
-            db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll);
+            db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll).Wait();
         }
 
 
