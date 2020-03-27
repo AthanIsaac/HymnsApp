@@ -256,7 +256,7 @@ namespace HymnsApp
                     return;
             }
 
-            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
+            var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() {AllowCropping = true, CompressionQuality = 92, CustomPhotoSize = 90 });
 
 
             if (file == null)
@@ -265,6 +265,7 @@ namespace HymnsApp
 
             var picture = file.GetStream();
 
+            
        
            //case:Edit
             Attendance.AddStudentPhoto(id, picture);
@@ -280,8 +281,6 @@ namespace HymnsApp
             ImageStream = file.GetStream();
         }
 
-
-
         // Credit: Nardin
         private string Capitalize(string name)
         {
@@ -296,6 +295,10 @@ namespace HymnsApp
                 name += ' ' + s[1];
             }
             return name;
+        }
+
+        private void SwitchToTeacherButton_OnClicked(object sender, EventArgs e) { 
+        
         }
 
         private void BirthdayEntry_TextChanged(object sender, TextChangedEventArgs e)

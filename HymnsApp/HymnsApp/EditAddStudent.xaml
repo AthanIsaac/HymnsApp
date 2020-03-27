@@ -10,26 +10,23 @@
         <ToolbarItem Text="                    " />
         <ToolbarItem Text="Submit" Clicked="ToolbarItem_Clicked"/>
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-
-
-                <!--Source= "blankprofile.png"-->
                 <ImageButton x:Name ="Picture"
                                  Clicked="PictureButton_OnClicked"
                                   HeightRequest="400"
                                   WidthRequest="400"/>
-                                 
-                    <Label Text="Student's Name:"
+
+                <Label Text="Student's Name:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                    <Entry x:Name="NameEntry"
+                <Entry x:Name="NameEntry"
                            Placeholder="Student's Name"
                            IsSpellCheckEnabled = "True"
                            IsTextPredictionEnabled = "True"/>
-                    <Label Text="Student's Phone Number:"
+                <Label Text="Student's Phone Number:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
                 <Entry x:Name="StdPhoneEntry"
@@ -42,23 +39,23 @@
                             Keyboard="Numeric"
                            Placeholder="MM/DD" 
                            TextChanged="BirthdayEntry_TextChanged"/>
-                    <Label Text="Grade:"
+                <Label Text="Grade:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                    <Entry x:Name="GradeEntry" 
+                <Entry x:Name="GradeEntry" 
                            Keyboard="Numeric" 
                            Placeholder="Grade" />
-                    <Label Text="Parent's Name:"
+                <Label Text="Parent's Name:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                    <Entry x:Name="ParentNameEntry"
+                <Entry x:Name="ParentNameEntry"
                            Placeholder="Parent's Name" 
                            IsSpellCheckEnabled = "True"
                            IsTextPredictionEnabled = "True"/>
-                    <Label Text="Parent's Phone Number:"
+                <Label Text="Parent's Phone Number:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                    <Entry x:Name="ParentPhoneEntry"
+                <Entry x:Name="ParentPhoneEntry"
                            Keyboard="Telephone" 
                            Placeholder="Parent's Phone Number" />
                 <Label Text="Hymns Class"
@@ -71,7 +68,11 @@
                 HorizontalOptions="CenterAndExpand"
                 WidthRequest="250"/>
 
+                <Button x:Name="SwitchToTeacher"
+                        Text="or Add a Teacher"
+                        Clicked="SwitchToTeacherButton_OnClicked"/>
             </StackLayout>
         </ScrollView>
+
     </ContentPage.Content>
 </ContentPage>
