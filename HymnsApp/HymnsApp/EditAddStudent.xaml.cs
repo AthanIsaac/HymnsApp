@@ -33,10 +33,19 @@ namespace HymnsApp
                 item.Text = "Add Student";
 
 
-            }            
+            }     
+            
             // "this" refers to a Page object
             this.ToolbarItems.Add(item);
             InitializeComponent();
+
+            Picture.Source = ImageSource.FromStream(() =>
+            {
+                var stream = Attendance.GetStudentPhoto(id);
+                return stream;
+            });
+           // Picture.s = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+
             name = name == null ? "" : name.ToLower();
             Add = add;
             ClassName = className;
@@ -54,12 +63,7 @@ namespace HymnsApp
                 ParentNameEntry.Text = info[3];
                 string num = info[4];
                 ParentPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
-                //if no picture,take
-                
-                               //if picure offer 
-
-
-         
+        
 
                 //MM/dd
                 BirthdayEntry.Text = info[5];
@@ -141,13 +145,21 @@ namespace HymnsApp
             String[] birthday = BirthdayEntry.Text.Split('/');
             if (!Add)
             {
-                string classes = Classes.SelectedItem.ToString();
+                string classes = "";
+                if (Classes.SelectedItem == null)
+                {
+                    classes = ClassName;
+                }
+                else 
+                {
+                    classes = Classes.SelectedItem.ToString();
+                }
                 
                 //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
                 // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
                 Attendance.EditStudent(id, classes, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-                Attendance.AddStudentPhoto(id, ImageStream);
-                ImageStream.Dispose();
+                //Attendance.AddStudentPhoto(id, ImageStream);
+                //ImageStream.Dispose();
                 Navigation.PopAsync();
                 return;
             }
@@ -243,31 +255,26 @@ namespace HymnsApp
                 await DisplayAlert("No Camera", "No Camera Availible", "OK");
                     return;
             }
-            var a = new StoreCameraMediaOptions() { };
-            var photo = await CrossMedia.Current.TakePhotoAsync(a);
-
-            if (photo != null)
-                Picture.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
 
             var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions() { });
+
 
             if (file == null)
                 return;
 
+
             var picture = file.GetStream();
 
-            //crop
-            //Picture.HeightRequest{400}  ;
-            //Picture.WidthRequest{400};
-           
+       
+           //case:Edit
             Attendance.AddStudentPhoto(id, picture);
 
-            //Label path = new Label { Text = file.AlbumPath };
 
+            //Label path = new Label { Text = file.AlbumPath };
+           
             Picture.Source = ImageSource.FromStream(() =>
             {
                 var stream = picture;
-                // file.Dispose();
                 return stream;
             });
             ImageStream = file.GetStream();

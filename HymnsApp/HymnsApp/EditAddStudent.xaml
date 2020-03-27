@@ -14,9 +14,10 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-            
-                     <ImageButton x:Name ="Picture" 
-                                 Source= "blankprofile.png"
+
+
+                <!--Source= "blankprofile.png"-->
+                <ImageButton x:Name ="Picture"
                                  Clicked="PictureButton_OnClicked"
                                   HeightRequest="400"
                                   WidthRequest="400"/>

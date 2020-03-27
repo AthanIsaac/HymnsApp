@@ -11,7 +11,7 @@ namespace HymnsApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
-    
+
     public partial class StudentProfilexaml : ContentPage
     {
         readonly HymnsAttendance Attendance;
@@ -28,7 +28,19 @@ namespace HymnsApp
 
             InitializeComponent();
 
-            Image profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+            Image profilePicture = new Image
+            {
+                Source = ImageSource.FromStream(() =>
+                {
+                    var stream = Attendance.GetStudentPhoto(id);
+                    return stream;
+                })
+            };
+            if(profilePicture == null) 
+            { 
+                profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 }; 
+            }
+
             storeInfo.Children.Add(profilePicture);
             Label lname = new Label { Text = "Student's Name:", TextColor = Color.SteelBlue, FontSize = 23 };
             var ename = new Entry { Text = studentInfo[0], IsReadOnly = true };
@@ -40,7 +52,7 @@ namespace HymnsApp
             storeInfo.Children.Add(lstudentPhone);
             storeInfo.Children.Add(estudentPhone);
 
-            Label lgrade= new Label { Text = "Grade:", TextColor = Color.SteelBlue, FontSize = 23 };
+            Label lgrade = new Label { Text = "Grade:", TextColor = Color.SteelBlue, FontSize = 23 };
             var egrade = new Entry { Text = studentInfo[2], IsReadOnly = true };
             storeInfo.Children.Add(lgrade);
             storeInfo.Children.Add(egrade);
@@ -57,7 +69,7 @@ namespace HymnsApp
 
             Label lbirthday = new Label { Text = "Student's Birthday Number:", TextColor = Color.SteelBlue, FontSize = 23 };
             //for the edit
-            var ebirthday = new Entry { Text = studentInfo[5], IsReadOnly = true};
+            var ebirthday = new Entry { Text = studentInfo[5], IsReadOnly = true };
             storeInfo.Children.Add(lbirthday);
             storeInfo.Children.Add(ebirthday);
 

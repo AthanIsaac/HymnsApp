@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageCircle.Forms.Plugin.Abstractions;
+using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -41,11 +42,24 @@ namespace HymnsApp
 
             for (int i = 0; i < students.Count; i++)
             {
-                InfoGrid.Children.Add(new Image 
-                { Source = "blankProfile.png",
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center,
-                }, 0, i);
+
+                CircleImage profilePicture = new CircleImage
+                {
+                    Source = ImageSource.FromStream(() =>
+                    {
+                        var stream = Attendance.GetStudentPhoto(students[i].Key); 
+                        return stream;
+                    })
+                };
+                if (profilePicture == null)
+                {
+                    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+                }
+
+                profilePicture.HorizontalOptions = LayoutOptions.Center;
+                profilePicture.VerticalOptions = LayoutOptions.Center;
+
+                InfoGrid.Children.Add(profilePicture, 0, i);
 
                 InfoGrid.Children.Add(new Label()
                 {
@@ -93,8 +107,24 @@ namespace HymnsApp
             int index = 0;
             for (int i = students.Count; i < total; i++)
             {
-               
-                InfoGrid.Children.Add(new Image { Source = "blankProfile.png", HeightRequest = 10 }, 0, i);
+
+                CircleImage profilePicture = new CircleImage
+                {
+                    Source = ImageSource.FromStream(() =>
+                    {
+                        var stream = Attendance.GetTeacherPhoto(students[index].Key); 
+                        return stream;
+                    })
+                };
+                if (profilePicture == null)
+                {
+                    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+                }
+
+                profilePicture.HorizontalOptions = LayoutOptions.Center;
+                profilePicture.VerticalOptions = LayoutOptions.Center;
+
+                InfoGrid.Children.Add(profilePicture, 0, i);
 
                 InfoGrid.Children.Add(new Label()
                 {
@@ -147,21 +177,8 @@ namespace HymnsApp
             Label sl = b.CommandParameter as Label;
             string id = sl.Text; 
             
-            //if teacher
-            //if(teachers.Contains(id, info[0]))
-
-            //if student
             Navigation.PushAsync(new StudentProfilexaml(Attendance, sl.Text, ClassName));
-            /*
-            Button b = sender as Button;
-            Label sl = b.CommandParameter as Label;
             
-            string id = sl.Text;
-            
-
-            string [] studentInfo = Attendance.GetStudent(id);
-            //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
-            Navigation.PushAsync(new EditAddStudent(Attendance, id, studentInfo[0], ClassName, false)); */
         }
 
         protected override void OnAppearing()

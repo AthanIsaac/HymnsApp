@@ -26,11 +26,11 @@
                 <BoxView Color="SteelBlue"
                          HeightRequest="4"
                          HorizontalOptions="Fill" />
-
-                <Label Text="Happy Birthday To: "
-                       HorizontalTextAlignment="Center"
-                       FontSize="Medium"/>
-
+                <ScrollView>
+                    <Label Text="Happy Birthday To: "
+                           HorizontalTextAlignment="Center"
+                           FontSize="Medium"/>
+                </ScrollView>
 
             </StackLayout>
         </Frame>

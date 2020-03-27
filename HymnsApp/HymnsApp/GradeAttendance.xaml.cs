@@ -25,7 +25,7 @@ namespace HymnsApp
             ClassName = className;
             Backup = new List<ViewCell>();
             TeacherBackup = new List<ViewCell>();
-            
+
             InitializeStudents();
             InitializeTeachers();
         }
@@ -35,7 +35,7 @@ namespace HymnsApp
             NamesTable = new TableSection();
             Backup.Clear();
             InGrade = Attendance.StudentsOfGrade(ClassName);
-            
+
             if (InGrade.Count == 0)
             {
                 NotFoundStack.IsVisible = true;
@@ -45,12 +45,14 @@ namespace HymnsApp
             string filter = StudentSearch.Text == null ? "" : StudentSearch.Text.Trim().ToLower();
             foreach (var s in InGrade)
             {
-                ViewCell cell = new ViewCell() { Height = 70,  };
-                
+                ViewCell cell = new ViewCell() { Height = 70, };
+
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
                 sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
 
-                sl.Children.Add(new CircleImage() { Source = "blankprofile.png" });
+                CircleImage ci = GetPhoto(s, true);
+
+                sl.Children.Add(ci);
 
                 CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
 
@@ -66,7 +68,7 @@ namespace HymnsApp
 
                 sl.Children.Add(l);
                 sl.Children.Add(cb);
-                
+
                 cell.View = sl;
 
                 Backup.Add(cell);
@@ -85,13 +87,32 @@ namespace HymnsApp
                     // make visible
                     NamesTable.Add(cell);
                     count++;
-                  
+
                 }
             }
             NamesTableRoot.Clear();
             NamesTableRoot.Add(NamesTable);
 
-            
+
+        }
+
+        private CircleImage GetPhoto(KeyValuePair<string, string> s, bool isStudent)
+        {
+            CircleImage profilePicture = new CircleImage
+            {
+                Source = ImageSource.FromStream(() =>
+                {
+                    var studentstream = Attendance.GetStudentPhoto(s.Key);
+                    return studentstream;
+                })
+            };
+
+            //if (stream == null)
+            //{
+            //    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+
+            //}
+            return profilePicture;
         }
 
         private void InitializeTeachers()
@@ -115,7 +136,7 @@ namespace HymnsApp
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
                 sl.Children.Add(new Label() { Text = t.Key, IsVisible = false });
 
-                sl.Children.Add(new CircleImage() { Source = "blankprofile.png" });
+                sl.Children.Add(GetPhoto(t, false));
 
                 CheckBox cb = new CheckBox() { HorizontalOptions = LayoutOptions.EndAndExpand };
 
@@ -145,9 +166,9 @@ namespace HymnsApp
                     cb.IsChecked = false;
                 }
 
-               // if (t.Value.ToLower().Contains(filter))
+                // if (t.Value.ToLower().Contains(filter))
                 //{
-                    
+
                 //}
                 // make visible
                 TeachersNamesTable.Add(cell);
@@ -258,9 +279,9 @@ namespace HymnsApp
                     if (Backup.Count != i)
                     {
                         var b = Backup[i].View as StackLayout;
-                        q = (b.Children[0] as Label).Text; 
+                        q = (b.Children[0] as Label).Text;
                     }
-                    if (q != InGrade[i].Key) 
+                    if (q != InGrade[i].Key)
                     {
                         ViewCell cell = new ViewCell() { Height = 70 };
                         StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal };
@@ -275,14 +296,14 @@ namespace HymnsApp
                             FontSize = 16
                         };
                         cell.Tapped += TableCell_Tapped;
-                        sl.Children.Add(new Image() { Source = "blankprofile.png" });
+                        sl.Children.Add(GetPhoto(InGrade[i], true));
                         sl.Children.Add(l);
                         sl.Children.Add(cb);
                         cell.View = sl;
 
                         NamesTable.Add(cell);
                         Backup.Insert(i, cell);
-                        
+
                     }
                 }
             }
@@ -314,7 +335,7 @@ namespace HymnsApp
                             FontSize = 16
                         };
                         cell.Tapped += TableCell_Tapped;
-                        sl.Children.Add(new Image() { Source = "blankprofile.png" });
+                        sl.Children.Add(GetPhoto(TeachersInGrade[i], false));
                         sl.Children.Add(l);
                         sl.Children.Add(cb);
                         cell.View = sl;

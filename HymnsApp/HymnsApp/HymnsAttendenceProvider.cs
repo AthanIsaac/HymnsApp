@@ -571,7 +571,8 @@ namespace HymnsApp
                 photo.CopyTo(memoryStream);
                 s.Add("photo", memoryStream.ToArray());
             }
-            db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll);
+            db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll).Wait();
+            
         }
 
         public Stream GetTeacherPhoto(string teacherId)
