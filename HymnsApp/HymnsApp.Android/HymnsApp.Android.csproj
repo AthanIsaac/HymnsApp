@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HymnsApp\HymnsApp.csproj">
-      <Project>{4F16079F-B2B7-4F46-97E6-6DEEFB920221}</Project>
+      <Project>{D48AD3C9-19DC-4D1F-ACE7-7C83050B019B}</Project>
       <Name>HymnsApp</Name>
     </ProjectReference>
   </ItemGroup>
