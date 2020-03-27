@@ -25,8 +25,12 @@ namespace HymnsApp
             ClassName = className;
             string[] studentInfo = Attendance.GetStudentInfo(Id);
             // studentname, studentphone, grade, parentname, parentphone, birthday
+            ToolbarItem item = new ToolbarItem();
+            item.Text = studentInfo[0];
 
             InitializeComponent();
+
+            
 
             Image profilePicture = new Image
             {
@@ -36,9 +40,10 @@ namespace HymnsApp
                     return stream;
                 })
             };
-            if(profilePicture == null) 
-            { 
-                profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 }; 
+
+            if (profilePicture.Source == null)
+            {
+                profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
             }
 
             storeInfo.Children.Add(profilePicture);
@@ -80,5 +85,6 @@ namespace HymnsApp
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
             Navigation.PushAsync(new EditAddStudent(Attendance, Id, studentInfo[0], ClassName, false));
         }
+       
     }
 }

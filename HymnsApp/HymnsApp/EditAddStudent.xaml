@@ -14,6 +14,10 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <Button x:Name="SwitchToTeacher"
+                        Text="or Add a Teacher"
+                        Clicked="SwitchToTeacherButton_OnClicked"
+                        IsVisible = "False"/>
                 <ImageButton x:Name ="Picture"
                                  Clicked="PictureButton_OnClicked"
                                   HeightRequest="400"
@@ -68,9 +72,7 @@
                 HorizontalOptions="CenterAndExpand"
                 WidthRequest="250"/>
 
-                <Button x:Name="SwitchToTeacher"
-                        Text="or Add a Teacher"
-                        Clicked="SwitchToTeacherButton_OnClicked"/>
+                
             </StackLayout>
         </ScrollView>
 
