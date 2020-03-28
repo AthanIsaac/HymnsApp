@@ -43,7 +43,7 @@
                 FontSize="Subtitle" 
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
-                WidthRequest="250"/>
+                WidthRequest="250" SelectedIndexChanged="Classes_SelectedIndexChanged"/>
 
 
             <Button x:Name="Class"

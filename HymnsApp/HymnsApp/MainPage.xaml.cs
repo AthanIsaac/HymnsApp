@@ -12,7 +12,7 @@ namespace HymnsApp
     {
         readonly HymnsAttendance Attendance;
         bool ShowError = true;
-        
+        Page Next;
 
         public MainPage(HymnsAttendance attendance)
         {
@@ -98,8 +98,7 @@ namespace HymnsApp
                 }
                 else
                 {
-                    Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance.OrderedClasses[Classes.SelectedIndex]));
-
+                    Navigation.PushAsync(Next);
                 }
             }
         }
@@ -114,6 +113,11 @@ namespace HymnsApp
         private void Curriculum_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new CurriculumPage(Attendance));
+        }
+
+        private void Classes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Next = new GradeTabbedPage(Attendance, HymnsAttendance.OrderedClasses[Classes.SelectedIndex]);
         }
     }
 }

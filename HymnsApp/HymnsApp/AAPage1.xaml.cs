@@ -17,12 +17,13 @@ namespace HymnsApp
             InitializeComponent();
             Attendance = attendance;
             ClassName = className;
-            InitGrid();
         }
 
         private void InitGrid()
         {
             var students = Attendance.StudentsOfGrade(ClassName);
+
+            InfoStack.Children.Clear();
 
             for (int i = 0; i < students.Count; i++)
             {
@@ -34,13 +35,13 @@ namespace HymnsApp
                     {
                         return stream;
                     }),
-                    HeightRequest = 200,
-                    WidthRequest = 200
+                    HeightRequest = 50,
+                    WidthRequest = 50
                 };
 
                 if (stream == null)
                 {
-                    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 200, WidthRequest = 200 };
+                    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 50, WidthRequest = 50 };
                 }
 
                 profilePicture.HorizontalOptions = LayoutOptions.Center;
@@ -95,7 +96,11 @@ namespace HymnsApp
                         new ColumnDefinition() { Width = new GridLength(4, GridUnitType.Star) },
                         new ColumnDefinition() { Width = new GridLength(2, GridUnitType.Star) },
                         new ColumnDefinition() { Width = new GridLength(2, GridUnitType.Star) }
-                    }, 
+                    },
+                    RowDefinitions = new RowDefinitionCollection()
+                    {
+                        new RowDefinition() { Height = new GridLength(75, GridUnitType.Absolute) }
+                    },
                     BackgroundColor = Color.White
                 };
 
@@ -112,17 +117,40 @@ namespace HymnsApp
                     Content = grid
                 };
                 InfoStack.Children.Add(swipeView);
+                InfoStack.Children.Add(new BoxView
+                {
+                    Color = Color.LightGray,
+                    BackgroundColor = Color.LightGray,
+                    HeightRequest = 0.5,
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    VerticalOptions = LayoutOptions.Center
+                });
             }
         }
 
-        private async void InfoSwipeItem_Clicked(object sender, EventArgs e)
+        private void InfoSwipeItem_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Success", "Go to info page", "ok");
+            SwipeItem s = sender as SwipeItem;
+            Label label = s.CommandParameter as Label;
+            Navigation.PushAsync(new StudentProfilexaml(Attendance, label.Text.Split(';')[0], ClassName));
         }
 
-        private async void SwipeItem_Clicked(object sender, EventArgs e)
+        private void SwipeItem_Clicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Success", "Go to edit page", "ok");
+            SwipeItem s = sender as SwipeItem;
+            Label label = s.CommandParameter as Label;
+            string[] idname = label.Text.Split(';');
+            Navigation.PushAsync(new EditAddStudent(Attendance, idname[0], idname[1], ClassName, false));
+        }
+
+        protected override void OnAppearing()
+        {
+            InitGrid();
+        }
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            //bug: HymnsAttendance attendance, string id, string name, string className, bool add
+            Navigation.PushAsync(new EditAddStudent(Attendance, "", "", ClassName, true));
         }
     }
 }
