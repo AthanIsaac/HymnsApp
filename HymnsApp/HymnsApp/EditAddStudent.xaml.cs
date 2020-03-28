@@ -53,9 +53,9 @@ namespace HymnsApp
             Attendance = attendance;
             NameEntry.Text = name;
             this.id = id;
-            Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
 
-            //purely edit
+            Classes.ItemsSource = ClassesToInterface(HymnsAttendance.OrderedClasses);
+
             if (!add)
             {
                 string[] info = Attendance.GetStudentInfo(id);
@@ -74,7 +74,7 @@ namespace HymnsApp
             }
         }
 
-        public string[] classesToInterface(string[] dbClasses)
+        public string[] ClassesToInterface(string[] dbClasses)
         {
             string[] visualClasses = new string[dbClasses.Length];
 
@@ -288,7 +288,6 @@ namespace HymnsApp
                 var stream = picture;
                 return stream;
             });
-            //ImageStream = file.GetStream();
         }
 
         // Credit: Nardin

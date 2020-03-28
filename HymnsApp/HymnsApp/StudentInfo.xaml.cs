@@ -12,8 +12,8 @@ namespace HymnsApp
     {
         readonly HymnsAttendance Attendance;
         readonly string ClassName;
-        private IList<KeyValuePair<string, string>> students;
-        private IList<KeyValuePair<string, string>> teachers; 
+        private readonly IList<KeyValuePair<string, string>> students;
+        private readonly IList<KeyValuePair<string, string>> teachers; 
 
         public StudentInfo(HymnsAttendance attendance, string className)
         {
@@ -42,19 +42,21 @@ namespace HymnsApp
 
             for (int i = 0; i < students.Count; i++)
             {
+                var stream = Attendance.GetStudentPhoto(students[i].Key);
 
                 CircleImage profilePicture = new CircleImage
                 {
                     Source = ImageSource.FromStream(() =>
                     {
-                        var stream = Attendance.GetStudentPhoto(students[i].Key); 
                         return stream;
                     })
                 };
-                if (profilePicture == null)
+
+                if (stream == null)
                 {
                     profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
                 }
+                
 
                 profilePicture.HorizontalOptions = LayoutOptions.Center;
                 profilePicture.VerticalOptions = LayoutOptions.Center;
@@ -175,7 +177,6 @@ namespace HymnsApp
         {
             Button b = sender as Button;
             Label sl = b.CommandParameter as Label;
-            string id = sl.Text; 
             
             Navigation.PushAsync(new StudentProfilexaml(Attendance, sl.Text, ClassName));
             
