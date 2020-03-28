@@ -16,8 +16,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:Name="storeInfo">
-
-
+                
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
