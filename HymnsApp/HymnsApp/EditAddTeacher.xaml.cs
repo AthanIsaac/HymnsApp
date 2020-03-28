@@ -118,8 +118,6 @@ namespace HymnsApp
 
         }
 
-
-
         // Credit: Nardin
         private string Capitalize(string name)
         {

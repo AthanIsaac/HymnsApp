@@ -30,18 +30,19 @@ namespace HymnsApp
 
             InitializeComponent();
 
-            
 
+            var stream = Attendance.GetStudentPhoto(id);
             Image profilePicture = new Image
             {
+
                 Source = ImageSource.FromStream(() =>
                 {
-                    var stream = Attendance.GetStudentPhoto(id);
+                   
                     return stream;
                 })
             };
 
-            if (profilePicture.Source == null)
+            if (stream == null)
             {
                 profilePicture = new Image { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
             }

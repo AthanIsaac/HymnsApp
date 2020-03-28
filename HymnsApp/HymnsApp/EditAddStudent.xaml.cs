@@ -60,6 +60,7 @@ namespace HymnsApp
             {
                 string[] info = Attendance.GetStudentInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
+                
                 StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
                 
