@@ -8,6 +8,7 @@ using Android.Widget;
 using Plugin.Media;
 using Android.OS;
 using Plugin.CurrentActivity;
+using Xamarin.Forms;
 
 namespace HymnsApp.Droid
 {
@@ -16,6 +17,7 @@ namespace HymnsApp.Droid
     {
         protected async override void OnCreate(Bundle savedInstanceState)
         {
+            Forms.SetFlags("SwipeView_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
