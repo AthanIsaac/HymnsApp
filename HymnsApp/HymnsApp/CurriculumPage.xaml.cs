@@ -31,11 +31,12 @@ namespace HymnsApp
 
             for (int i = 0; i < cur.Length; i++)
             {
-                Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion() { Title = "" };
-                //Curriculum.Children.Add(new Label { Text = "next class" });
+                Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion() { Title = "Nextclass" };
+                StackLayout sl = new StackLayout();
                 for (int j = 0; j < cur[i].Length; j++)
                 {
-                    //Curriculum.Children.Add(new Label { Text = cur[i][j] });
+                    sl.Children.Add(new Label { Text = cur[i][j] });
+                    
                 }
             }
         }
