@@ -45,7 +45,9 @@
                            Placeholder="Month" 
                      
                            HorizontalOptions="Center"/>
-                    <Label Text="/"/>
+                    <Label Text="/"
+                           FontSize="Large"
+                           TextColor="SteelBlue"/>
                     <Entry x:Name="BirthdayDay"
                             Keyboard="Numeric"
                            Placeholder="Day" 
@@ -77,8 +79,8 @@
                 <Picker x:Name="Classes" 
                 Title="Select a Class"
                 FontSize="Large" 
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="StartAndExpand"
                 WidthRequest="250"/>
 
                 
