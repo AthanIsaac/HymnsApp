@@ -146,7 +146,7 @@ namespace HymnsApp
             }*/
 
             int count = 0;
-            //string filter = StudentSearch.Text == null ? "" : StudentSearch.Text.Trim().ToLower();
+            string filter = StudentSearch.Text == null ? "" : StudentSearch.Text.Trim().ToLower();
             foreach (var t in TeachersInGrade)
             {
                 ViewCell cell = new ViewCell() { Height = 70, };
@@ -184,13 +184,11 @@ namespace HymnsApp
                     cb.IsChecked = false;
                 }
 
-                // if (t.Value.ToLower().Contains(filter))
-                //{
-
-                //}
-                // make visible
-                TeachersNamesTable.Add(cell);
-                count++;
+                if (t.Value.ToLower().Contains(filter))
+                {
+                    TeachersNamesTable.Add(cell);
+                    count++;
+                }
             }
             NamesTableRoot.Clear();
             TeachersNamesTable.Add(new ViewCell() { View = new Label { BackgroundColor = Color.LightGray } });
@@ -205,40 +203,48 @@ namespace HymnsApp
 
         private void StudentSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            InitializeStudents();
-            /*NamesTable = new TableSection();
-            List<ViewCell> visible = new List<ViewCell>();
-            string filter = StudentSearch.Text.Trim().ToLower();
-            int count = 0;
-            foreach (ViewCell c in Backup)
+            if (e.OldTextValue.Length < e.NewTextValue.Length)
             {
-                StackLayout s = c.View as StackLayout;
-                Label l = s.Children[2] as Label;
-                if (l.Text.ToLower().Contains(filter))
-                {
-                    // make visible
-                    s.Children[1] = GetPhoto(new KeyValuePair<string, string>((s.Children[0] as Label).Text, l.Text), true);
-                    visible.Add(c);
-                    count++;
-                }
-            }
-            foreach (ViewCell v in visible)
-            {
-                NamesTable.Add(v);
-            }
-
-            if (count == 0)
-            {
-                // there are no students that match this filter
-                NotFoundStack.IsVisible = true;
+                InGrade = Attendance.StudentsOfGrade(ClassName);
+                InitializeTeachers();
+                InitializeStudents();
             }
             else
             {
-                NotFoundStack.IsVisible = false;
+                NamesTable = new TableSection();
+                List<ViewCell> visible = new List<ViewCell>();
+                string filter = StudentSearch.Text.Trim().ToLower();
+                int count = 0;
+                foreach (ViewCell c in Backup)
+                {
+                    StackLayout s = c.View as StackLayout;
+                    Label l = s.Children[2] as Label;
+                    if (l.Text.ToLower().Contains(filter))
+                    {
+                        // make visible
+                        s.Children[1] = GetPhoto(new KeyValuePair<string, string>((s.Children[0] as Label).Text, l.Text), true);
+                        visible.Add(c);
+                        count++;
+                    }
+                }
+                foreach (ViewCell v in visible)
+                {
+                    NamesTable.Add(v);
+                }
+
+                if (count == 0)
+                {
+                    // there are no students that match this filter
+                    NotFoundStack.IsVisible = true;
+                }
+                else
+                {
+                    NotFoundStack.IsVisible = false;
+                }
+                NamesTableRoot.Clear();
+                NamesTableRoot.Add(NamesTable);
+                Scroll.ScrollToAsync(0, 0, false);
             }
-            NamesTableRoot.Clear();
-            NamesTableRoot.Add(NamesTable);
-            Scroll.ScrollToAsync(0, 0, false);*/
         }
 
         private async void SubmitAttendance_Clicked(object sender, EventArgs e)
