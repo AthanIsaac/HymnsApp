@@ -82,7 +82,7 @@ namespace HymnsApp
 
             Label lbirthday = new Label { Text = "Student's Birthday:", TextColor = Color.SteelBlue, FontSize = 23 };
             var ebirthdayMonth = new Entry { Text = studentInfo[5].Substring(0, slash), IsReadOnly = true };
-            Label slashText = new Label() { Text = "/" };
+            Label slashText = new Label() { Text = "/" , FontSize = 23, TextColor = Color.SteelBlue};
             var ebirthdayDay = new Entry { Text = studentInfo[5].Substring(slash + 1), IsReadOnly = true };
 
             slbirthday.Children.Add(ebirthdayMonth);
