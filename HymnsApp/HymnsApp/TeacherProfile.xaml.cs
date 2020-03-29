@@ -52,16 +52,81 @@ namespace HymnsApp
             storeInfo.Children.Add(ename);
 
             Label lPhone = new Label { Text = "Teacher's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var ePhone = new Entry { Text = teacherInfo[1], IsReadOnly = true };
+            string num = teacherInfo[1];
+            string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+            var ePhone = new Entry { Text = parsed, IsReadOnly = true };
             storeInfo.Children.Add(lPhone);
             storeInfo.Children.Add(ePhone);
 
-            Label lbirthday = new Label { Text = "Teacher's Birthday Number:", TextColor = Color.SteelBlue, FontSize = 23 };
-            //for the edit
-            var ebirthday = new Entry { Text = teacherInfo[2], IsReadOnly = true };
+            StackLayout slbirthday = new StackLayout() {Orientation = StackOrientation.Horizontal, Spacing = 10 };
+            int slash = teacherInfo[2].IndexOf("/");
+
+            Label lbirthday = new Label { Text = "Teacher's Birthday:", TextColor = Color.SteelBlue, FontSize = 23 };
+            var ebirthdayMonth = new Entry { Text = teacherInfo[2].Substring(0, slash), IsReadOnly = true };
+            Label slashText = new Label() { Text = "/" };
+            var ebirthdayDay = new Entry { Text = teacherInfo[2].Substring(slash + 1), IsReadOnly = true };
+
+            slbirthday.Children.Add(ebirthdayMonth);
+            slbirthday.Children.Add(slashText);
+            slbirthday.Children.Add(ebirthdayDay);
+
             storeInfo.Children.Add(lbirthday);
-            storeInfo.Children.Add(ebirthday);
+            storeInfo.Children.Add(slbirthday);
+            
+
+            Label lclassName = new Label { Text = "Teacher's Class:", TextColor = Color.SteelBlue, FontSize = 23 };
+            //for the edit
+            var eclassName = new Entry { Text = parseName(ClassName), IsReadOnly = true };
+            storeInfo.Children.Add(lclassName);
+            storeInfo.Children.Add(eclassName);
         }
+
+        private string parseName(string c) 
+        {
+            if (c.Contains("kindergarten"))
+            {
+                c = "Kindergarten";
+                return c;
+            }
+
+            if (c.Contains("highSchool"))
+            {
+                c = "HighSchool";
+                return c;
+            }
+            if (c.Contains("Grade"))
+            {
+                int index = c.IndexOf("Grade");
+                c = c.Substring(0, index) + " " + c.Substring(index);
+
+                if (c.Contains("&"))
+                {
+                    int ampersand = c.IndexOf("&");
+                    c = c.Substring(0, ampersand) + " & " + c.Substring(ampersand + 1);
+                }
+                return c;
+            }
+
+            else
+            {
+                //really inefficent, find better way
+                for (int j = 0; j < c.Length; j++)
+                {
+
+                    if (char.IsUpper(c[j]))
+                    {
+                        c = c.Substring(0, j) + " " + c.Substring(j);
+                        j++;
+                    }
+
+
+                }
+
+                c = c.Replace("m", "M");
+                return c;
+            }
+        
+    }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {

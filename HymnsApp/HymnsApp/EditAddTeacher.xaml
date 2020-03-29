@@ -5,6 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HymnsApp.EditAddTeacher">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="                    " />
+        <ToolbarItem Text="Submit" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
@@ -32,23 +37,31 @@
                 <Label Text="Teacher's Birthday:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="10">
                     <Entry x:Name="BirthdayMonth"
                             Keyboard="Numeric"
                            Placeholder="Month" 
-                           TextChanged="BirthdayEntry_TextChanged"/>
-
+                
+                           HorizontalOptions="Center"/>
+                    <Label Text="/"/>
                     <Entry x:Name="BirthdayDay"
                             Keyboard="Numeric"
                            Placeholder="Day" 
-                           TextChanged="BirthdayEntry_TextChanged"/>
+                       
+                           HorizontalOptions="Center"/>
+                    
                 </StackLayout>
+                
                 
                 <Label Text="Class Name:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                <Entry x:Name="ClassEntry"
-                           Placeholder="Class Name" />
+                <Picker x:Name="Classes" 
+                Title="Select a Class"
+                FontSize="Large" 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="250"/>
 
 
             </StackLayout>
