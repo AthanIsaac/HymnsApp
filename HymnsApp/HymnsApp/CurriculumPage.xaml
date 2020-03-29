@@ -2,17 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
+             xmlns:local="clr-namespace:Accordion.CustomControls"
              x:Class="HymnsApp.CurriculumPage">
+    <ContentPage.ToolbarItems >
+        <!--note: make font bigger-->
+        <ToolbarItem Text="Curriculum" />
+        <ToolbarItem Text="                         " />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout x:Name="Curriculum">
-                <Label Text="Curriculum Page Under Construction!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-        </ScrollView>
-        
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <local:Accordion  Title="First Accordion">
+
+                <local:Accordion.AccordionContentView>
+                    <StackLayout>
+                        <Label Text="Here is a simple content"
+                           TextColor="Black"/>
+                        <Label Text="Today is saturday and we are going to code till it gets dark."
+                           TextColor="Gray"/>
+                        <Button Text="Click Here"/>
+                    </StackLayout>
+                </local:Accordion.AccordionContentView>
+
+                <local:Accordion.IndicatorView>
+                    <Label Text="&#xf078;" FontSize="Large"/>
+                </local:Accordion.IndicatorView>
+
+            </local:Accordion>
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

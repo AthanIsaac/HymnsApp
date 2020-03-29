@@ -10,13 +10,10 @@
         <!--note: make font bigger-->
         <ToolbarItem Text="Friday School of Hymns" />
         <ToolbarItem Text="                         " />
-
     </ContentPage.ToolbarItems>
     <StackLayout Spacing ="5" Padding="10">
 
         <Image Source="HymnsLogoCrop.png" HeightRequest="200"/>
-
-
 
         <Frame BorderColor="Gray" CornerRadius="5" Padding="15">
             <StackLayout x:Name="birthdays" Spacing="15" >
@@ -25,90 +22,46 @@
                        FontAttributes="Bold" 
                        HorizontalTextAlignment="Center" />
                 <BoxView Color="SteelBlue"
-                         HeightRequest="4"
-                         HorizontalOptions="Fill" />
+                       HeightRequest="4"
+                       HorizontalOptions="Fill" />
                  
                 <ScrollView HorizontalOptions="FillAndExpand">
                     <StackLayout>
                         <Label Text="Happy Birthday to:"
-                               HorizontalTextAlignment = "Center"
-                               FontSize="Medium"/>
+                            HorizontalTextAlignment = "Center"
+                            FontSize="Medium"/>
                         <StackLayout Orientation="Horizontal" Padding="40,0,40,0">
                             <StackLayout Orientation="Vertical" x:Name="LeftStack" />
                             <StackLayout Orientation="Vertical" x:Name="RightStack" HorizontalOptions="EndAndExpand" />
                         </StackLayout>
                     </StackLayout>
-                    
                 </ScrollView>
-
             </StackLayout>
         </Frame>
         
-        
-        
         <StackLayout Spacing = "20" Padding="15">
             <Picker x:Name="Classes" 
-<<<<<<< HEAD
                 Title="Select the Class for Attendance"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
                 WidthRequest="330"/>
 
-
             <Button x:Name="Class"
-            Text="Next"
-            FontSize="Medium"
-            BackgroundColor="SteelBlue"
-            WidthRequest="300"
-            HeightRequest="50"
-            BorderRadius="10"
-            BorderWidth="2"
-            BorderColor="SteelBlue"
-            TextColor="White"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Clicked="NextButton_Clicked"/>
+                Text="Next"
+                FontSize="Medium"
+                BackgroundColor="SteelBlue"
+                WidthRequest="300"
+                HeightRequest="50"
+                BorderRadius="10"
+                BorderWidth="2"
+                BorderColor="SteelBlue"
+                TextColor="White"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Clicked="NextButton_Clicked"/>
 
             <Button x:Name="Curriculum"
-            Text="Curriculum"
-                FontSize="Medium"
-            BackgroundColor="SteelBlue"
-            WidthRequest="300"
-            HeightRequest="50"
-            BorderRadius="10"
-            BorderWidth="2"
-            BorderColor="SteelBlue"
-            TextColor="White"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Clicked="Curriculum_Clicked"/>
-        </StackLayout>
-       
-=======
-                    Title="Select the Class for Attendance"
-                    FontSize="Subtitle" 
-                    VerticalOptions="CenterAndExpand"
-                    HorizontalOptions="CenterAndExpand"
-                    WidthRequest="250" />
-
-
-            <Button x:Name="Class"
-                    Text="Next"
-                    FontSize="Medium"
-                    BackgroundColor="SteelBlue"
-                    WidthRequest="300"
-                    HeightRequest="50"
-                    BorderRadius="10"
-                    BorderWidth="2"
-                    BorderColor="SteelBlue"
-                    TextColor="White"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="CenterAndExpand"
-                    Clicked="NextButton_Clicked"/>
-        </StackLayout>
-        
-        <Button x:Name="Curriculum"
                 Text="Curriculum"
                 FontSize="Medium"
                 BackgroundColor="SteelBlue"
@@ -121,8 +74,6 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"
                 Clicked="Curriculum_Clicked"/>
->>>>>>> f7fef6d6869df4576c9f65d729330c7df2809aad
-
+        </StackLayout>
     </StackLayout>
-
 </ContentPage>
