@@ -38,18 +38,23 @@
                 </ScrollView>
             </StackLayout>
         </Frame>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> a2acd7aff75240fda7934de14b4c823987a9f9a5
         <StackLayout Spacing = "20" Padding="15">
             <Picker x:Name="Classes" 
                 Title="Select the Class for Attendance"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
-                WidthRequest="330"/>
+                WidthRequest="330" Unfocused="Classes_Unfocused"/>
 
             <Button x:Name="Class"
                 Text="Next"
                 FontSize="Medium"
+<<<<<<< HEAD
                 BackgroundColor="SteelBlue"
                 WidthRequest="300"
                 HeightRequest="50"
@@ -74,6 +79,18 @@
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="CenterAndExpand"
                 Clicked="Curriculum_Clicked"/>
+=======
+            BackgroundColor="SteelBlue"
+            WidthRequest="300"
+            HeightRequest="50"
+            BorderRadius="10"
+            BorderWidth="2"
+            BorderColor="SteelBlue"
+            TextColor="White"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            Clicked="Curriculum_Clicked"/>
+>>>>>>> a2acd7aff75240fda7934de14b4c823987a9f9a5
         </StackLayout>
     </StackLayout>
 </ContentPage>

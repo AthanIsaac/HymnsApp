@@ -9,7 +9,7 @@
     <ContentPage.ToolbarItems >
         <!--note: make font bigger-->
         <ToolbarItem Text="Curriculum" />
-        <ToolbarItem Text="                         " />
+        <ToolbarItem Text="                               " />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid>
@@ -21,15 +21,15 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <local:Accordion  Title="First Accordion">
+            <local:Accordion  Title="First Accordion" >
 
                 <local:Accordion.AccordionContentView>
-                    <StackLayout>
-                        <Label Text="Here is a simple content"
+                    <StackLayout x:Name="Kindergarten">
+                        <!--<Label Text="Here is a simple content"
                            TextColor="Black"/>
                         <Label Text="Today is saturday and we are going to code till it gets dark."
                            TextColor="Gray"/>
-                        <Button Text="Click Here"/>
+                        <Button Text="Click Here"/>-->
                     </StackLayout>
                 </local:Accordion.AccordionContentView>
 

@@ -18,23 +18,26 @@ namespace HymnsApp
         {
             InitializeComponent();
             Attendance = attendance;
-            //PrintCurriculum();
+            PrintCurriculum();
+
         }
 
-        
 
-        //public void PrintCurriculum()
-        //{
-        //    var cur = Attendance.GetCurriculum();
 
-        //    for (int i = 0; i < cur.Length; i++)
-        //    {
-        //        Curriculum.Children.Add(new Label { Text = "next class" });
-        //        for (int j = 0; j < cur[i].Length; j++)
-        //        {
-        //            Curriculum.Children.Add(new Label { Text = cur[i][j] });
-        //        }
-        //    }
-        //}
+        public void PrintCurriculum()
+        {
+
+            var cur = Attendance.GetCurriculum();
+
+            for (int i = 0; i < cur.Length; i++)
+            {
+                Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion() { Title = "" };
+                //Curriculum.Children.Add(new Label { Text = "next class" });
+                for (int j = 0; j < cur[i].Length; j++)
+                {
+                    //Curriculum.Children.Add(new Label { Text = cur[i][j] });
+                }
+            }
+        }
     }
 }

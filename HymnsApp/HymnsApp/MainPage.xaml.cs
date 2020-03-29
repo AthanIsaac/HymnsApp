@@ -12,7 +12,7 @@ namespace HymnsApp
     {
         readonly HymnsAttendance Attendance;
         bool ShowError = true;
-        
+        private Page Next;
 
         public MainPage(HymnsAttendance attendance)
         {
@@ -91,8 +91,6 @@ namespace HymnsApp
            return visualClasses;
         }
        
-
-
         private void NextButton_Clicked(object sender, EventArgs e)
         {
             // no item selected
@@ -104,8 +102,14 @@ namespace HymnsApp
                 }
                 else
                 {
-                    Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance.OrderedClasses[Classes.SelectedIndex]));
-
+                    if (Next == null)
+                    {
+                        Navigation.PushAsync(new GradeTabbedPage(Attendance, HymnsAttendance.OrderedClasses[Classes.SelectedIndex]));
+                    }
+                    else
+                    {
+                        Navigation.PushAsync(Next);
+                    } 
                 }
             }
         }
@@ -122,6 +126,16 @@ namespace HymnsApp
             Navigation.PushAsync(new CurriculumPage(Attendance));
         }
 
-        
+        private void Classes_Unfocused(object sender, FocusEventArgs e)
+        {
+            // load the students here
+            if (Classes.SelectedIndex == -1)
+            {
+                Next = null;
+            }else
+            {
+                Next = new GradeTabbedPage(Attendance, HymnsAttendance.OrderedClasses[Classes.SelectedIndex]);
+            }
+        }
     }
 }

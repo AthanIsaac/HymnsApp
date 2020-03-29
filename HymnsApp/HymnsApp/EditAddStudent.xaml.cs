@@ -78,8 +78,55 @@ namespace HymnsApp
                 BirthdayMonth.Text = info[5].Substring(0, slash);
                 BirthdayDay.Text = info[5].Substring(slash + 1);
 
-                Classes.SelectedItem = className;
+                Classes.SelectedItem = parseName(ClassName);
             }
+        }
+
+        private string parseName(string c)
+        {
+            if (c.Contains("kindergarten"))
+            {
+                c = "Kindergarten";
+                return c;
+            }
+
+            if (c.Contains("highSchool"))
+            {
+                c = "HighSchool";
+                return c;
+            }
+            if (c.Contains("Grade"))
+            {
+                int index = c.IndexOf("Grade");
+                c = c.Substring(0, index) + " " + c.Substring(index);
+
+                if (c.Contains("&"))
+                {
+                    int ampersand = c.IndexOf("&");
+                    c = c.Substring(0, ampersand) + " & " + c.Substring(ampersand + 1);
+                }
+                return c;
+            }
+
+            else
+            {
+                //really inefficent, find better way
+                for (int j = 0; j < c.Length; j++)
+                {
+
+                    if (char.IsUpper(c[j]))
+                    {
+                        c = c.Substring(0, j) + " " + c.Substring(j);
+                        j++;
+                    }
+
+
+                }
+
+                c = c.Replace("m", "M");
+                return c;
+            }
+
         }
 
         public string[] ClassesToInterface(string[] dbClasses)
@@ -151,9 +198,9 @@ namespace HymnsApp
                 //String[] birthday = BirthdayEntry.Text.Split('/');
                 if (!Add)
                 {
-                    Classes.SelectedItem = ClassName;
+                    Classes.SelectedItem = parseName(ClassName);
                     string classes = "";
-                    if (Classes.SelectedItem == null || !((Classes.SelectedItem.ToString()).Equals( classes)))
+                    if (Classes.SelectedItem == null || !((Classes.SelectedItem.ToString()).Equals(classes)))
                     {
                         classes = ClassName;
                     }
