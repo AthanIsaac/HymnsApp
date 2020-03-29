@@ -9,15 +9,18 @@ namespace HymnsApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class GradeAttendance : ContentPage
     {
-
         readonly HymnsAttendance Attendance;
         readonly string ClassName;
+
         readonly List<ViewCell> Backup;
         readonly List<ViewCell> TeacherBackup;
+        
         TableSection NamesTable;
         TableSection TeachersNamesTable;
+        
         IList<KeyValuePair<string, string>> InGrade;
         IList<KeyValuePair<string, string>> TeachersInGrade;
+
         public GradeAttendance(HymnsAttendance attendance, string className)
         {
             InitializeComponent();
@@ -26,15 +29,16 @@ namespace HymnsApp
             Backup = new List<ViewCell>();
             TeacherBackup = new List<ViewCell>();
 
-            InitializeStudents();
+            InGrade = Attendance.StudentsOfGrade(ClassName);
             InitializeTeachers();
+            InitializeStudents();
+
         }
 
         private void InitializeStudents()
         {
             NamesTable = new TableSection();
             Backup.Clear();
-            InGrade = Attendance.StudentsOfGrade(ClassName);
 
             if (InGrade.Count == 0)
             {
@@ -90,7 +94,7 @@ namespace HymnsApp
 
                 }
             }
-            NamesTableRoot.Clear();
+            //NamesTableRoot.Clear();
             NamesTableRoot.Add(NamesTable);
 
 
@@ -98,20 +102,31 @@ namespace HymnsApp
 
         private CircleImage GetPhoto(KeyValuePair<string, string> s, bool isStudent)
         {
+            System.IO.Stream studentstream;
+            if (isStudent)
+            {
+               studentstream = Attendance.GetStudentPhoto(s.Key);
+            }
+            else
+            {
+                studentstream = Attendance.GetTeacherPhoto(s.Key);
+            }
+            
             CircleImage profilePicture = new CircleImage
             {
                 Source = ImageSource.FromStream(() =>
                 {
-                    var studentstream = Attendance.GetStudentPhoto(s.Key);
                     return studentstream;
-                })
+                }), 
+                HeightRequest = 50,
+                WidthRequest = 50
             };
 
-            //if (stream == null)
-            //{
-            //    profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+            if (studentstream == null)
+            {
+                profilePicture = new CircleImage { Source = "blankprofile.png", HeightRequest = 50, WidthRequest = 50 };
 
-            //}
+            }
             return profilePicture;
         }
 
@@ -174,7 +189,8 @@ namespace HymnsApp
                 TeachersNamesTable.Add(cell);
                 count++;
             }
-            //TeachersNamesTableRoot.Clear();
+            NamesTableRoot.Clear();
+            TeachersNamesTable.Add(new ViewCell() { View = new Label { BackgroundColor = Color.LightGray } });
             NamesTableRoot.Add(TeachersNamesTable);
         }
         private void TableCell_Tapped(object sender, EventArgs e)
@@ -223,7 +239,7 @@ namespace HymnsApp
         private async void SubmitAttendance_Clicked(object sender, EventArgs e)
         {
             List<string> selected = new List<string>();
-            List<string> teachersSelected = new List<String>();
+            List<string> teachersSelected = new List<string>();
 
             foreach (ViewCell c in Backup)
             {
@@ -351,8 +367,9 @@ namespace HymnsApp
         private void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
             // this is a heavy method so change if slow
-            InitializeStudents();
+            InGrade = Attendance.StudentsOfGrade(ClassName);
             InitializeTeachers();
+            InitializeStudents();
         }
 
     }
