@@ -20,10 +20,17 @@ namespace HymnsApp
             
             Attendance = attendance;
             string[] weeklyBirthdays = Attendance.WeeklyBirthdays();
-            for (int i = 0; i < weeklyBirthdays.Length; i++) {
-                birthdays.Children.Add(new Label { Text = weeklyBirthdays[i], FontSize = 17});
+            for (int i = 0; i < weeklyBirthdays.Length; i++)
+            {
+                // add odds to leftStack else rightstack
+
+                if(i % 2 == 0)
+                    LeftStack.Children.Add(new Label { Text = weeklyBirthdays[i], FontSize = 17 });
+
+                else
+                    RightStack.Children.Add(new Label { Text = weeklyBirthdays[i], FontSize = 17 });
+
             }
-            
             Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
         }
 
@@ -35,8 +42,7 @@ namespace HymnsApp
             {
                 return null;
             }
-
-
+            
             for (int i = 0; i < dbClasses.Length; i++)
             {
                 string c = dbClasses[i];
@@ -115,5 +121,7 @@ namespace HymnsApp
         {
             Navigation.PushAsync(new CurriculumPage(Attendance));
         }
+
+        
     }
 }
