@@ -39,41 +39,41 @@
         
         <StackLayout Padding="10">
             <Picker x:Name="Classes" 
-                Title="Select the Class for Attendance"
-                FontSize="Subtitle" 
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                WidthRequest="250" />
+                    Title="Select the Class for Attendance"
+                    FontSize="Subtitle" 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="250" />
 
 
             <Button x:Name="Class"
-            Text="Next"
-            FontSize="Medium"
-            BackgroundColor="SteelBlue"
-            WidthRequest="300"
-            HeightRequest="50"
-            BorderRadius="10"
-            BorderWidth="2"
-            BorderColor="SteelBlue"
-            TextColor="White"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Clicked="NextButton_Clicked"/>
+                    Text="Next"
+                    FontSize="Medium"
+                    BackgroundColor="SteelBlue"
+                    WidthRequest="300"
+                    HeightRequest="50"
+                    BorderRadius="10"
+                    BorderWidth="2"
+                    BorderColor="SteelBlue"
+                    TextColor="White"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Clicked="NextButton_Clicked"/>
         </StackLayout>
         
         <Button x:Name="Curriculum"
-            Text="Curriculum"
+                Text="Curriculum"
                 FontSize="Medium"
-            BackgroundColor="SteelBlue"
-            WidthRequest="300"
-            HeightRequest="50"
-            BorderRadius="10"
-            BorderWidth="2"
-            BorderColor="SteelBlue"
-            TextColor="White"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Clicked="Curriculum_Clicked"/>
+                BackgroundColor="SteelBlue"
+                WidthRequest="300"
+                HeightRequest="50"
+                BorderRadius="10"
+                BorderWidth="2"
+                BorderColor="SteelBlue"
+                TextColor="White"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Clicked="Curriculum_Clicked"/>
 
     </StackLayout>
 
