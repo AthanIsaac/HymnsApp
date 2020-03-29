@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using ImageCircle.Forms.Plugin.Abstractions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -28,6 +29,8 @@ namespace HymnsApp
             ClassName = className;
             Backup = new List<ViewCell>();
             TeacherBackup = new List<ViewCell>();
+            NamesTable = new TableSection();
+            TeachersNamesTable = new TableSection();
 
             InGrade = Attendance.StudentsOfGrade(ClassName);
             InitializeTeachers();
@@ -37,7 +40,7 @@ namespace HymnsApp
 
         private void InitializeStudents()
         {
-            NamesTable = new TableSection();
+            NamesTable.Clear();
             Backup.Clear();
 
             if (InGrade.Count == 0)
@@ -49,7 +52,7 @@ namespace HymnsApp
             string filter = StudentSearch.Text == null ? "" : StudentSearch.Text.Trim().ToLower();
             foreach (var s in InGrade)
             {
-                ViewCell cell = new ViewCell() { Height = 70, };
+                ViewCell cell = new ViewCell() { Height = 70 };
 
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
                 sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
@@ -102,7 +105,7 @@ namespace HymnsApp
 
         private CircleImage GetPhoto(KeyValuePair<string, string> s, bool isStudent)
         {
-            System.IO.Stream studentstream;
+            Stream studentstream;
             if (isStudent)
             {
                studentstream = Attendance.GetStudentPhoto(s.Key);
@@ -132,7 +135,7 @@ namespace HymnsApp
 
         private void InitializeTeachers()
         {
-            TeachersNamesTable = new TableSection();
+            TeachersNamesTable.Clear();
             TeacherBackup.Clear();
             TeachersInGrade = Attendance.TeachersOfGrade(ClassName);
 
@@ -202,7 +205,8 @@ namespace HymnsApp
 
         private void StudentSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            NamesTable = new TableSection();
+            InitializeStudents();
+            /*NamesTable = new TableSection();
             List<ViewCell> visible = new List<ViewCell>();
             string filter = StudentSearch.Text.Trim().ToLower();
             int count = 0;
@@ -213,6 +217,7 @@ namespace HymnsApp
                 if (l.Text.ToLower().Contains(filter))
                 {
                     // make visible
+                    s.Children[1] = GetPhoto(new KeyValuePair<string, string>((s.Children[0] as Label).Text, l.Text), true);
                     visible.Add(c);
                     count++;
                 }
@@ -233,7 +238,7 @@ namespace HymnsApp
             }
             NamesTableRoot.Clear();
             NamesTableRoot.Add(NamesTable);
-            Scroll.ScrollToAsync(0, 0, false);
+            Scroll.ScrollToAsync(0, 0, false);*/
         }
 
         private async void SubmitAttendance_Clicked(object sender, EventArgs e)

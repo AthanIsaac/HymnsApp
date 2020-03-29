@@ -433,6 +433,22 @@ namespace HymnsApp
             }
         }
 
+        public int TeacherGetDatesForYear(string teacherId)
+        {
+            int year = DateTime.Now.Year;
+            DocumentSnapshot s = Teachers[teacherId];
+
+            try
+            {
+                string[] attended = s.GetValue<string[]>("attended");
+                return new List<string>(attended).FindAll(a => int.Parse(a.Split('/')[2]) == year).Count;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
         public bool TeacherAttendedToday(string teacherId, DateTime date)
         {
             string d = date.ToString("MM/dd/yyyy");
@@ -570,8 +586,9 @@ namespace HymnsApp
             {
                 photo.CopyTo(memoryStream);
                 s.Add("photo", memoryStream.ToArray());
+                db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll).Wait();
             }
-            db.Collection("students").Document(studentId).SetAsync(s, SetOptions.MergeAll).Wait();
+            
         }
 
         public Stream GetTeacherPhoto(string teacherId)
@@ -590,8 +607,9 @@ namespace HymnsApp
             {
                 photo.CopyTo(memoryStream);
                 t.Add("photo", memoryStream.ToArray());
+                db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll).Wait();
             }
-            db.Collection("teachers").Document(teacherId).SetAsync(t, SetOptions.MergeAll).Wait();
+            
         }
 
 

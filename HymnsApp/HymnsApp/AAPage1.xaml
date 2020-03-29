@@ -40,13 +40,13 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
 
-                <Label Text="" Grid.Column="0" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
+                <Label Text="Photo" Grid.Column="0" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Name"  Grid.Row="0" Grid.Column="1" Style="{DynamicResource headerTablet}"/>
                 <Label Text="Birthday" Grid.Column="2" Grid.Row="0"  Style="{DynamicResource headerTablet}"/>
                 <Label Text="Attended" Grid.Column="3" Grid.Row="0" Style="{DynamicResource headerTablet}"/>
             </Grid>
             <ScrollView>
-                <StackLayout x:Name="InfoStack" BackgroundColor="White"/>
+                <StackLayout x:Name="InfoStack" BackgroundColor="White" Spacing="0" />
             </ScrollView>
             
         </StackLayout>

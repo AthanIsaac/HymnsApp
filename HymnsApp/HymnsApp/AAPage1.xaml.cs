@@ -101,7 +101,7 @@ namespace HymnsApp
                     },
                     RowDefinitions = new RowDefinitionCollection()
                     {
-                        new RowDefinition() { Height = new GridLength(75, GridUnitType.Absolute) }
+                        new RowDefinition() { Height = new GridLength(70, GridUnitType.Absolute) }
                     },
                     BackgroundColor = Color.White
                 };
@@ -169,12 +169,10 @@ namespace HymnsApp
                     Style = Resources["detailTablet"] as Style
                 };
 
-                //@athan --we need to make functionality availible for teachers.
-                
-                //int days = Attendance.GetDatesForYear(teachers[i].Key);
+                int days = Attendance.TeacherGetDatesForYear(teachers[i].Key);
 
                 float weeks = DateTime.Now.DayOfYear / 7.0f;
-                //string percent = ((int)(100 * days / weeks)).ToString() + "%";
+                string percent = ((int)(100 * days / weeks)).ToString() + "%";
 
                 Label attend = new Label()
                 {
@@ -227,17 +225,28 @@ namespace HymnsApp
                     Content = grid
                 };
                 InfoStack.Children.Add(swipeView);
-                InfoStack.Children.Add(new BoxView
+                if (i != teachers.Count - 1)
                 {
-                    Color = Color.LightGray,
-                    BackgroundColor = Color.LightGray,
-                    HeightRequest = 0.5,
-                    HorizontalOptions = LayoutOptions.FillAndExpand,
-                    VerticalOptions = LayoutOptions.Center
-                });
+                    InfoStack.Children.Add(new BoxView
+                    {
+                        Color = Color.LightGray,
+                        BackgroundColor = Color.LightGray,
+                        HeightRequest = 0.5,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        VerticalOptions = LayoutOptions.Center
+                    });
+                }
+                
             }
 
-
+            InfoStack.Children.Add(new BoxView
+            {
+                Color = Color.LightGray,
+                BackgroundColor = Color.LightGray,
+                HeightRequest = 25,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.Center
+            });
         }
 
         private void InfoSwipeItem_Clicked(object sender, EventArgs e)
