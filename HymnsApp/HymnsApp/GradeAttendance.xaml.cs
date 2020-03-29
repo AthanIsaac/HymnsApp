@@ -94,7 +94,7 @@ namespace HymnsApp
 
                 }
             }
-            NamesTableRoot.Clear();
+            //NamesTableRoot.Clear();
             NamesTableRoot.Add(NamesTable);
 
 
@@ -189,7 +189,7 @@ namespace HymnsApp
                 TeachersNamesTable.Add(cell);
                 count++;
             }
-            //TeachersNamesTableRoot.Clear();
+            NamesTableRoot.Clear();
             TeachersNamesTable.Add(new ViewCell() { View = new Label { BackgroundColor = Color.LightGray } });
             NamesTableRoot.Add(TeachersNamesTable);
         }
