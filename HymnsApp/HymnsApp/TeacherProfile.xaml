@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="HymnsApp.StudentProfilexaml">
+             x:Class="HymnsApp.TeacherProfile">
     <ContentPage.ToolbarItems >
 
         <!--<ToolbarItem Text="Student Profile" />-->
@@ -16,7 +16,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:Name="storeInfo">
-                
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

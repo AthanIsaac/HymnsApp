@@ -13,7 +13,8 @@
             <SearchBar x:Name="StudentSearch" 
                        Placeholder="Search students"
                        TextChanged="StudentSearch_TextChanged"
-                       IsSpellCheckEnabled="False" WidthRequest="220"/>
+                       IsSpellCheckEnabled="False"
+                       WidthRequest="220"/>
 
             <StackLayout Orientation="Horizontal">
                 <Image Source="calendar.png" />
@@ -30,19 +31,11 @@
                         Text="Add student" 
                         Clicked="AddStudent_Clicked" />
             </StackLayout>
-            
-            
-            <ScrollView x:Name="Scroll" >
-                
-                <!--<TableView Intent="Data" HasUnevenRows="True">
-                    <TableRoot x:Name="TeachersNamesTableRoot"/>
-                </TableView>-->
 
+            <ScrollView x:Name="Scroll">
                 <TableView Intent="Data" HasUnevenRows="True">
-
                     <TableRoot x:Name="NamesTableRoot"/>
                 </TableView>
-                
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>

@@ -23,7 +23,7 @@ namespace HymnsApp
             ToolbarItem item = new ToolbarItem();
             if (!add)
             {
-                item.Text = "Edit Teacher";
+                item.Text = name;
 
             }
             else
@@ -35,57 +35,188 @@ namespace HymnsApp
             // "this" refers to a Page object
             this.ToolbarItems.Add(item);
             InitializeComponent();
-            name = name == null ? "" : name.ToLower();
+            name = string.IsNullOrEmpty(name) ? "" : Capitalize(name);
             Add = add;
             ClassName = className;
             Attendance = attendance;
             NameEntry.Text = name;
             this.id = id;
+
+            Classes.ItemsSource = ClassesToInterface(HymnsAttendance.OrderedClasses);
+
             if (!add)
             {
                 string[] info = Attendance.GetTeacherInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
                 string num = info[1];
-                TeacherPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);               
+                string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                TeacherPhoneEntry.Text = info[1];
                 //MM/dd
-                BirthdayEntry.Text = info[2];
+                int slash = info[2].IndexOf("/");
 
+                BirthdayMonth.Text = info[2].Substring(0,slash);
+                BirthdayDay.Text = info[2].Substring(slash + 1);
 
+                Classes.SelectedItem = ClassName;
 
             }
 
 
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        public string[] ClassesToInterface(string[] dbClasses)
         {
-            string name = Capitalize(NameEntry.Text.Trim());
-            if (!Add)
-            {
-                String[] birthday = BirthdayEntry.Text.Split('/');
-                //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
-                // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
-                Attendance.EditTeacher(id, ClassName, name, TeacherPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
+            string[] visualClasses = new string[dbClasses.Length];
 
-                Navigation.PopAsync();
-                return;
-            }
-            // submit
-            /*
-            if (Attendance.TeacherOfGrade(ClassName).Select(a => a.Value).Contains(name))
+            if (dbClasses == null)
             {
-                DisplayAlert("Error", "This student already exists in this grade", "ok");
-            }*/
-
-            else
-            {
-                String[] birthday = BirthdayEntry.Text.Split('/');
-                // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
-                Attendance.AddTeacher(name, TeacherPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-
-                Navigation.PopAsync();
+                return null;
             }
 
+
+            for (int i = 0; i < dbClasses.Length; i++)
+            {
+                string c = dbClasses[i];
+
+                if (c.Contains("kindergarten"))
+                {
+                    c = "Kindergarten";
+
+                }
+
+                if (c.Contains("highSchool"))
+                    c = "HighSchool";
+
+                if (c.Contains("Grade"))
+                {
+                    int index = c.IndexOf("Grade");
+                    c = c.Substring(0, index) + " " + c.Substring(index);
+
+                    if (c.Contains("&"))
+                    {
+                        int ampersand = c.IndexOf("&");
+                        c = c.Substring(0, ampersand) + " & " + c.Substring(ampersand + 1);
+                    }
+
+                }
+
+                else
+                {
+                    //really inefficent, find better way
+                    for (int j = 0; j < c.Length; j++)
+                    {
+
+                        if (char.IsUpper(c[j]))
+                        {
+                            c = c.Substring(0, j) + " " + c.Substring(j);
+                            j++;
+                        }
+
+                    }
+
+                    c = c.Replace("m", "M");
+                }
+                visualClasses[i] = c;
+            }
+
+            return visualClasses;
+        }
+
+        public async Task<bool> CheckInputsAsync(string name)
+        {
+            if (Attendance.StudentsOfGrade(ClassName).Select(b => b.Value).Contains(name))
+            {
+                await DisplayAlert("Error", "1This student already exists in this grade", "ok");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(NameEntry.Text))
+            {
+                await DisplayAlert("Error", "2Student Name is a Required Field", "ok");
+                return false;
+            }
+
+            if (!NameEntry.Text.Trim().Contains(" "))
+            {
+                await DisplayAlert("Error", "3First and Last Name are Required. ", "ok");
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(TeacherPhoneEntry.Text) && TeacherPhoneEntry.Text.Length != 10)
+            {
+                await DisplayAlert("Error", "4Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (!(int.TryParse(TeacherPhoneEntry.Text, out int a)))
+            {
+                await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(BirthdayMonth.Text))
+            {
+                await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
+                return false;
+            }
+            if (string.IsNullOrEmpty(BirthdayDay.Text))
+            {
+                await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
+                return false;
+            }
+
+            //if (BirthdayMonth.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            //{
+            //    await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
+            //    return false;
+            //}
+
+            if (BirthdayMonth.Text.Length > 2 || BirthdayMonth.Text.Length < 1)
+            {
+                await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
+                return false;
+            }
+
+            return true;
+
+        }
+
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            if (await CheckInputsAsync(NameEntry.Text))
+            {
+                string name = Capitalize(NameEntry.Text.Trim());
+                if (!Add)
+                {
+                    Classes.SelectedItem = ClassName;
+                    string classes = "";
+                    if (Classes.SelectedItem == null || !((Classes.SelectedItem.ToString()).Equals(classes)))
+                    {
+                        classes = ClassName;
+                    }
+                    else
+                    {
+                        classes = Classes.SelectedItem.ToString();
+                    }
+
+                    Attendance.EditTeacher(id, classes, name, TeacherPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
+                    await Navigation.PopAsync();
+                    return;
+                }
+                // submit
+                /*
+                if (Attendance.TeacherOfGrade(ClassName).Select(a => a.Value).Contains(name))
+                {
+                    DisplayAlert("Error", "This student already exists in this grade", "ok");
+                }*/
+
+                else
+                {
+                    Attendance.AddTeacher(name, TeacherPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
+
+                    await Navigation.PopAsync();
+                }
+            }
         }
 
         private async void PictureButton_OnClicked(object sender, EventArgs e)
@@ -118,8 +249,6 @@ namespace HymnsApp
 
         }
 
-
-
         // Credit: Nardin
         private string Capitalize(string name)
         {
@@ -134,12 +263,5 @@ namespace HymnsApp
             return name;
         }
 
-        private void BirthdayEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (BirthdayEntry.Text.Length == 2)
-            {
-                BirthdayEntry.Text += "/";
-            }
-        }
     }
 }

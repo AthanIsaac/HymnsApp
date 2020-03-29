@@ -10,34 +10,32 @@ using Xamarin.Forms.Xaml;
 namespace HymnsApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-
-
-    public partial class StudentProfilexaml : ContentPage
+    public partial class TeacherProfile : ContentPage
     {
         readonly HymnsAttendance Attendance;
         readonly string Id;
         readonly string ClassName;
 
-        public StudentProfilexaml(HymnsAttendance attendance, string id, string className)
+        public TeacherProfile(HymnsAttendance attendance, string id, string className)
         {
             Attendance = attendance;
             Id = id;
             ClassName = className;
-            string[] studentInfo = Attendance.GetStudentInfo(Id);
-            // studentname, studentphone, grade, parentname, parentphone, birthday
+            string[] teacherInfo = Attendance.GetTeacherInfo(Id);
+            // name, phone, birthday
             ToolbarItem item = new ToolbarItem();
-            item.Text = studentInfo[0];
+            item.Text = teacherInfo[0];
 
             InitializeComponent();
 
 
-            var stream = Attendance.GetStudentPhoto(id);
+            var stream = Attendance.GetTeacherPhoto(id);
             Image profilePicture = new Image
             {
 
                 Source = ImageSource.FromStream(() =>
                 {
-                   
+
                     return stream;
                 })
             };
@@ -48,42 +46,25 @@ namespace HymnsApp
             }
 
             storeInfo.Children.Add(profilePicture);
-            Label lname = new Label { Text = "Student's Name:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var ename = new Entry { Text = studentInfo[0], IsReadOnly = true };
+            Label lname = new Label { Text = "Teacher's Name:", TextColor = Color.SteelBlue, FontSize = 23 };
+            var ename = new Entry { Text = teacherInfo[0], IsReadOnly = true };
             storeInfo.Children.Add(lname);
             storeInfo.Children.Add(ename);
 
-            string num = studentInfo[1];
+            Label lPhone = new Label { Text = "Teacher's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
+            string num = teacherInfo[1];
             string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
-            Label lstudentPhone = new Label { Text = "Student's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var estudentPhone = new Entry { Text = studentInfo[1], IsReadOnly = true };
-            storeInfo.Children.Add(lstudentPhone);
-            storeInfo.Children.Add(estudentPhone);
-
-            Label lgrade = new Label { Text = "Grade:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var egrade = new Entry { Text = studentInfo[2], IsReadOnly = true };
-            storeInfo.Children.Add(lgrade);
-            storeInfo.Children.Add(egrade);
-
-            Label lparentName = new Label { Text = "Parent Name:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var eParentName = new Entry { Text = studentInfo[3], IsReadOnly = true };
-            storeInfo.Children.Add(lparentName);
-            storeInfo.Children.Add(eParentName);
-
-            Label lPhone = new Label { Text = "Parent's Phone Number:", TextColor = Color.SteelBlue, FontSize = 23 };
-            num = studentInfo[4];
-            parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
             var ePhone = new Entry { Text = parsed, IsReadOnly = true };
             storeInfo.Children.Add(lPhone);
             storeInfo.Children.Add(ePhone);
 
-            StackLayout slbirthday = new StackLayout() { Orientation = StackOrientation.Horizontal, Spacing = 10 };
-            int slash = studentInfo[5].IndexOf("/");
+            StackLayout slbirthday = new StackLayout() {Orientation = StackOrientation.Horizontal, Spacing = 10 };
+            int slash = teacherInfo[2].IndexOf("/");
 
-            Label lbirthday = new Label { Text = "Student's Birthday:", TextColor = Color.SteelBlue, FontSize = 23 };
-            var ebirthdayMonth = new Entry { Text = studentInfo[5].Substring(0, slash), IsReadOnly = true };
+            Label lbirthday = new Label { Text = "Teacher's Birthday:", TextColor = Color.SteelBlue, FontSize = 23 };
+            var ebirthdayMonth = new Entry { Text = teacherInfo[2].Substring(0, slash), IsReadOnly = true };
             Label slashText = new Label() { Text = "/" };
-            var ebirthdayDay = new Entry { Text = studentInfo[5].Substring(slash + 1), IsReadOnly = true };
+            var ebirthdayDay = new Entry { Text = teacherInfo[2].Substring(slash + 1), IsReadOnly = true };
 
             slbirthday.Children.Add(ebirthdayMonth);
             slbirthday.Children.Add(slashText);
@@ -91,16 +72,16 @@ namespace HymnsApp
 
             storeInfo.Children.Add(lbirthday);
             storeInfo.Children.Add(slbirthday);
+            
 
-            Label lclassName = new Label { Text = "Student's Class:", TextColor = Color.SteelBlue, FontSize = 23 };
+            Label lclassName = new Label { Text = "Teacher's Class:", TextColor = Color.SteelBlue, FontSize = 23 };
             //for the edit
             var eclassName = new Entry { Text = parseName(ClassName), IsReadOnly = true };
             storeInfo.Children.Add(lclassName);
             storeInfo.Children.Add(eclassName);
-
         }
 
-        private string parseName(string c)
+        private string parseName(string c) 
         {
             if (c.Contains("kindergarten"))
             {
@@ -144,15 +125,14 @@ namespace HymnsApp
                 c = c.Replace("m", "M");
                 return c;
             }
-
-        }
+        
+    }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            string[] studentInfo = Attendance.GetStudentInfo(Id);
+            string[] teacherInfo = Attendance.GetTeacherInfo(Id);
             //EditAddStudent(HymnsAttendance2 attendance, string id, string name, string grade, bool add)
-            Navigation.PushAsync(new EditAddStudent(Attendance, Id, studentInfo[0], ClassName, false));
+            Navigation.PushAsync(new EditAddTeacher(Attendance, Id, teacherInfo[0], ClassName, false));
         }
-       
     }
 }

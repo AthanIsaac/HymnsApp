@@ -14,6 +14,10 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
+                <Button x:Name="SwitchToTeacher"
+                        Text="or Add a Teacher"
+                        Clicked="SwitchToTeacherButton_OnClicked"
+                        IsVisible = "False"/>
                 <ImageButton x:Name ="Picture"
                                  Clicked="PictureButton_OnClicked"
                                   HeightRequest="400"
@@ -35,10 +39,19 @@
                 <Label Text="Student's Birthday:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-                <Entry x:Name="BirthdayEntry"
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Entry x:Name="BirthdayMonth"
                             Keyboard="Numeric"
-                           Placeholder="MM/DD" 
-                           TextChanged="BirthdayEntry_TextChanged"/>
+                           Placeholder="Month" 
+                     
+                           HorizontalOptions="Center"/>
+                    <Label Text="/"/>
+                    <Entry x:Name="BirthdayDay"
+                            Keyboard="Numeric"
+                           Placeholder="Day" 
+                        
+                           HorizontalOptions="Center"/>
+                </StackLayout>
                 <Label Text="Grade:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
@@ -62,15 +75,13 @@
                            FontSize="Large"
                            TextColor="SteelBlue"/>
                 <Picker x:Name="Classes" 
-                Title="Select the Class for Student"
+                Title="Select a Class"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="CenterAndExpand"
                 WidthRequest="250"/>
 
-                <Button x:Name="SwitchToTeacher"
-                        Text="or Add a Teacher"
-                        Clicked="SwitchToTeacherButton_OnClicked"/>
+                
             </StackLayout>
         </ScrollView>
 

@@ -48,6 +48,7 @@
         
         <StackLayout Spacing = "20" Padding="15">
             <Picker x:Name="Classes" 
+<<<<<<< HEAD
                 Title="Select the Class for Attendance"
                 FontSize="Large" 
                 VerticalOptions="CenterAndExpand"
@@ -84,6 +85,43 @@
             Clicked="Curriculum_Clicked"/>
         </StackLayout>
        
+=======
+                    Title="Select the Class for Attendance"
+                    FontSize="Subtitle" 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="250" />
+
+
+            <Button x:Name="Class"
+                    Text="Next"
+                    FontSize="Medium"
+                    BackgroundColor="SteelBlue"
+                    WidthRequest="300"
+                    HeightRequest="50"
+                    BorderRadius="10"
+                    BorderWidth="2"
+                    BorderColor="SteelBlue"
+                    TextColor="White"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Clicked="NextButton_Clicked"/>
+        </StackLayout>
+        
+        <Button x:Name="Curriculum"
+                Text="Curriculum"
+                FontSize="Medium"
+                BackgroundColor="SteelBlue"
+                WidthRequest="300"
+                HeightRequest="50"
+                BorderRadius="10"
+                BorderWidth="2"
+                BorderColor="SteelBlue"
+                TextColor="White"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                Clicked="Curriculum_Clicked"/>
+>>>>>>> f7fef6d6869df4576c9f65d729330c7df2809aad
 
     </StackLayout>
 

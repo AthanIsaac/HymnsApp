@@ -18,7 +18,6 @@ namespace HymnsApp
         readonly bool Add;
         readonly string ClassName;
         readonly string id;
-        private Stream ImageStream;
 
         public EditAddStudent(HymnsAttendance attendance, string id, string name, string className, bool add)
         {
@@ -26,13 +25,10 @@ namespace HymnsApp
             if (!add)
             {
                 item.Text = name;
-
             }
             else
             {
                 item.Text = "Add Student";
-
-
             }     
             
             // "this" refers to a Page object
@@ -44,37 +40,49 @@ namespace HymnsApp
                 var stream = Attendance.GetStudentPhoto(id);
                 return stream;
             });
-           // Picture.s = new CircleImage { Source = "blankprofile.png", HeightRequest = 500, WidthRequest = 500 };
+           
+            if (add) 
+            { 
+                SwitchToTeacher.IsVisible = true; 
+            }
 
-            name = name == null ? "" : name.ToLower();
+            //add and edit cases
+            name = name == null ? "" : Capitalize(name);
             Add = add;
             ClassName = className;
             Attendance = attendance;
             NameEntry.Text = name;
             this.id = id;
-            Classes.ItemsSource = classesToInterface(HymnsAttendance.OrderedClasses);
+
+            Classes.ItemsSource = ClassesToInterface(HymnsAttendance.OrderedClasses);
+
             if (!add)
             {
                 string[] info = Attendance.GetStudentInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
+                string num = info[1];
+                string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
+                    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
                 StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
                 
                 ParentNameEntry.Text = info[3];
-                string num = info[4];
-                ParentPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
-        
+                num = info[4];
+                parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
+                    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                ParentPhoneEntry.Text = info[4];
 
                 //MM/dd
-                BirthdayEntry.Text = info[5];
-                
+                int slash = info[5].IndexOf("/");
 
+                BirthdayMonth.Text = info[5].Substring(0, slash);
+                BirthdayDay.Text = info[5].Substring(slash + 1);
+
+                Classes.SelectedItem = className;
             }
-
-
         }
 
-        public string[] classesToInterface(string[] dbClasses)
+        public string[] ClassesToInterface(string[] dbClasses)
         {
             string[] visualClasses = new string[dbClasses.Length];
 
@@ -130,45 +138,56 @@ namespace HymnsApp
                 visualClasses[i] = c;
             }
 
-
             return visualClasses;
         }
 
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
-            
-            string name = Capitalize(NameEntry.Text.Trim());
-            if (false)//!(await CheckInputsAsync(name)))
+            if (await CheckInputsAsync(NameEntry.Text))
             {
-                return;
-            }
-            String[] birthday = BirthdayEntry.Text.Split('/');
-            if (!Add)
-            {
-                string classes = "";
-                if (Classes.SelectedItem == null)
+
+                string name = Capitalize(NameEntry.Text.Trim());
+
+                //String[] birthday = BirthdayEntry.Text.Split('/');
+                if (!Add)
                 {
-                    classes = ClassName;
+                    Classes.SelectedItem = ClassName;
+                    string classes = "";
+                    if (Classes.SelectedItem == null || !((Classes.SelectedItem.ToString()).Equals( classes)))
+                    {
+                        classes = ClassName;
+                    }
+                    else
+                    {
+                        classes = Classes.SelectedItem.ToString();
+                    }
+
+                    var teachers = Attendance.TeachersOfGrade(classes).ToArray();
+                    foreach (var teacher in teachers)
+                    {
+                        if ((teacher.Value).Contains(name))
+                        {
+                            Attendance.EditTeacher(id, ClassName, name, StdPhoneEntry.Text,
+                                new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
+                            await Navigation.PopAsync();
+                            return;
+                        }
+                    }
+
+                    //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
+                    // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
+                    Attendance.EditStudent(id, classes, name, StdPhoneEntry.Text, GradeEntry.Text,
+                        ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
+                    await Navigation.PopAsync();
+                    return;
                 }
-                else 
-                {
-                    classes = Classes.SelectedItem.ToString();
-                }
-                
-                //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
-                // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
-                Attendance.EditStudent(id, classes, name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-                //Attendance.AddStudentPhoto(id, ImageStream);
-                //ImageStream.Dispose();
-                Navigation.PopAsync();
-                return;
-            }
-            // submit
+                // submit
                 // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
-                Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text, ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
-                
-                Navigation.PopAsync();
-            
+                Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text,
+                    ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
+
+                await Navigation.PopAsync();
+            }
 
         }
 
@@ -197,7 +216,7 @@ namespace HymnsApp
                 return false;
             }
 
-            if (!int.TryParse(StdPhoneEntry.Text,out int a))
+            if (!(int.TryParse(StdPhoneEntry.Text, out int a)))
             {
                 await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
                 return false;
@@ -221,19 +240,30 @@ namespace HymnsApp
                 return false;
             }
 
-            if (!int.TryParse(ParentPhoneEntry.Text, out a))
+            if (!(int.TryParse(ParentPhoneEntry.Text, out a)))
             {
                 await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
                 return false;
             }
 
-            if (string.IsNullOrEmpty(BirthdayEntry.Text))
+            if (string.IsNullOrEmpty(BirthdayMonth.Text))
             {
                 await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
                 return false;
             }
-            
-            if (BirthdayEntry.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            if (string.IsNullOrEmpty(BirthdayDay.Text))
+            {
+                await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
+                return false;
+            }
+
+            //if (BirthdayMonth.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            //{
+            //    await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
+            //    return false;
+            //}
+
+            if (BirthdayMonth.Text.Length > 2 || BirthdayMonth.Text.Length < 1)
             {
                 await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
                 return false;
@@ -278,7 +308,6 @@ namespace HymnsApp
                 var stream = picture;
                 return stream;
             });
-            ImageStream = file.GetStream();
         }
 
         // Credit: Nardin
@@ -297,16 +326,12 @@ namespace HymnsApp
             return name;
         }
 
-        private void SwitchToTeacherButton_OnClicked(object sender, EventArgs e) { 
-        
+        private void SwitchToTeacherButton_OnClicked(object sender, EventArgs e) {
+            //HymnsAttendance attendance, string id, string name, string className, bool add
+            Navigation.PushAsync(new EditAddTeacher(Attendance, id, "", ClassName, true));
+
         }
 
-        private void BirthdayEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (BirthdayEntry.Text.Length == 2) 
-            {
-                BirthdayEntry.Text += "/";
-            }
-        }
+      
     }
 }
