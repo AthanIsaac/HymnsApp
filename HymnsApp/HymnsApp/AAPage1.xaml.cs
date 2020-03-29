@@ -78,7 +78,7 @@ namespace HymnsApp
                 {
                     Text = "EDIT",
                     BackgroundColor = Color.Red,
-                    CommandParameter = new Label() {  Text = students[i].Key + ";" + students[i].Value }
+                    CommandParameter = new Label() { Text = students[i].Key + ";" + students[i].Value, IsVisible = false }
                 };
                 editSwipeItem.Invoked += SwipeItem_Clicked;
 
@@ -86,7 +86,7 @@ namespace HymnsApp
                 {
                     Text = "INFO",
                     BackgroundColor = Color.Green,
-                    CommandParameter = new Label() { Text = students[i].Key + ";" + students[i].Value }
+                    CommandParameter = new Label() { Text = students[i].Key + ";" + students[i].Value, IsVisible = false }
                 };
                 infoSwipeItem.Invoked += InfoSwipeItem_Clicked;
 
