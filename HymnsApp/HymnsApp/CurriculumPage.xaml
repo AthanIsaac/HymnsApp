@@ -12,7 +12,8 @@
         <ToolbarItem Text="                               " />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid>
+        <ScrollView>
+        <Grid x:Name="curGrid">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -40,5 +41,6 @@
             </local:Accordion>-->
 
         </Grid>
+            </ScrollView>
     </ContentPage.Content>
 </ContentPage>
