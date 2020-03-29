@@ -10,7 +10,7 @@
             <Style x:Key="headerTablet" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="BackgroundColor" Value="#23395D" />
+                <Setter Property="BackgroundColor" Value="#4682B4" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
@@ -22,9 +22,13 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="AddStudent" Text="Add" Clicked="AddStudent_Clicked" />
+    </ContentPage.ToolbarItems>
+    
     <ContentPage.Content>
         <StackLayout>
-            <Grid Padding="1" BackgroundColor="#23395D" RowSpacing="1" ColumnSpacing="1">
+            <Grid Padding="1" BackgroundColor="#4682B4" RowSpacing="1" ColumnSpacing="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
                 </Grid.RowDefinitions>

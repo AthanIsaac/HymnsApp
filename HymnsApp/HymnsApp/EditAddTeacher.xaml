@@ -5,41 +5,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HymnsApp.EditAddTeacher">
-    <ContentPage.Content>   
-        <StackLayout>
-            <!--string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday-->
-            <ImageButton x:Name ="Picture" 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="                    " />
+        <ToolbarItem Text="Submit" Clicked="ToolbarItem_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <!--string teacherId, string newClassName, string newTeacherName, string newTeacherPhone, DateTime newBirthday-->
+
+                <ImageButton x:Name ="Picture" 
                                  Source= "blankprofile.png"
                                  Clicked="PictureButton_OnClicked"
                                   HeightRequest="400"
                                   WidthRequest="400"/>
 
-            <Label Text="Teacher's Name:"
+                <Label Text="Teacher's Name:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-            <Entry x:Name="NameEntry"
+                <Entry x:Name="NameEntry"
                            Placeholder="Teacher's Name"
                            IsSpellCheckEnabled = "True"
                            IsTextPredictionEnabled = "True"/>
-            <Label Text="Teacher's Phone Number:"
+                <Label Text="Teacher's Phone Number:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-            <Entry x:Name="TeacherPhoneEntry"
+                <Entry x:Name="TeacherPhoneEntry"
                            Keyboard="Telephone" 
                            Placeholder="Teacher's Phone Number" />
-            <Label Text="Teacher's Birthday:"
+                <Label Text="Teacher's Birthday:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-            <Entry x:Name="BirthdayEntry"
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Entry x:Name="BirthdayMonth"
                             Keyboard="Numeric"
-                           Placeholder="MM/DD" 
-                           TextChanged="BirthdayEntry_TextChanged"/>
-            <Label Text="Class Name:"
+                           Placeholder="Month" 
+                
+                           HorizontalOptions="Center"/>
+                    <Label Text="/"/>
+                    <Entry x:Name="BirthdayDay"
+                            Keyboard="Numeric"
+                           Placeholder="Day" 
+                       
+                           HorizontalOptions="Center"/>
+                    
+                </StackLayout>
+                
+                
+                <Label Text="Class Name:"
                            FontSize="Large"
                            TextColor="SteelBlue"/>
-            <Entry x:Name="ClassEntry"
-                           Placeholder="Class Name" />
-            
-        </StackLayout>
+                <Picker x:Name="Classes" 
+                Title="Select a Class"
+                FontSize="Large" 
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="250"/>
+
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -47,7 +47,7 @@ namespace HymnsApp
             }
 
             //add and edit cases
-            name = name == null ? "" : name.ToLower();
+            name = name == null ? "" : Capitalize(name);
             Add = add;
             ClassName = className;
             Attendance = attendance;
@@ -60,16 +60,25 @@ namespace HymnsApp
             {
                 string[] info = Attendance.GetStudentInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
+                string num = info[1];
+                string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
+                    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
                 StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
                 
                 ParentNameEntry.Text = info[3];
-                string num = info[4];
-                ParentPhoneEntry.Text = num.Length == 0 ? "" : "(" + num.Substring(0, 3) 
+                num = info[4];
+                parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
                     + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                ParentPhoneEntry.Text = info[4];
 
                 //MM/dd
-                BirthdayEntry.Text = info[5];
+                int slash = info[5].IndexOf("/");
+
+                BirthdayMonth.Text = info[5].Substring(0, slash);
+                BirthdayDay.Text = info[5].Substring(slash + 1);
+
+                Classes.SelectedItem = className;
             }
         }
 
@@ -139,11 +148,12 @@ namespace HymnsApp
 
                 string name = Capitalize(NameEntry.Text.Trim());
 
-                String[] birthday = BirthdayEntry.Text.Split('/');
+                //String[] birthday = BirthdayEntry.Text.Split('/');
                 if (!Add)
                 {
+                    Classes.SelectedItem = ClassName;
                     string classes = "";
-                    if (Classes.SelectedItem == null)
+                    if (Classes.SelectedItem == null || !((Classes.SelectedItem.ToString()).Equals( classes)))
                     {
                         classes = ClassName;
                     }
@@ -158,7 +168,7 @@ namespace HymnsApp
                         if ((teacher.Value).Contains(name))
                         {
                             Attendance.EditTeacher(id, ClassName, name, StdPhoneEntry.Text,
-                                new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
+                                new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
                             await Navigation.PopAsync();
                             return;
                         }
@@ -167,14 +177,14 @@ namespace HymnsApp
                     //string studentId, string newClassName, string newStudentName, string newStudentPhone, 
                     // string newGrade, string newParentName, string newParentPhone, DateTime newBirthday
                     Attendance.EditStudent(id, classes, name, StdPhoneEntry.Text, GradeEntry.Text,
-                        ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
+                        ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
                     await Navigation.PopAsync();
                     return;
                 }
                 // submit
                 // string studentName, string studentPhone, string grade, string parentName, string parentPhone, DateTime birthday /*photo*/);
                 Attendance.AddStudent(name, StdPhoneEntry.Text, GradeEntry.Text,
-                    ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(birthday[0]), Int32.Parse(birthday[1])));
+                    ParentNameEntry.Text, ParentPhoneEntry.Text, new DateTime(2020, Int32.Parse(BirthdayMonth.Text), Int32.Parse(BirthdayDay.Text)));
 
                 await Navigation.PopAsync();
             }
@@ -206,11 +216,11 @@ namespace HymnsApp
                 return false;
             }
 
-            //if (!int.TryParse(StdPhoneEntry.Text,out int a))
-            //{
-            //    await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
-            //    return false;
-            //}
+            if (!(int.TryParse(StdPhoneEntry.Text, out int a)))
+            {
+                await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
+                return false;
+            }
 
             if (string.IsNullOrEmpty(ParentNameEntry.Text))
             {
@@ -230,19 +240,30 @@ namespace HymnsApp
                 return false;
             }
 
-            //if (!int.TryParse(ParentPhoneEntry.Text, out a))
-            //{
-            //    await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
-            //    return false;
-            //}
+            if (!(int.TryParse(ParentPhoneEntry.Text, out a)))
+            {
+                await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
+                return false;
+            }
 
-            if (string.IsNullOrEmpty(BirthdayEntry.Text))
+            if (string.IsNullOrEmpty(BirthdayMonth.Text))
             {
                 await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
                 return false;
             }
-            
-            if (BirthdayEntry.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            if (string.IsNullOrEmpty(BirthdayDay.Text))
+            {
+                await DisplayAlert("Error", "10Student Birthday is a Required Field", "ok");
+                return false;
+            }
+
+            //if (BirthdayMonth.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
+            //{
+            //    await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
+            //    return false;
+            //}
+
+            if (BirthdayMonth.Text.Length > 2 || BirthdayMonth.Text.Length < 1)
             {
                 await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
                 return false;
@@ -311,14 +332,6 @@ namespace HymnsApp
 
         }
 
-        private void BirthdayEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
-            if (BirthdayEntry.Text.Length == 2) 
-            {
-
-                //BirthdayEntry.Text += "/";
-            }
-        }
+      
     }
 }
