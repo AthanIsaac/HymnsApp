@@ -22,14 +22,14 @@
                        FontAttributes="Bold" 
                        HorizontalTextAlignment="Center" />
                 <BoxView Color="SteelBlue"
-                       HeightRequest="4"
-                       HorizontalOptions="Fill" />
-                 
+                         HeightRequest="4"
+                         HorizontalOptions="Fill" />
+
                 <ScrollView HorizontalOptions="FillAndExpand">
                     <StackLayout>
                         <Label Text="Happy Birthday to:"
-                            HorizontalTextAlignment = "Center"
-                            FontSize="Medium"/>
+                               HorizontalTextAlignment = "Center"
+                               FontSize="Medium"/>
                         <StackLayout Orientation="Horizontal" Padding="40,0,40,0">
                             <StackLayout Orientation="Vertical" x:Name="LeftStack" />
                             <StackLayout Orientation="Vertical" x:Name="RightStack" HorizontalOptions="EndAndExpand" />
@@ -38,59 +38,41 @@
                 </ScrollView>
             </StackLayout>
         </Frame>
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> a2acd7aff75240fda7934de14b4c823987a9f9a5
         <StackLayout Spacing = "20" Padding="15">
             <Picker x:Name="Classes" 
-                Title="Select the Class for Attendance"
-                FontSize="Large" 
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                WidthRequest="330" Unfocused="Classes_Unfocused"/>
+                    Title="Select the Class for Attendance"
+                    FontSize="Large" 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="330" Unfocused="Classes_Unfocused"/>
 
             <Button x:Name="Class"
-                Text="Next"
-                FontSize="Medium"
-<<<<<<< HEAD
-                BackgroundColor="SteelBlue"
-                WidthRequest="300"
-                HeightRequest="50"
-                BorderRadius="10"
-                BorderWidth="2"
-                BorderColor="SteelBlue"
-                TextColor="White"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"
-                Clicked="NextButton_Clicked"/>
+                    Text="Next"
+                    FontSize="Medium"
+                    BackgroundColor="SteelBlue"
+                    WidthRequest="300"
+                    HeightRequest="50"
+                    BorderRadius="10"
+                    BorderWidth="2"
+                    BorderColor="SteelBlue"
+                    TextColor="White"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Clicked="NextButton_Clicked"/>
 
             <Button x:Name="Curriculum"
-                Text="Curriculum"
-                FontSize="Medium"
-                BackgroundColor="SteelBlue"
-                WidthRequest="300"
-                HeightRequest="50"
-                BorderRadius="10"
-                BorderWidth="2"
-                BorderColor="SteelBlue"
-                TextColor="White"
-                HorizontalOptions="CenterAndExpand"
-                VerticalOptions="CenterAndExpand"
-                Clicked="Curriculum_Clicked"/>
-=======
-            BackgroundColor="SteelBlue"
-            WidthRequest="300"
-            HeightRequest="50"
-            BorderRadius="10"
-            BorderWidth="2"
-            BorderColor="SteelBlue"
-            TextColor="White"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            Clicked="Curriculum_Clicked"/>
->>>>>>> a2acd7aff75240fda7934de14b4c823987a9f9a5
+                    Text="Curriculum"
+                    FontSize="Medium"
+                    BackgroundColor="SteelBlue"
+                    WidthRequest="300"
+                    HeightRequest="50"
+                    BorderRadius="10"
+                    BorderWidth="2"
+                    BorderColor="SteelBlue"
+                    TextColor="White"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    Clicked="Curriculum_Clicked"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>
