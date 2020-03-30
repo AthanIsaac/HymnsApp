@@ -176,7 +176,7 @@ namespace HymnsApp
 
                 Label attend = new Label()
                 {
-                    Text = "TBD",
+                    Text = percent,
                     Style = Resources["detailTablet"] as Style
                 };
 
