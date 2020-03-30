@@ -239,7 +239,7 @@ namespace HymnsApp
         }
 
         public async Task<bool> CheckInputsAsync(string name) {
-            if (Attendance.StudentsOfGrade(ClassName).Select(b => b.Value).Contains(name))
+            if (Attendance.StudentsOfGrade(ClassName).Select(b => b.Value).Contains(name) && Add)
             {
                 await DisplayAlert("Error", "1This student already exists in this grade", "ok");
                 return false;
@@ -263,11 +263,11 @@ namespace HymnsApp
                 return false;
             }
 
-            if (!(int.TryParse(StdPhoneEntry.Text, out int a)))
-            {
-                await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
-                return false;
-            }
+            //if (!(int.TryParse(StdPhoneEntry.Text, out int a)))
+            //{
+            //    await DisplayAlert("Error", "5Invalid Phone Number.", "ok");
+            //    return false;
+            //}
 
             if (string.IsNullOrEmpty(ParentNameEntry.Text))
             {
@@ -281,17 +281,17 @@ namespace HymnsApp
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(ParentPhoneEntry.Text) && ParentPhoneEntry.Text.Length != 10)
-            {
-                await DisplayAlert("Error", "8Invalid Phone Number.", "ok");
-                return false;
-            }
+            //if (!string.IsNullOrEmpty(ParentPhoneEntry.Text) && ParentPhoneEntry.Text.Length != 10)
+            //{
+            //    await DisplayAlert("Error", "8Invalid Phone Number.", "ok");
+            //    return false;
+            //}
 
-            if (!(int.TryParse(ParentPhoneEntry.Text, out a)))
-            {
-                await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
-                return false;
-            }
+            //if (!(int.TryParse(ParentPhoneEntry.Text, out int a)))
+            //{
+            //    await DisplayAlert("Error", "9Invalid Phone Number.", "ok");
+            //    return false;
+            //}
 
             if (string.IsNullOrEmpty(BirthdayMonth.Text))
             {
@@ -304,11 +304,7 @@ namespace HymnsApp
                 return false;
             }
 
-            //if (BirthdayMonth.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
-            //{
-            //    await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
-            //    return false;
-            //}
+       
 
             if (BirthdayMonth.Text.Length > 2 || BirthdayMonth.Text.Length < 1)
             {
@@ -316,7 +312,7 @@ namespace HymnsApp
                 return false;
             }
 
-            if (!int.TryParse(GradeEntry.Text, out a) || a < 0 || a > 12)
+            if (!int.TryParse(GradeEntry.Text, out int a) || a < 0 || a > 12)
             {
                 await DisplayAlert("Error", "12Invalid Grade.", "ok");
                 return false;
