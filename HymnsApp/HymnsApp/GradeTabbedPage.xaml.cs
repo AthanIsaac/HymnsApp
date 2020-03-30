@@ -10,9 +10,8 @@ namespace HymnsApp
         public GradeTabbedPage(HymnsAttendance attendance, string grade)
         {
             InitializeComponent();
-            Children.Add(new GradeAttendance(attendance, grade) { Title = "Attendance"});
-            // Children.Add(new StudentInfo(attendance, grade) { Title = "Class Info"});
-            Children.Add(new AAPage1(attendance, grade) {Title = "Class Information" });
+            Children.Add(new GradeAttendance(attendance, grade) { Title = "Attendance" });
+            Children.Add(new StudentInfo(attendance, grade) {Title = "Class Information" });
         }
     }
 }
