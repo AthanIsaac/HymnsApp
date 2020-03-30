@@ -628,10 +628,14 @@ namespace HymnsApp
                 {
                     break;
                 }
+
                 var w = enumerator.Current.GetSnapshotAsync();
                 w.Wait();
-                curriculum.Add(w.Result.GetValue<string[]>("hymns"));
 
+                List<string> h = new List<string>(w.Result.GetValue<string[]>("hymns"));
+                h.Insert(0, w.Result.Id);
+                
+                curriculum.Add(h.ToArray());
             }
             return curriculum.ToArray();
         }
