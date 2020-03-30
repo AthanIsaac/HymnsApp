@@ -39,9 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="AAPage1.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="CurriculumPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

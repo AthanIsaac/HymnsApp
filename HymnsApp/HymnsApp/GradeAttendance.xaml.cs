@@ -25,6 +25,7 @@ namespace HymnsApp
         public GradeAttendance(HymnsAttendance attendance, string className)
         {
             InitializeComponent();
+            DatePicker.MaximumDate = DateTime.Now;
             Attendance = attendance;
             ClassName = className;
             Backup = new List<ViewCell>();
@@ -43,9 +44,13 @@ namespace HymnsApp
             NamesTable.Clear();
             Backup.Clear();
 
-            if (InGrade.Count == 0)
+            if (InGrade.Count == 0 && TeachersInGrade.Count == 0)
             {
                 NotFoundStack.IsVisible = true;
+            }
+            else
+            {
+                NotFoundStack.IsVisible = false;
             }
 
             int count = 0;
@@ -55,6 +60,7 @@ namespace HymnsApp
                 ViewCell cell = new ViewCell() { Height = 70 };
 
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
+                sl.Padding = new Thickness(10, 0, 10, 0);
                 sl.Children.Add(new Label() { Text = s.Key, IsVisible = false });
 
                 CircleImage ci = GetPhoto(s, true);
@@ -69,7 +75,8 @@ namespace HymnsApp
                     VerticalOptions = LayoutOptions.Center,
                     VerticalTextAlignment = TextAlignment.Center,
                     TextColor = Color.Black,
-                    FontSize = 16
+                    FontSize = 16,
+                    Padding = new Thickness(30, 0, 0, 0)
                 };
                 cell.Tapped += TableCell_Tapped;
 
@@ -152,6 +159,7 @@ namespace HymnsApp
                 ViewCell cell = new ViewCell() { Height = 70, };
 
                 StackLayout sl = new StackLayout() { Orientation = StackOrientation.Horizontal, BackgroundColor = Color.FromHex("#FFFFFF") };
+                sl.Padding = new Thickness(0, 0, 10, 0);
                 sl.Children.Add(new Label() { Text = t.Key, IsVisible = false });
 
                 sl.Children.Add(GetPhoto(t, false));
@@ -164,7 +172,8 @@ namespace HymnsApp
                     VerticalOptions = LayoutOptions.Center,
                     VerticalTextAlignment = TextAlignment.Center,
                     TextColor = Color.Black,
-                    FontSize = 16
+                    FontSize = 16,
+                    Padding = new Thickness(30, 0, 0, 0)
                 };
                 cell.Tapped += TableCell_Tapped;
 
@@ -378,7 +387,6 @@ namespace HymnsApp
 
         private void DatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            // this is a heavy method so change if slow
             InGrade = Attendance.StudentsOfGrade(ClassName);
             InitializeTeachers();
             InitializeStudents();
