@@ -35,7 +35,7 @@ namespace HymnsApp
                 StackLayout sl = new StackLayout();
                 for (int j = 0; j < cur[i].Length; j++)
                 {
-                    sl.Children.Add(new Label { Text = j + ". " + cur[i][j] });
+                    sl.Children.Add(new Label { Text = (j + 1) + ". " + cur[i][j] });
 
                 }
                 Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion()
