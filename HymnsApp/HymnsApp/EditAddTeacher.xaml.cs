@@ -212,12 +212,6 @@ namespace HymnsApp
                 return false;
             }
 
-            //if (BirthdayMonth.Text.Length != 5 || !int.TryParse(BirthdayEntry.Text.Substring(0, 2), out int a) || BirthdayEntry.Text[2] != '/' || !int.TryParse(BirthdayEntry.Text.Substring(3), out a))
-            //{
-            //    await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");
-            //    return false;
-            //}
-
             if (BirthdayMonth.Text.Length > 2 || BirthdayMonth.Text.Length < 1)
             {
                 await DisplayAlert("Error", "11Invalid Student Birthday.", "ok");

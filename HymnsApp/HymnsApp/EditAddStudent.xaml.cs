@@ -29,6 +29,7 @@ namespace HymnsApp
             else
             {
                 item.Text = "Add Student";
+                SwitchToTeacher.IsVisible = true;
             }     
             
             // "this" refers to a Page object
@@ -41,10 +42,6 @@ namespace HymnsApp
                 return stream;
             });
            
-            if (add) 
-            { 
-                SwitchToTeacher.IsVisible = true; 
-            }
 
             //add and edit cases
             name = name == null ? "" : Capitalize(name);
@@ -60,16 +57,17 @@ namespace HymnsApp
             {
                 string[] info = Attendance.GetStudentInfo(id);
                 //name, phone, grade, parentName, parentPhone, birthday, photo, later 
-                string num = info[1];
-                string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
-                    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                //string num = info[1];
+                //string parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
+                //    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                
                 StdPhoneEntry.Text = info[1];
                 GradeEntry.Text = info[2];
                 
                 ParentNameEntry.Text = info[3];
-                num = info[4];
-                parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
-                    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
+                //num = info[4];
+                //parsed = num.Length == 0 ? "" : "(" + num.Substring(0, 3)
+                //    + ")-" + num.Substring(3, 3) + "-" + num.Substring(6);
                 ParentPhoneEntry.Text = info[4];
 
                 //MM/dd
