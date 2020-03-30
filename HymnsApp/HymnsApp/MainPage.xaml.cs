@@ -84,7 +84,7 @@ namespace HymnsApp
 
                     c= c.Replace("m", "M");
                 }
-                visualClasses[i] = c;
+                visualClasses[i] = c.Trim();
             }            
 
             

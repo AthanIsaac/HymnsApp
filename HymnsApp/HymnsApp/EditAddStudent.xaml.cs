@@ -87,13 +87,13 @@ namespace HymnsApp
             if (c.Contains("kindergarten"))
             {
                 c = "Kindergarten";
-                return c;
+                return c.Trim();
             }
 
             if (c.Contains("highSchool"))
             {
                 c = "HighSchool";
-                return c;
+                return c.Trim();
             }
             if (c.Contains("Grade"))
             {
@@ -105,7 +105,7 @@ namespace HymnsApp
                     int ampersand = c.IndexOf("&");
                     c = c.Substring(0, ampersand) + " & " + c.Substring(ampersand + 1);
                 }
-                return c;
+                return c.Trim();
             }
 
             else
@@ -124,7 +124,7 @@ namespace HymnsApp
                 }
 
                 c = c.Replace("m", "M");
-                return c;
+                return c.Trim();
             }
 
         }
@@ -182,7 +182,7 @@ namespace HymnsApp
 
                     c = c.Replace("m", "M");
                 }
-                visualClasses[i] = c;
+                visualClasses[i] = c.Trim();
             }
 
             return visualClasses;
