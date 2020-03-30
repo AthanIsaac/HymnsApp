@@ -637,6 +637,8 @@ namespace HymnsApp
                 
                 curriculum.Add(h.ToArray());
             }
+            curriculum.Sort((a, b) => int.Parse(a[0].Split('.')[0]).CompareTo(int.Parse(b[0].Split('.')[0])));
+            curriculum.ForEach(a => a[0] = a[0].Split('.')[1]);
             return curriculum.ToArray();
         }
     }
