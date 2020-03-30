@@ -9,13 +9,16 @@
     <ContentPage.ToolbarItems >
         <!--note: make font bigger-->
         <ToolbarItem Text="Curriculum" />
-        <ToolbarItem Text="                               " />
+        <ToolbarItem Text="                                     " />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
         <Grid x:Name="curGrid">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
