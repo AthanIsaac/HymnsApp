@@ -203,7 +203,8 @@ namespace HymnsApp
 
         private void StudentSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.OldTextValue.Length < e.NewTextValue.Length)
+            
+            if ((e.OldTextValue??"").Length > (e.NewTextValue??"").Length)
             {
                 InGrade = Attendance.StudentsOfGrade(ClassName);
                 InitializeTeachers();
