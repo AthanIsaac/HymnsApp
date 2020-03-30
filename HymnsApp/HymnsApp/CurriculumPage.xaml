@@ -15,33 +15,7 @@
         <ScrollView>
         <Grid x:Name="curGrid">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-
-            <!--<local:Accordion  Title="First Accordion" >
-
-                <local:Accordion.AccordionContentView>
-                    <StackLayout x:Name="Kindergarten">
-                        <Label Text="Here is a simple content"
-                           TextColor="Black"/>
-                        <Label Text="Today is saturday and we are going to code till it gets dark."
-                           TextColor="Gray"/>
-                        <Button Text="Click Here"/>
-                    </StackLayout>
-                </local:Accordion.AccordionContentView>
-
-                <local:Accordion.IndicatorView>
-                    <Label Text="&#xf078;" FontSize="Large"/>
-                </local:Accordion.IndicatorView>
-
-            </local:Accordion>-->
+       
 
         </Grid>
             </ScrollView>
