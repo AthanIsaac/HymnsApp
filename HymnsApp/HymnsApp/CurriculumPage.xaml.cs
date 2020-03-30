@@ -31,12 +31,18 @@ namespace HymnsApp
 
             for (int i = 0; i < cur.Length; i++)
             {
-                Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion() { Title = "" };
-                //Curriculum.Children.Add(new Label { Text = "next class" });
+                
+                StackLayout sl = new StackLayout();
                 for (int j = 0; j < cur[i].Length; j++)
                 {
-                    //Curriculum.Children.Add(new Label { Text = cur[i][j] });
+                    sl.Children.Add(new Label { Text = (j + 1) + ". " + cur[i][j] });
+
                 }
+                Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion()
+                { Title = "Class" + i ,AccordionContentView = sl, IndicatorView = new Label (){ Text = "V   " ,FontSize = 23} };
+               
+
+                curGrid.Children.Add(newAccordion, 0, i);
             }
         }
     }
