@@ -114,6 +114,29 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13233PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13430PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13456PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13530PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13600PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13623PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13623PM-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13430PM-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13659PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13530PM-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13731PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13430PM-2.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13233PM-1.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13815PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13853PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13920PM.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\IMG_Apr62020at13943PM.png" />
+    <InterfaceDefinition Include="Resources\HymnsLaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\HymnsApp.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\HymnsApp.imageset\FridaySchoolOfHymns.png" />
+    <ImageAsset Include="Assets.xcassets\HymnsApp.imageset\FridaySchoolOfHymns-1.png" />
+    <ImageAsset Include="Assets.xcassets\HymnsApp.imageset\FridaySchoolOfHymns-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -145,5 +168,8 @@
       <Project>{D48AD3C9-19DC-4D1F-ACE7-7C83050B019B}</Project>
       <Name>HymnsApp</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\HymnsApp.imageset\" />
   </ItemGroup>
 </Project>

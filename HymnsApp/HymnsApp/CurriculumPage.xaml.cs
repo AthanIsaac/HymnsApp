@@ -44,7 +44,7 @@ namespace HymnsApp
 
                 }
                 Accordion.CustomControls.Accordion newAccordion = new Accordion.CustomControls.Accordion()
-                { Title = classes[i], AccordionContentView = sl, IndicatorView = new Label (){ Text = "V   ", FontSize = 23} };
+                { Title = classes[i] , AccordionContentView = sl, IndicatorView = new Label (){ Text = "V   ", FontSize = 23} };
 
                 curGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 curGrid.Children.Add(newAccordion, 0, i);
