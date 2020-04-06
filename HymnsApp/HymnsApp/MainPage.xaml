@@ -44,6 +44,7 @@
                     FontSize="Large" 
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"
+                    
                     WidthRequest="330" Unfocused="Classes_Unfocused"/>
 
             <Button x:Name="Class"

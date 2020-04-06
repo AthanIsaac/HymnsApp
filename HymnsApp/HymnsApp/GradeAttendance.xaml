@@ -17,9 +17,10 @@
                        WidthRequest="220"/>
 
             <StackLayout Orientation="Horizontal">
-                <Image Source="calendar.png" />
+                <!--<Image Source="calendar.png" 
+                       HorizontalOptions="EndAndExpand"/>-->
                 <!-- the event handler shouldn't be that one-->
-                <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="100"/>
+                <DatePicker x:Name="DatePicker" DateSelected="DatePicker_DateSelected" WidthRequest="400" />
             </StackLayout>
             
             <StackLayout x:Name="NotFoundStack" IsVisible="False">
